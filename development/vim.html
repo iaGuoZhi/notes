@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>cmake - Notes</title>
+        <title>vim - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -155,73 +155,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="cmake1"><a class="header" href="#cmake1">cmake(1)</a></h1>
-<h2 id="frequently-used-variables"><a class="header" href="#frequently-used-variables">Frequently used variables</a></h2>
-<pre><code># Install location.
-CMAKE_INSTALL_PREFIX=&lt;path&gt;
-
-# Generate compile_commands.json?
-CMAKE_EXPORT_COMPILE_COMMANDS={0,1}
-
-# Project build type.
-CMAKE_BUILD_TYPE={Debug, Release, RelWithDebInfo, MinSizeRel}
-
-# C++ standard.
-CMAKE_CXX_STANDARD={14,17,..}
-</code></pre>
-<h2 id="private--public--interface"><a class="header" href="#private--public--interface"><code>PRIVATE</code> / <code>PUBLIC</code> / <code>INTERFACE</code></a></h2>
-<p>These modifier control where properties for a given target are visible.</p>
-<ul>
-<li><code>PRIVATE</code>: Only for the target itself.</li>
-<li><code>INTERFACE</code>: Only for anyone linking against the target.</li>
-<li><code>PUBLIC</code>: For the target itself and anyone linking against it (effectively
-<code>PRIVATE</code> + <code>INTERFACE</code>).</li>
-</ul>
-<p>The following gives an example for preprocessor definitions specified on a
-library target. This behaves in the same way for other properties like for
-example include directories.</p>
-<pre><code class="language-cmake"># CMakeLists.txt
-
-cmake_minimum_required(VERSION 3.14)
-project(moose)
-
-# -- LIBRARY
-add_library(liba STATIC liba.cc)
-target_compile_definitions(liba PUBLIC DEF_PUBLIC)
-target_compile_definitions(liba PRIVATE DEF_PRIVATE)
-target_compile_definitions(liba INTERFACE DEF_INTERFACE)
-
-# -- APPLICATION
-add_executable(main main.cc)
-target_link_libraries(main liba)
-</code></pre>
-<pre><code class="language-sh">&gt; touch liba.cc; echo "int main() {}" &gt; main.cc
-&gt; cmake -B build -S . -G Ninja
-&gt; ninja -C build -j1 --verbose
-[1/4] /usr/bin/c++ -DDEF_PRIVATE -DDEF_PUBLIC  [..] .../liba.cc
-[2/4] [..]
-[3/4] /usr/bin/c++ -DDEF_INTERFACE -DDEF_PUBLIC [..] .../main.cc
-[4/4] [..]
-</code></pre>
-<h2 id="find_package-ref"><a class="header" href="#find_package-ref"><code>find_package</code> [<a href="https://cmake.org/cmake/help/latest/command/find_package.html">ref</a>]</a></h2>
-<p>A small example to play with can be found in <a href="https://github.com/johannst/notes/tree/master/src/development/cmake/module">cmake/module</a>.</p>
-<pre><code class="language-cmake">find_package(Name MODULE)
-</code></pre>
-<p>Looks for <code>FindName.cmake</code> in paths given by <code>CMAKE_MODULE_PATH</code> and then builtin paths.</p>
-<pre><code class="language-cmake">find_package(Name CONFIG)
-</code></pre>
-<p>Looks for <code>name-config.cmake</code> or <code>NameConfig.cmake</code> in paths given by
-<code>CMAKE_PREFIX_PATH</code>, or path given by <code>Name_DIR</code> and then builtin paths.</p>
+                        <h1 id="vim1"><a class="header" href="#vim1">vim(1)</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../development/vim.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../development/git.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../development/make.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../development/cmake.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -231,11 +175,11 @@ target_link_libraries(main liba)
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../development/vim.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../development/git.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../development/make.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../development/cmake.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
