@@ -745,7 +745,6 @@ fi
 ""
 ""[dup2]: http://man7.org/linux/man-pages/man2/dup.2.html
 ""[psub]: https://tldp.org/LDP/abs/html/process-sub.html</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="fish"><a class="header" href="#fish">fish</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cli-foo"><a class="header" href="#cli-foo">CLI foo</a></h1>
 <ul>
 <li><a href="cli/./awk.html">awk</a></li>
@@ -1141,20 +1140,6 @@ echo -e 'a1\nb2\nc3\nd4' | tac
 # b2
 # a1
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rev1"><a class="header" href="#rev1">rev(1)</a></h1>
-<pre><code class="language-sh"># Reverse each line of file(s), character by character.
-rev FILE [FILE]
-
-echo -e '123\nabc' | rev
-# 321
-# cba
-</code></pre>
-<h2 id="example-remove-the-last-2-tokens-with-unknown-length"><a class="header" href="#example-remove-the-last-2-tokens-with-unknown-length">Example: remove the last 2 tokens with unknown length</a></h2>
-<pre><code class="language-sh"># If the number of tokens in a line is unkown but we want to remove the last 2
-# tokens we can use rev(1).
-echo 'aa bb cc dd' | rev | cut -d ' ' -f3- | rev
-# aa bb
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="paste1"><a class="header" href="#paste1">paste(1)</a></h1>
 <pre><code># Concatenate input files linewise and join them by a TAB char.
 
@@ -1373,366 +1358,6 @@ y     yank selected text
 <pre><code class="language-markdown">setw synchronize-panes on/off       enables/disables synchronized input to all panes
 list-keys -t vi-copy                list keymaps for vi-copy mode
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="screen1"><a class="header" href="#screen1">screen(1)</a></h1>
-<pre><code class="language-sh"># Create new session.
-screen
-
-# List active session.
-screen -list
-
-# Attach to specific session.
-screen -r SESSION
-</code></pre>
-<h2 id="options"><a class="header" href="#options">Options</a></h2>
-<pre><code class="language-sh"># Enable logfile, default name screenlog.0.
-screen -L
-# Enable log and set logfile name.
-screen -L -Logfile out.txt
-</code></pre>
-<h2 id="keymaps"><a class="header" href="#keymaps">Keymaps</a></h2>
-<pre><code class="language-sh">Ctrl-A d            # Detach from session.
-Ctrl-A + \          # Terminate session.
-Ctrl-A + :          # Open cmand prompt.
-    kill            # Kill session.
-</code></pre>
-<h2 id="examples-6"><a class="header" href="#examples-6">Examples</a></h2>
-<p>USB serial console.</p>
-<pre><code class="language-sh"># 1500000 -&gt; baudrate
-# cs8     -&gt; 8 data bits
-# -cstopb -&gt; 1 stop bit
-# -parenb -&gt; no parity bit
-# see stty(1) for all settings.
-screen /dev/ttyUSB0 1500000,cs8,-cstopb,-parenb
-
-# Print current tty settings.
-sudo stty -F /dev/ttyUSB0 -a
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="emacs1"><a class="header" href="#emacs1">emacs(1)</a></h1>
-<h2 id="help"><a class="header" href="#help">help</a></h2>
-<pre><code class="language-markdown">  C-h ?         list available help modes
-  C-h e         show message output (`*Messages*` buffer)
-  C-h f         describe function
-  C-h v         describe variable
-  C-h w         describe which key invoke function (where-is)
-  C-h c &lt;KEY&gt;   print command bound to &lt;KEY&gt;
-  C-h k &lt;KEY&gt;   describe command bound to &lt;KEY&gt;
-  C-h b         list buffer local key-bindings
-  C-h F         show emacs manual for command/function
-  &lt;kseq&gt; C-h    list possible key-bindings with &lt;kseq&gt;
-                eg C-x C-h -&gt; list key-bindings beginning with C-x
-</code></pre>
-<h2 id="package-manager"><a class="header" href="#package-manager">package manager</a></h2>
-<pre><code class="language-markdown">  key    fn                          description
-------------------------------------------------
-         package-refresh-contents    refresh package list
-         package-list-packages       list available/installed packages
-                                     `U x` to mark packages for Upgrade &amp; eXecute
-</code></pre>
-<h2 id="window"><a class="header" href="#window">window</a></h2>
-<pre><code class="language-markdown">  key      fn                      description
-----------------------------------------------
-  C-x 0    delete-window           kill focused window
-  C-x 1    delete-other-windows    kill all other windows
-  C-x 2    split-window-below      split horizontal
-  C-x 3    split-window-right      split vertical
-  C-x o    other-window            other window (cycle)
-
-  C-x r w  window-configuration-to-register
-                                   save window configuration in a register
-                                   (use C-x r j to jump to the windows config again)
-</code></pre>
-<h2 id="minibuffer"><a class="header" href="#minibuffer">minibuffer</a></h2>
-<pre><code class="language-markdown">  key            description
-----------------------------
-  M-e            enter edit minibuffer edit mode
-
-  M-up           focus previous completion
-  M-down         focus next completion
-  M-ret          select focused completion
-</code></pre>
-<h2 id="buffer"><a class="header" href="#buffer">buffer</a></h2>
-<pre><code class="language-markdown">  key        fn                   description
----------------------------------------------
-  C-x C-q    read-only-mode       toggle read-only mode for buffer
-  C-x k      kill-buffer          kill buffer
-  C-x s      save-some-buffers    save buffer
-  C-x w      write-file           write buffer (save as)
-  C-x b      switch-to-buffer     switch buffer
-  C-x C-b    list-buffers         buffer list
-  C-x x r    rename-buffer        renames a buffer (allows multiple shell, compile, grep, .. buffers)
-</code></pre>
-<h2 id="ibuffer"><a class="header" href="#ibuffer">ibuffer</a></h2>
-<p>Builtin advanced buffer selection mode</p>
-<pre><code class="language-markdown">  key        fn            description
---------------------------------------
-             ibuffer       enter buffer selection
-
-  h                        ibuffer help
-
-  d                        mark for deletion
-  x                        kill buffers marked for deletion
-
-  o                        open buffer in other window
-  C-o                      open buffer in other window keep focus in ibuffer
-
-  s a                      sort by buffer name
-  s f                      sort by file name
-  s v                      sort by last viewed
-  s v                      sort by major mode
-  ,                        cycle sorting mode
-
-  =                        compare buffer against file on disk (if file is dirty `*`)
-
-  /m                       filter by major mode
-  /n                       filter by buffer name
-  /f                       filter by file name
-  /i                       filter by modified buffers
-  /E                       filter by process buffers
-  //                       remove all filter
-
-  /g                       create filter group
-  /\                       remove all filter groups
-</code></pre>
-<h2 id="goto-navigation"><a class="header" href="#goto-navigation">goto navigation</a></h2>
-<pre><code class="language-markdown">  key      fn                description
-----------------------------------------
-  M-g g    goto-line         go to line
-  M-g M-n  next-error        go to next error (grep, xref, compilation, ...)
-  M-g M-p  previous-error    go to previous error
-
-  M-g i    imenu             go to place in buffer (symbol, ...)
-
-  M-&lt;                        go to begin of buffer
-  M-&gt;                        go to end of buffer
-</code></pre>
-<h2 id="isearch"><a class="header" href="#isearch">isearch</a></h2>
-<pre><code class="language-markdown">  key    fn                           description
--------------------------------------------------
-  C-s    isearch-forward              search forward from current position (C-s to go to next match)
-  C-r    isearch-backward             search backwards from current position (C-r to go to next match)
-  C-w    isearch-yank-word-or-char    feed next word to current search (extend)
-  M-p    isearch-ring-advance         previous search input
-  M-n    isearch-ring-retreat         next search input
-  M-e    isearch-edit-string          edit search string again
-  M-s o  occur                        open search string in occur
-</code></pre>
-<h2 id="occur"><a class="header" href="#occur">occur</a></h2>
-<pre><code class="language-markdown">  key      fn           description
------------------------------------
-  M-s o    occur        get matches for regexp in buffer
-                        use during `isearch` to use current search term
-  e                     enter occur edit mode (C-c C-c to quit)
-
-  n                     move to next entry and keep focus in occur buffer
-  p                     move to previous entry and keep focus in occur buffer
-  C-n                   goto next line
-  C-p                   goto previous line
-  o                     open match in other window
-  C-o                   open match in other window keep focus in ibuffer
-</code></pre>
-<pre><code class="language-markdown">  key      fn                                 description
----------------------------------------------------------
-           multi-occur-in-matching-buffers    run occur in buffers matching regexp
-</code></pre>
-<h2 id="grep"><a class="header" href="#grep">grep</a></h2>
-<pre><code class="language-markdown">  key    fn           description
------------------------------------
-         rgrep        recursive grep
-         lgrep        local dir grep
-         grep         raw grep command
-         find-grep    run find-grep result in *grep* buffer
-
-  n/p                 navigate next/previous match in *grep* buffer
-  q                   quit *grep* buffer
-</code></pre>
-<h2 id="yankpaste"><a class="header" href="#yankpaste">yank/paste</a></h2>
-<pre><code class="language-markdown">  key         fn                      description
--------------------------------------------------
-  C-&lt;SPACE&gt;   set-mark-command        set start mark to select text
-  C-x C-x     exchange-point-and-mark swap mark and point position
-  M-w         kill-ring-save          copy selected text
-  C-w         kill-region             kill selected text
-  C-y         yank                    paste selected text
-  M-y         yank-pop                cycle through kill-ring (only after paste)
-  M-y         yank-from-kill-ring     interactively select yank from kill ring
-</code></pre>
-<h2 id="register"><a class="header" href="#register">register</a></h2>
-<pre><code class="language-markdown">  key             fn                 description
-------------------------------------------------
-  C-x r s &lt;reg&gt;   copy-to-register   save region in register &lt;reg&gt;
-  C-x r i &lt;reg&gt;   insert-register    insert content of register &lt;reg&gt;
-</code></pre>
-<h2 id="bookmarks"><a class="header" href="#bookmarks">bookmarks</a></h2>
-<pre><code>  key             fn            description
--------------------------------------------
-  C-x r m  bookmark-set         set a bookmark
-  C-x r b  bookmark-jump        jump to a bookmark
-  C-x r l  bookmark-bmenu-list  list all bookmarks
-</code></pre>
-<h2 id="blockrect"><a class="header" href="#blockrect">block/rect</a></h2>
-<pre><code class="language-markdown">  key          fn                    description
-------------------------------------------------
-  C-x &lt;SPC&gt;    rectangle-mark-mode   activate rectangle-mark-mode
-               string-rectangle      insert text in marked rect
-</code></pre>
-<h2 id="mass-edit"><a class="header" href="#mass-edit">mass edit</a></h2>
-<pre><code class="language-markdown">  key       fn                       description
-------------------------------------------------
-  C-x h     mark-whole-buffer        mark whole buffer
-            delete-matching-line     delete lines matchng regex
-            kill-matching-line       kill lines matching regex (puts them in kill ring)
-            keep-lines               keep matching lines
-            replace-string           replace unconditional
-  M-%       query-replace            search &amp; replace
-  C-M-%     query-replace-regexp     search &amp; replace regex
-</code></pre>
-<h2 id="narrow"><a class="header" href="#narrow">narrow</a></h2>
-<pre><code class="language-markdown">  key       fn                    description
----------------------------------------------
-  C-x n n   narrow-to-region      show only focused region (narrow)
-  C-x n w   widen                 show whole buffer (wide)
-</code></pre>
-<h2 id="org"><a class="header" href="#org">org</a></h2>
-<pre><code class="language-markdown">  key              fn   description
-------------------------------------
-  M-up/M-down           re-arrange items in same hierarchy
-  M-left/M-right        change item hierarchy
-  C-RET                 create new item below current
-  C-S-RET               create new TODO item below current
-  S-left/S-right        cycle TODO states
-</code></pre>
-<h3 id="org-source"><a class="header" href="#org-source">org source</a></h3>
-<pre><code class="language-markdown">  key       fn     description
-------------------------------
-  &lt;s TAB           generate a source block
-  C-c '            edit source block (in lang specific buffer)
-  C-c C-c          eval source block
-</code></pre>
-<h2 id="project"><a class="header" href="#project">project</a></h2>
-<pre><code class="language-markdown">  key       fn                                 description
-----------------------------------------------------------
-  C-x p p   project-switch-project             switch project
-  C-x p f   project-find-file                  find file in project
-  C-x p r   project-query-replace-regexp       query replace on project
-  C-x p x   project-execute-extended-command   exec command on project
-  C-x p !   project-shell-command              shell command on project
-  C-x p &amp;   project-async-shell-command        async shell command on project
-</code></pre>
-<h2 id="tags--lsp"><a class="header" href="#tags--lsp">tags / lsp</a></h2>
-<p>To generate <code>etags</code> using <code>ctags</code></p>
-<pre><code class="language-markdown">  ctags -R -e .         generate emacs tag file (important `-e`)
-</code></pre>
-<p>Navigate using tags</p>
-<pre><code class="language-markdown">  key      fn                       description
------------------------------------------------
-  M-.      xref-find-definitions    find definition of tag
-                                    (C-u prefix to enter symbol manually)
-           xref-find-apropos        find symbols matching regexp
-  M-?      xref-find-references     find references of tag
-</code></pre>
-<h2 id="lisp"><a class="header" href="#lisp">lisp</a></h2>
-<pre><code class="language-markdown">  key   fn        description
-------------------------------
-        ielm      open interactive elips shell
-</code></pre>
-<p>In <code>lisp-interaction-mode</code> (<code>*scratch*</code> buffer by defult)</p>
-<pre><code class="language-markdown">  key              fn                           description
------------------------------------------------------------
-  C-j              eval-print-last-sexp         evaluate &amp; print preceeding lisp expr
-
-  C-x C-e          eval-last-sexp               evaluate lisp expr
-  C-u C-x C-e      eval-last-sexp               evaluate &amp; print
-  C-c C-e          elisp-eval-region-or-buffer  eval buffer or region (elisp mode)
-</code></pre>
-<h2 id="ido"><a class="header" href="#ido">ido</a></h2>
-<p>Builtin fuzzy completion mode (eg buffer select, dired, ...).</p>
-<pre><code class="language-markdown">  key              fn          description
-------------------------------------------
-                  ido-mode     toggle ido mode
-  &lt;Left&gt;/&lt;Right&gt;               cycle through available competions
-  &lt;RET&gt;                        select completion
-</code></pre>
-<p>There is also <code>fido</code>, which is the successor of <code>ido</code>, which also
-supports <code>fido-vertical-mode</code> in case vertical mode is preferred.</p>
-<h2 id="evil"><a class="header" href="#evil">evil</a></h2>
-<pre><code class="language-markdown">  key    fn    description
---------------------------
-  C-z          toggle emacs/evil mode
-  C-^          toggle between previous and current buffer
-  C-p          after paste cycle kill-ring back
-  C-n          after paste cycle kill-ring forward
-</code></pre>
-<h2 id="dired"><a class="header" href="#dired">dired</a></h2>
-<pre><code class="language-markdown">  key    fn    description
---------------------------
-  i            open sub-dir in same buffer
-  +            create new directory
-  C            copy file/dir
-  R            move file/dir (rename)
-  S            absolute symbolic link
-  Y            relative symbolic link
-
-  d            mark for deletion
-  m            mark file/dir at point
-  * %          mark by regex
-  * *          mark all executables
-  * /          mark all dirs
-  u            un-mark file/dir
-  U            un-mark all
-  t            toggle marks
-
-  x            execute marked actions
-  !            run shell command on marked files
-  &amp;            run shell command on marked files (async)
-
-  q            quit
-</code></pre>
-<h2 id="info"><a class="header" href="#info">info</a></h2>
-<pre><code class="language-markdown">  key fn                    description
----------------------------------------
-  n   Info-next             next page
-  p   Info-prev             previous page
-
-  l   Info-history-back     history go back
-  r   Info-history-forward  history go forward
-
-  ^   Info-Up               up in info node tree
-
-  m   Info-menu             goto menu (by minibuf completion)
-  s   Info-search           search info
-  g   Info-goto-node        goto info node (by minibuf completion)
-
-      Info-history          open info history in buffer
-</code></pre>
-<h2 id="shell-commands"><a class="header" href="#shell-commands">shell commands</a></h2>
-<pre><code class="language-markdown">  key   fn                        description
----------------------------------------------
-  M-!   shell-command             run shell command synchronously
-  M-&amp;   async-shell-command       run shell command asynchronously
-  M-|   shell-command-on-region   run shell command on region;
-                                  prefix with C-u to replace region with
-                                  output of the command
-</code></pre>
-<h2 id="interactive-shell"><a class="header" href="#interactive-shell">interactive shell</a></h2>
-<p>Set <code>ESHELL</code> environment variable before starting emacs to change
-default shell, else customize the <code>explicit-shell-file-name</code> variable.</p>
-<pre><code class="language-markdown">  key      fn                    description
----------------------------------------------
-  M-x      shell                 start interactive shell
-  C-u M-x  shell                 start interactive shell &amp; rename
-
-
-  M-r      comint-history-isearch-backward-regexp
-                                 search history, invoke at end of shell buffer
-  M-p      comint-previous-input go one up in history
-  C-&lt;UP&gt;
-  M-n      comint-next-input     go one down in history
-  C-&lt;DOWN&gt;
-
-  C-c C-a                        go begin of line (honors prompt)
-  C-c C-e                        go to end of line
-  C-c C-c                        interrupt active command
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="gpg1"><a class="header" href="#gpg1">gpg(1)</a></h1>
 <pre><code>gpg
   -o|--output                 Specify output file
@@ -1839,7 +1464,7 @@ gpg --verify &lt;file&gt;.asc &lt;file&gt;
 <li>http://keyserver.ubuntu.com</li>
 <li>hkps://pgp.mailbox.org</li>
 </ul>
-<h2 id="examples-7"><a class="header" href="#examples-7">Examples</a></h2>
+<h2 id="examples-6"><a class="header" href="#examples-6">Examples</a></h2>
 <h3 id="list-basic-key-information-from-file-with-long-keyids"><a class="header" href="#list-basic-key-information-from-file-with-long-keyids">List basic key information from file with long keyids</a></h3>
 <pre><code class="language-bash">gpg --keyid-format 0xlong &lt;key.asc&gt;
 </code></pre>
@@ -1856,41 +1481,7 @@ gpg&gt; save
 
 # Update keyserver(s) and/or export new pub keyfile.
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="radare21"><a class="header" href="#radare21">radare2(1)</a></h1>
-<h2 id="print"><a class="header" href="#print">print</a></h2>
-<pre><code class="language-markdown">
-  pd &lt;n&gt; [@ &lt;addr&gt;]     # print disassembly for &lt;n&gt; instructions
-                        # with optional temporary seek to &lt;addr&gt;
-</code></pre>
-<h2 id="flags"><a class="header" href="#flags">flags</a></h2>
-<pre><code class="language-markdown">  fs            # list flag-spaces
-  fs &lt;fs&gt;       # select flag-space &lt;fs&gt;
-  f             # print flags of selected flag-space
-</code></pre>
-<h2 id="help-1"><a class="header" href="#help-1">help</a></h2>
-<pre><code class="language-markdown">  ?*~&lt;kw&gt;       # '?*' list all commands and '~' grep for &lt;kw&gt;
-  ?*~...        # '..' less mode /'...' interactive search
-</code></pre>
-<h2 id="relocation"><a class="header" href="#relocation">relocation</a></h2>
-<pre><code class="language-markdown">  &gt; r2 -B &lt;baddr&gt; &lt;exe&gt;         # open &lt;exe&gt; mapped to addr &lt;baddr&gt;
-  oob &lt;addr&gt;                    # reopen current file at &lt;baddr&gt;
-</code></pre>
-<h1 id="examples-8"><a class="header" href="#examples-8">Examples</a></h1>
-<h2 id="patch-file-alter-bytes"><a class="header" href="#patch-file-alter-bytes">Patch file (alter bytes)</a></h2>
-<pre><code class="language-markdown">  &gt; r2 [-w] &lt;file&gt;
-  oo+           # re-open for write if -w was not passed
-  s &lt;addr&gt;      # seek to position
-  wv &lt;data&gt;     # write 4 byte (dword)
-</code></pre>
-<h2 id="assemble--disassmble-rasm2"><a class="header" href="#assemble--disassmble-rasm2">Assemble / Disassmble (rasm2)</a></h2>
-<pre><code class="language-markdown">  rasm2 -L      # list supported archs
-
-  &gt; rasm2 -a x86 'mov eax, 0xdeadbeef'
-  b8efbeadde
-
-  &gt; rasm2 -a x86 -d "b8efbeadde"
-  mov eax, 0xdeadbeef
-</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rpm"><a class="header" href="#rpm">rpm</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="qemu1"><a class="header" href="#qemu1">qemu(1)</a></h1>
 <p>All the examples &amp; notes use <code>qemu-system-x86_64</code> but in most cases
 this can be swapped with the system emulator for other architectures.</p>
@@ -2182,80 +1773,6 @@ package and sort by size.</p>
 database.</p>
 <pre><code class="language-text">pacman --root abc --dbpath /var/lib/pacman -S mingw-w64-gcc
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="dot1"><a class="header" href="#dot1">dot(1)</a></h1>
-<p><a href="https://edotor.net/">Online playground</a></p>
-<h2 id="example-dot-file-to-copy--paste-from"><a class="header" href="#example-dot-file-to-copy--paste-from">Example <code>dot</code> file to copy &amp; paste from.</a></h2>
-<p>Can be rendered to <code>svg</code> with the following command.</p>
-<pre><code class="language-bash">dot -T svg -o g.svg g.dot
-</code></pre>
-<p>Example <code>dot</code> file.</p>
-<pre><code class="language-dot">// file: g.dot
-digraph {
-    // Render ranks from left to right.
-    rankdir=LR
-    // Make background transparent.
-    bgcolor=transparent
-
-    // Global node attributes.
-    node [shape=box]
-    // Global edge attributes.
-    edge [style=dotted,color=red]
-
-    // Add nodes &amp; edge.
-    stage1 -&gt; stage2
-    // Add multiple edges at once.
-    stage2 -&gt; { stage3_1, stage3_2 }
-    // Add edge with custom attributes.
-    stage3_2 -&gt; stage4 [label="some text"]
-
-    // Set custom attributes for specific node.
-    stage4 [color=green,fillcolor=lightgray,style="filled,dashed",label="s4"]
-
-    // Create a subgraph. This can be used to group nodes/edges or as scope for
-    // global node/edge attributes.
-    // If the name starts with 'cluster' a border is drawn.
-    subgraph cluster_1 {
-        stage5_1
-        stage5_2
-    }
-
-    // Add some edges to subgraph nodes.
-    stage3_1 -&gt; { stage5_1, stage5_2 }
-}
-</code></pre>
-<p>Rendered <code>svg</code> file.
-<img src="tools/assets/g.svg" alt="g.svg" /></p>
-<h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
-<ul>
-<li><a href="https://graphviz.org/doc/info/lang.html">DOT language</a></li>
-<li><a href="https://graphviz.org/doc/info/attrs.html">Attributes</a></li>
-<li><a href="https://graphviz.org/doc/info/shapes.html">Node shapes</a></li>
-<li><a href="https://graphviz.org/doc/info/colors.html">Colors</a></li>
-<li><a href="https://graphviz.org/pdf/dotguide.pdf">User manual</a></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="ffmpeg-1"><a class="header" href="#ffmpeg-1">ffmpeg (1)</a></h1>
-<h2 id="screen-capture-specific-window-x11"><a class="header" href="#screen-capture-specific-window-x11">screen capture specific window (x11)</a></h2>
-<p>Following snippet allows to select a window which is then captured.</p>
-<pre><code class="language-bash">#!/bin/bash
-
-echo "Click on window to record .."
-# Extract window size and x,y offset.
-video_args=$(xwininfo \
-    | awk '/Absolute upper-left X:/ { xoff = $4 }
-           /Absolute upper-left Y:/ { yoff=$4 }
-           /Width:/ { if ($2 % 2 == 1) { width=$2-1; } else { width=$2; } }
-           /Height:/ { if ($2 % 2 == 1) { height=$2-1; } else { height=$2; } }
-           END { printf "-video_size %dx%d -i :0.0+%d,%d", width, height, xoff, yoff  }')
-
-ffmpeg -framerate 25 -f x11grab $video_args -pix_fmt yuv420p $@ output.mp4
-</code></pre>
-<blockquote>
-<p>Use <code>yuv420p</code> pixel format if video is played on the web
-(<a href="https://stackoverflow.com/questions/32829514/which-pixel-format-for-web-mp4-video">ref</a>)</p>
-</blockquote>
-<p>The input <code>-i 0,0+xoff,yoff</code> means to capture <code>$DISPLAY=0.0</code> starting at the
-coordinate <code>(xoff, yoff)</code>, which is the left-upper corner, and the size of the
-capture is defined by the <code>-video_size</code> argument.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="gnuplot-1"><a class="header" href="#gnuplot-1">gnuplot (1)</a></h1>
 <pre><code># Launch interactive shell.
 gnuplot
@@ -2339,52 +1856,6 @@ done
 
 gnuplot -p -c mem_lat.plot
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="restic1"><a class="header" href="#restic1">restic(1)</a></h1>
-<h2 id="create-new-snapshot-repository"><a class="header" href="#create-new-snapshot-repository">Create new snapshot repository</a></h2>
-<pre><code class="language-bash"># Create a local backup repository.
-restic -r &lt;path&gt; init
-
-# Create a backup repository on a remote host.
-restic -r sftp:user@host:&lt;path&gt; init
-</code></pre>
-<h2 id="example-restore-file-pattern-from-latest-snapshot"><a class="header" href="#example-restore-file-pattern-from-latest-snapshot">Example: Restore file pattern from <code>latest</code> snapshot</a></h2>
-<p>Restore files matching <code>&lt;file_pattern&gt;</code> from the <code>latest</code> snapshot (pseudo
-snapshot ID) into <code>&lt;dest&gt;</code>.</p>
-<pre><code class="language-bash">restic -r &lt;repo&gt; restore -i &lt;file_pattern&gt; --target &lt;dest&gt; latest
-</code></pre>
-<h2 id="mount-snapshots"><a class="header" href="#mount-snapshots">Mount snapshots</a></h2>
-<p>Mount snapshots as user filesystem (fuse) to given mount point.</p>
-<pre><code class="language-bash">restic -r &lt;repo&gt; mount &lt;mntpoint&gt;
-
-# Mounted snapshots can be limited by host.
-restic -r &lt;repo&gt; mount --host &lt;host&gt; &lt;mntpoint&gt;
-
-# Mounted snapshots can be limited by path (abs path).
-restic -r &lt;repo&gt; mount --path &lt;abspath&gt; &lt;mntpoint&gt;
-</code></pre>
-<h2 id="repository-maintenance"><a class="header" href="#repository-maintenance">Repository maintenance</a></h2>
-<p>Check the repository for errors and report them.</p>
-<pre><code class="language-bash">restic -r &lt;repo&gt; check
-</code></pre>
-<p>Check the repository for non-referenced data and remove it.</p>
-<pre><code class="language-bash">restic -r &lt;repo&gt; prune
-</code></pre>
-<h2 id="references-2"><a class="header" href="#references-2">References</a></h2>
-<ul>
-<li><a href="https://restic.readthedocs.io/en/stable/index.html"><code>restic</code> read the docs</a></li>
-<li><a href="https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html#sftp">sftp</a></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="qrencode1"><a class="header" href="#qrencode1">qrencode(1)</a></h1>
-<pre><code>qrencode
-    -s N     pixels per feature length
-</code></pre>
-<p>Generate wifi qr code for WPA2 secured network.</p>
-<pre><code class="language-sh"># Generate on terminal.
-qrencode -t ansiutf8 'WIFI:S:&lt;wifiname&gt;;T:WPA2;P:&lt;wifipasswd&gt;;;'
-
-# Generate picture for printing.
-qrencode -t png -o wifi.png 'WIFI:S:&lt;wifiname&gt;;T:WPA2;P:&lt;wifipasswd&gt;;;'
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="process-management--inspection"><a class="header" href="#process-management--inspection">Process management &amp; inspection</a></h1>
 <ul>
 <li><a href="process/./lsof.html">lsof</a></li>
@@ -2425,7 +1896,7 @@ qrencode -t png -o wifi.png 'WIFI:S:&lt;wifiname&gt;;T:WPA2;P:&lt;wifipasswd&gt;
 -s states (UDP)
   Unbound, Idle
 </code></pre>
-<h1 id="examples-9"><a class="header" href="#examples-9">Examples</a></h1>
+<h1 id="examples-7"><a class="header" href="#examples-7">Examples</a></h1>
 <h2 id="file-flags"><a class="header" href="#file-flags">File flags</a></h2>
 <p>Show open files with file flags for process:</p>
 <pre><code class="language-markdown">lsof +fg -p &lt;pid&gt;
@@ -2488,7 +1959,7 @@ major_pagefault: Happens when the page needed is NOT in memory, the kernel
 <p>For example attach gdb to newest zsh process from <code>$USER</code>.</p>
 <pre><code class="language-markdown">gdb -p $(pgrep -n -u $USER zsh)
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="ps1"><a class="header" href="#ps1">ps(1)</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="ps1"><a class="header" href="#ps1">ps(1)</a></h1>
 <pre><code>ps [opt]
   opt:
     --no-header .... do not print column header
@@ -2653,7 +2124,7 @@ renice -n 5 -p PID
   trace=signal ............... trace signal related syscalls
   signal ..................... trace signals delivered to the process
 </code></pre>
-<h1 id="examples-10"><a class="header" href="#examples-10">Examples</a></h1>
+<h1 id="examples-8"><a class="header" href="#examples-8">Examples</a></h1>
 <p>Trace <code>open(2)</code> &amp; <code>socket(2)</code> syscalls for a running process + child processes:</p>
 <pre><code class="language-markdown">strace -f -e trace=open,socket -p &lt;pid&gt;
 </code></pre>
@@ -2812,7 +2283,7 @@ perf script | FlameGraph/stackcollapse-perf.pl | FlameGraph/flamegraph.pl &gt; c
 perf script --per-event-dump
 # fold &amp; generate as above
 </code></pre>
-<h2 id="examples-11"><a class="header" href="#examples-11">Examples</a></h2>
+<h2 id="examples-9"><a class="header" href="#examples-9">Examples</a></h2>
 <h3 id="estimate-max-instructions-per-cycle"><a class="header" href="#estimate-max-instructions-per-cycle">Estimate max instructions per cycle</a></h3>
 <pre><code class="language-c">#define NOP4        "nop\nnop\nnop\nnop\n"
 #define NOP32       NOP4   NOP4   NOP4   NOP4   NOP4   NOP4   NOP4   NOP4
@@ -2876,7 +2347,7 @@ perf report --stdio -g graph,callee
 #                        __libc_start_main
 #                        _start             &lt;- callstack bottom
 </code></pre>
-<h2 id="references-3"><a class="header" href="#references-3">References</a></h2>
+<h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
 <ul>
 <li><a href="https://github.com/intel/perfmon">intel/perfmon</a> - intel PMU event database per uarch</li>
 <li><a href="https://perfmon-events.intel.com/">intel/perfmon-html</a> - a html rendered version of the PMU
@@ -2890,109 +2361,6 @@ events with search</li>
 <li><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html">intel/sdm</a> - intel software developer manuals (eg Optimization
 Reference Manual)</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="oprofile"><a class="header" href="#oprofile"><a href="https://oprofile.sourceforge.io/">OProfile</a></a></h1>
-<pre><code class="language-markdown">operf -g -p &lt;pid&gt;
-  -g ...... caputre call-graph information
-
-opreport [opt] FILE
-            show time spent per binary image
-  -l ...... show time spent per symbol
-  -c ...... show callgraph information (see below)
-  -a ...... add column with time spent accumulated over child nodes
-
-ophelp      show supported hw/sw events
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="callgrind"><a class="header" href="#callgrind">callgrind</a></h1>
-<p>Callgrind is a tracing profiler which records the function call history of a
-target program and collects the number of executed instructions. It is part of
-the <a href="https://valgrind.org/docs/manual/cl-manual.html">valgrind</a> tool suite.</p>
-<p>Profiling data is collected by instrumentation rather than sampling of the
-target program.</p>
-<p>Callgrind does not capture the actual time spent in a function but computes the
-<em>inclusive</em> &amp; <em>exclusive</em> cost of a function based on the instructions fetched
-(<code>Ir = Instruction read</code>). This provides reproducibility and high-precision and
-is a major difference to sampling profilers like <code>perf</code> or <code>vtune</code>.
-Therefore effects like slow IO are not reflected, which should be kept in mind
-when analyzing callgrind results.</p>
-<p>By default the profiler data is dumped when the target process is terminating,
-but <a href="https://valgrind.org/docs/manual/cl-manual.html#cl-manual.callgrind_control-options">callgrind_control</a> allows for interactive control of callgrind.</p>
-<pre><code class="language-bash"># Run a program under callgrind.
-valgrind --tool=callgrind -- &lt;prog&gt; [&lt;args&gt;]
-
-# Interactive control of callgrind.
-callgrind_control [opts]
-  opts:
-    -b ............. show current backtrace
-    -e ............. show current event counters
-    -s ............. show current stats
-    --dump[=file] .. dump current collection
-    -i=on|off ...... turn instrumentation on|off
-</code></pre>
-<p>Results can be analyzed by using one of the following tools</p>
-<ul>
-<li><a href="https://valgrind.org/docs/manual/cl-manual.html#cl-manual.callgrind_annotate-options">callgrind_annotate</a> (cli)
-<pre><code class="language-sh"># Show only specific trace events (default is all).
-callgrind_annotate --show=Ir,Dr,Dw [callgrind_out_file]
-</code></pre>
-</li>
-<li><a href="https://kcachegrind.github.io/html/Home.html">kcachegrind</a> (ui)</li>
-</ul>
-<p>The following is a collection of frequently used callgrind options.</p>
-<pre><code class="language-bash">valgrind --tool=callgrind [opts] -- &lt;prog&gt;
-  opts:
-    --callgrind-out-file=&lt;file&gt; .... output file, rather than callgrind.out.&lt;pid&gt;
-    --dump-instr=&lt;yes|no&gt; .......... annotation on instrucion level,
-                                     allows for asm annotations
-
-    --instr-atstart=&lt;yes|no&gt; ....... control if instrumentation is enabled from 
-                                     beginning of the program
-
-    --separate-threads=&lt;yes|no&gt; .... create separate output files per thread,
-                                     appends -&lt;thread_id&gt; to the output file
-
-    --cache-sim=&lt;yes|no&gt; ........... control if cache simulation is enabled
-</code></pre>
-<h2 id="trace-events"><a class="header" href="#trace-events">Trace events</a></h2>
-<p>By default callgrind collects following events:</p>
-<ul>
-<li><code>Ir</code>: Instruction read</li>
-</ul>
-<p>Callgrind also provides a functional cache simulation with their own model,
-which is enabled by passing <code>--cache-sim=yes</code>.
-This simulates a 2-level cache hierarchy with separate L1 <em>instruction</em> and
-<em>data</em> caches (<code>L1i</code>/ <code>L1d</code>) and a <em>unified</em> last level (<code>LL</code>) cache.
-When enabled, this collects the following additional events:</p>
-<ul>
-<li><code>I1mr</code>: L1 cache miss on instruction read</li>
-<li><code>ILmr</code>: LL cache miss on instruction read</li>
-<li><code>Dr</code>: Data reads access</li>
-<li><code>D1mr</code>: L1 cache miss on data read</li>
-<li><code>DLmr</code>: LL cache miss on data read</li>
-<li><code>Dw</code>: Data write access</li>
-<li><code>D1mw</code>: L1 cache miss on data write</li>
-<li><code>DLmw</code>: LL cache miss on data write</li>
-</ul>
-<h2 id="profile-specific-part-of-the-target"><a class="header" href="#profile-specific-part-of-the-target">Profile specific part of the target</a></h2>
-<p>Programmatically enable/disable instrumentation using the macros defined in
-the callgrind header.</p>
-<pre><code class="language-c">#include &lt;valgrind/callgrind.h&gt;
-
-int main() {
-    // init ..
-
-    CALLGRIND_START_INSTRUMENTATION;
-    compute();
-    CALLGRIND_STOP_INSTRUMENTATION;
-
-    // shutdown ..
-}
-</code></pre>
-<blockquote>
-<p>In this case, callgrind should be launched with <code>--instr-atstart=no</code>.</p>
-</blockquote>
-<p>Alternatively instrumentation can be controlled with <code>callgrind_control -i on/off</code>.</p>
-<p>The files <a href="trace_profile/callgrind/cg_example.cc">cg_example.cc</a> and
-<a href="trace_profile/callgrind/Makefile">Makefile</a> provide a full example.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="valgrind1"><a class="header" href="#valgrind1">valgrind(1)</a></h1>
 <h2 id="memcheck---toolmemcheck"><a class="header" href="#memcheck---toolmemcheck">Memcheck <code>--tool=memcheck</code></a></h2>
 <p>Is the default tool when invoking <code>valgrind</code> without explicitly specifying
@@ -3065,231 +2433,6 @@ main: main.c
 vtune: main
 	$(VTUNE)/bin64/vtune -collect hotspots -start-paused -- ./main
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="tracy1"><a class="header" href="#tracy1">tracy(1)</a></h1>
-<p><a href="https://github.com/wolfpld/tracy">Tracy</a> is a frame profiler, supporting manual code instrumentation
-and providing a sampling profiler.</p>
-<p>One can either record and visualize the profiling data live using
-<code>tracy-profiler</code> or record the profiling data to a file using <code>tracy-capture</code>.</p>
-<pre><code>tracy-profiler [file] [-p port]
-
-tracy-capture -o file [-f] [-p port]
-    -f   overwrite &lt;file&gt; if it exists
-</code></pre>
-<h2 id="example-6"><a class="header" href="#example-6">Example</a></h2>
-<p>The example showcases different cases:</p>
-<ol>
-<li>Use tracy from a single binary. In that case the <code>TracyClient.cpp</code> can be
-directly linked / included in the instrumented binary.</li>
-<li>Use tracy from different binaries (eg main executable + shared library). In
-this case the <code>TracyClient.cpp</code> should be compiled into its own shared
-library, such that there is a single tracy client.</li>
-<li>Use tracy from different binaries on windows. In this case the
-<code>TracyClient.cpp</code> must be compiled again into a separate shared library,
-while defining <code>TRACY_EXPORTS</code>. The code being instrumented must be compiled
-with <code>TRACY_IMPORTS</code> defined.</li>
-</ol>
-<p>An instrumented <code>c++</code> example:</p>
-<pre><code class="language-cpp">#include &lt;chrono&gt;
-#include &lt;thread&gt;
-
-#include &lt;tracy/Tracy.hpp&gt;
-
-#ifdef USE_FOO
-extern "C" void foo_comp_hook(int64_t);
-#endif
-
-void init() {
-  // Create a named zone (active for the current scope).
-  // Name will be used when rendering the zone in the thread timeline.
-  ZoneScopedN("init()");
-  // Set explicit color for the rendered zone.
-  ZoneColor(0xff0000);
-
-  std::this_thread::sleep_for(std::chrono::seconds(1));
-}
-
-void comp(const char* name) {
-  // Track call count.
-  static int64_t ccnt = 0;
-  ccnt += 1;
-
-  // Create an unnamed zone for the current scope.
-  ZoneScoped;
-  // Name the zone by formatting the name dynamically.
-  // This name is shown for the zone in the thread timeline, however
-  // in the zone statistics they are all accounted under one common
-  // zone "comp".
-  ZoneNameF("comp(%s)", name);
-  // Additional text to attach to the zone.
-  ZoneTextF("text(%s)", name);
-  // Additional value to attach to the zone measurement.
-  ZoneValue(ccnt);
-
-  // Statistics for dynamic names, text and values can be looked at in the zone
-  // statistics.There measurements can be grouped by different categories.
-
-  // Add a simple plot.
-  TracyPlot("comp-plot", ccnt % 4);
-
-  std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-#ifdef USE_FOO
-  foo_comp_hook(ccnt);
-#endif
-}
-
-void post_comp() {
-  // Create an unnamed zone for the current scope and capture callstack (max
-  // depth 10). Capturing callstack requires platform with TRACY_HAS_CALLSTACK
-  // support.
-  ZoneScopedS(10);
-  // Name the zone, w/o formatting.
-  const char name[] = "post_comp()";
-  ZoneName(name, sizeof(name));
-
-  // Add trace messages to the timeline.
-  TracyMessageL("start sleep in post_comp()");
-  std::this_thread::sleep_for(std::chrono::milliseconds(50));
-  TracyMessageL("end sleep in post_comp()");
-}
-
-void fini() {
-  // Create a named zone with an explicit color.
-  ZoneScopedNC("fini()", 0x00ff00);
-  std::this_thread::sleep_for(std::chrono::seconds(1));
-}
-
-int main() {
-  // Create a named zone.
-  ZoneScopedN("main()");
-
-  init();
-
-  int step = 0;
-  while (step++ &lt; 10) {
-    // Create a frame message, this start a new frame with the name
-    // "step" and end the previous frame with the name "step".
-    FrameMarkNamed("step");
-    // Create a named scope.
-    ZoneScopedN("step()");
-    comp("a");
-    comp("b");
-    comp("c");
-    post_comp();
-  }
-
-  fini();
-}
-</code></pre>
-<p>An instrumented <code>c</code> example:</p>
-<pre><code class="language-c">#include &lt;stdint.h&gt;
-#include &lt;inttypes.h&gt;
-#include &lt;stdio.h&gt;
-
-#include &lt;tracy/TracyC.h&gt;
-
-static void comp_helper(int64_t i) {
-  char buf[64];
-  int cnt = snprintf(buf, sizeof(buf), "helper(%" PRId64 ")", i);
-
-  // Create an active unnamed zone.
-  TracyCZone(ctx, 1);
-
-  // Name the zone.
-  TracyCZoneName(ctx, buf, cnt);
-  // Add custom text to the zone measurement.
-  TracyCZoneText(ctx, buf, cnt);
-  // Add custom value to the zone measurement.
-  TracyCZoneValue(ctx, i);
-
-  for (int ii = 0; ii &lt; i * 100000; ++ii) {
-    /* fake work */
-  }
-
-  // End the zone measurement.
-  TracyCZoneEnd(ctx);
-}
-
-void foo_comp_hook(int64_t cnt) {
-  // Create an active named zone.
-  TracyCZoneN(ctx, "foo", 1);
-
-  for (int i = 0; i &lt; cnt; ++i) {
-    // Plot value.
-    TracyCPlot("foo_comp_hook", cnt + i);
-
-    comp_helper(i);
-  }
-
-  // Configure plot "foo", probably best done once during initialization..
-  TracyCPlotConfig("foo", TracyPlotFormatNumber, 1 /* step */, 1 /* fill */,
-                   0xff0000);
-  // Plot value.
-  TracyCPlot("foo", cnt);
-
-  // End the zone measurement.
-  TracyCZoneEnd(ctx);
-}
-</code></pre>
-<p>Raw build commands to demonstrate compiling tracy w/o <code>cmake</code>, in case we need
-to integrate it into a different build system.</p>
-<pre><code class="language-makefile">B := BUILD
-
-main: $(B)/main-static $(B)/main-dynamic $(B)/main-dynamic-win
-tracy: $(B)/tracy
-.PHONY: main tracy
-
-# -- TRACY STATIC ---------------------------------------------------------------
-
-$(B)/main-static: main.cpp | $(B)
-	clang++ -DTRACY_ENABLE -I$(B)/tracy/public -o $@ $^ $(B)/tracy/public/TracyClient.cpp
-
-# -- TRACY DYNAMIC --------------------------------------------------------------
-
-$(B)/main-dynamic: main.cpp $(B)/foo.so $(B)/TracyClient.so | $(B)
-	clang++ -DTRACY_ENABLE -I$(B)/tracy/public -DUSE_FOO -o $@ $^
-
-$(B)/foo.so: foo.c $(B)/TracyClient.so
-	clang -DTRACY_ENABLE -I$(B)/tracy/public -fPIC -shared -o $@ $^
-
-$(B)/TracyClient.so: $(B)/tracy/public/TracyClient.cpp
-	clang++ -DTRACY_ENABLE -I$(B)/tracy/public -fPIC -shared -o $@ $^
-
-# -- TRACY DYNAMIC WINDOWS ------------------------------------------------------
-
-$(B)/main-dynamic-win: main.cpp $(B)/foo.dll $(B)/TracyClient.dll
-	@# eg run with wine
-	zig c++ -target x86_64-windows -DTRACY_ENABLE -DTRACY_IMPORTS -DUSE_FOO -o $@ $^ -I $(B)/tracy/public
-
-$(B)/foo.dll: foo.c $(B)/TracyClient.dll
-	zig c++ -target x86_64-windows -DTRACY_ENABLE -DTRACY_IMPORTS -fPIC -shared -o $@ $^ -I $(B)/tracy/public
-
-$(B)/TracyClient.dll: $(B)/tracy/public/TracyClient.cpp
-	@# win libs from 'pragma comment(lib, ..)'
-	zig c++ -target x86_64-windows -DTRACY_ENABLE -DTRACY_EXPORTS -fPIC -shared -o $@ $^ -lws2_32 -ldbghelp -ladvapi32 -luser32
-
-# -- TRACY ----------------------------------------------------------------------
-
-# Get latest tracy and build profiler.
-$(B)/tracy: $(B)
-	cd $(B); bash $(CURDIR)/get-tracy.sh
-.PHONY: $(B)/tracy
-
-$B:
-	mkdir -p $(B)
-.PHONY: $(B)
-
-# -- CLEAN ----------------------------------------------------------------------
-
-clean:
-	$(RM) $(B)/*.so $(B)/*.dll $(B)/*.pdb $(B)/*.lib $(B)/main*
-
-distclean:
-	rm -rf $(B)
-</code></pre>
-<blockquote>
-<p>Find <code>get-tracy.sh</code> <a href="https://github.com/johannst/notes/blob/master/src/trace_profile/tracy/get-tracy.sh">here</a>.</p>
-</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="debug"><a class="header" href="#debug">Debug</a></h1>
 <ul>
 <li><a href="debug/./gdb.html">gdb</a></li>
@@ -3473,7 +2616,7 @@ thread name &lt;name&gt;
               or stepping.
           off: (default) Resume only threads of current process (inferior).
 </code></pre>
-<h2 id="shell-commands-1"><a class="header" href="#shell-commands-1">Shell commands</a></h2>
+<h2 id="shell-commands"><a class="header" href="#shell-commands">Shell commands</a></h2>
 <pre><code class="language-markdown">  shell &lt;shell_cmd&gt;
           Run the shell_cmd and print the output, can also contain a pipeline.
 
@@ -3576,7 +2719,7 @@ thread name &lt;name&gt;
     # cmds
   end
 </code></pre>
-<h1 id="examples-12"><a class="header" href="#examples-12">Examples</a></h1>
+<h1 id="examples-10"><a class="header" href="#examples-10">Examples</a></h1>
 <h2 id="automatically-print-next-instr"><a class="header" href="#automatically-print-next-instr">Automatically print next instr</a></h2>
 <p>When ever the debugee stops automatically print the memory at the current
 instruction pointer (<code>$rip</code> x86) and format as instruction <code>/i</code>.</p>
@@ -3718,7 +2861,7 @@ New value = 3
 set (s=0x7fffffffe594, v=3) at test.c:5
 5   }
 </code></pre>
-<h2 id="shell-commands-2"><a class="header" href="#shell-commands-2">Shell commands</a></h2>
+<h2 id="shell-commands-1"><a class="header" href="#shell-commands-1">Shell commands</a></h2>
 <pre><code class="language-markdown"># Run shell commands.
 
 (gdb) shell zcat /proc/config.gz | grep CONFIG_KVM=
@@ -3788,7 +2931,7 @@ $MOOSE=moose
       host:port
       tty
 </code></pre>
-<h2 id="example-7"><a class="header" href="#example-7">Example</a></h2>
+<h2 id="example-6"><a class="header" href="#example-6">Example</a></h2>
 <pre><code class="language-markdown"># Start gdbserver.
 gdbserver localhost:1234 /bin/ls
 
@@ -5544,7 +4687,7 @@ default:
 <p>Outputs:</p>
 <pre><code class="language-text">xfoox xbarx xbazx
 </code></pre>
-<h2 id="examples-13"><a class="header" href="#examples-13">Examples</a></h2>
+<h2 id="examples-11"><a class="header" href="#examples-11">Examples</a></h2>
 <h3 id="config-based-settings"><a class="header" href="#config-based-settings">Config based settings</a></h3>
 <pre><code class="language-make">conf-y      := default
 conf-$(FOO) := $(conf-y) foo
@@ -6032,7 +5175,7 @@ func_v0
 func_v1
 func_v2
 </code></pre>
-<h2 id="references-4"><a class="header" href="#references-4">References</a></h2>
+<h2 id="references-2"><a class="header" href="#references-2">References</a></h2>
 <ul>
 <li><a href="https://akkadia.org/drepper/symbol-versioning">ELF Symbol Versioning</a></li>
 <li><a href="https://sourceware.org/binutils/docs/ld/VERSION.html">Binutils ld: Symbol Versioning</a></li>
@@ -6155,7 +5298,7 @@ link time <code>-lgcov</code>.</p>
 generated for a single file for example such as</p>
 <pre><code class="language-shell">gcov &lt;SRC FILE | OBJ FILE&gt;
 </code></pre>
-<h2 id="example-8"><a class="header" href="#example-8">Example</a></h2>
+<h2 id="example-7"><a class="header" href="#example-7">Example</a></h2>
 <pre><code class="language-cpp">#include &lt;cstdio&gt;
 
 void tell_me(int desc) {
@@ -6436,7 +5579,7 @@ journalctl --user -u test -n 5
     --disk-usage            Show current disk usage
     --vacuum-size=&lt;size&gt;    Reduce journal log to &lt;size&gt; (K/M/G)
 </code></pre>
-<h2 id="references-5"><a class="header" href="#references-5">References</a></h2>
+<h2 id="references-3"><a class="header" href="#references-3">References</a></h2>
 <ul>
 <li><a href="https://www.man7.org/linux/man-pages/man5/systemd.unit.5.html">man systemd.unit(5)</a></li>
 <li><a href="https://www.man7.org/linux/man-pages/man5/systemd.service.5.html">man systemd.service(5)</a></li>
@@ -6819,7 +5962,7 @@ group::r-x
 mask::r-x
 other::rwx
 </code></pre>
-<h2 id="references-6"><a class="header" href="#references-6">References</a></h2>
+<h2 id="references-4"><a class="header" href="#references-4">References</a></h2>
 <ul>
 <li><a href="https://www.man7.org/linux/man-pages/man5/acl.5.html">acl(5)</a></li>
 <li><a href="https://www.man7.org/linux/man-pages/man1/getfacl.1.html">getfacl(1)</a></li>
@@ -7061,7 +6204,7 @@ cpupower -c all frequency-info -g
 # Change frequency governor to POWERSAVE (eg).
 cpupower -c all frequency-set -g powersave
 </code></pre>
-<h2 id="example-9"><a class="header" href="#example-9">Example</a></h2>
+<h2 id="example-8"><a class="header" href="#example-8">Example</a></h2>
 <p>Watch cpu frequency.</p>
 <pre><code class="language-sh">watch -n1 "cpupower -c all frequency-info -f -m | xargs -n2 -d'\n'"
 </code></pre>
@@ -7176,7 +6319,7 @@ locally and <code>-R</code> means that requests are issued remotely.</p>
 drop into shell)</li>
 <li><code>-f</code> run <code>ssh</code> command in the background</li>
 </ul>
-<h3 id="example-10"><a class="header" href="#example-10">Example</a></h3>
+<h3 id="example-9"><a class="header" href="#example-9">Example</a></h3>
 <pre><code class="language-sh"># Forward requests on localhost:8080 to moose:1234 and keep ssh in forground
 # but dont drop into a shell.
 ssh -N -L 8080:1234 moose
@@ -7255,7 +6398,7 @@ hoste tree*
 
   (EXPR) .............. Group exprs
 </code></pre>
-<h1 id="examples-14"><a class="header" href="#examples-14">Examples</a></h1>
+<h1 id="examples-12"><a class="header" href="#examples-12">Examples</a></h1>
 <p>Show all tcp IPv4 sockets connecting to port <code>443</code>:</p>
 <pre><code class="language-markdown">ss -4 'dport 443'
 </code></pre>
@@ -7280,7 +6423,7 @@ tcp/udp/icmp            Filter for protocol.
 <blockquote>
 <p>Use <code>and/or/not</code> and <code>()</code> to build filter expressions.</p>
 </blockquote>
-<h1 id="examples-15"><a class="header" href="#examples-15">Examples</a></h1>
+<h1 id="examples-13"><a class="header" href="#examples-13">Examples</a></h1>
 <h2 id="capture-packets-from-remote-host"><a class="header" href="#capture-packets-from-remote-host">Capture packets from remote host</a></h2>
 <pre><code class="language-makrdown"># -k: Start capturing immediately.
 ssh &lt;host&gt; tcpdump -i any -w - | sudo wireshark -k -i -
@@ -7312,7 +6455,7 @@ tcp/udp/ssh/wg/...             Filter for protocol.
 <blockquote>
 <p>Use <code>tshak -G</code> to list all fields that can be used in display filters.</p>
 </blockquote>
-<h1 id="examples-16"><a class="header" href="#examples-16">Examples</a></h1>
+<h1 id="examples-14"><a class="header" href="#examples-14">Examples</a></h1>
 <h2 id="capture-and-filter-packet-to-file"><a class="header" href="#capture-and-filter-packet-to-file">Capture and filter packet to file</a></h2>
 <pre><code class="language-bash"># Capture TCP traffic with port 80 on interface eth0 to file.
 sudo tshark -i eht0 -f 'tcp and port 80' -w tx.pcap
@@ -7354,7 +6497,7 @@ firewall-cmd --remove-port 8000/tcp
 # Remove rich rule.
 firewall-cmd --remove-rich-rule 'rule family="ipv4" forward-port port="80" protocol="tcp" to-port="8080"'
 </code></pre>
-<h2 id="references-7"><a class="header" href="#references-7">References</a></h2>
+<h2 id="references-5"><a class="header" href="#references-5">References</a></h2>
 <ul>
 <li>man <a href="https://firewalld.org/documentation/man-pages/firewall-cmd.html">firewall-cmd(1)</a></li>
 <li>man <a href="https://firewalld.org/documentation/man-pages/firewalld.html">firewalld(1)</a></li>
@@ -8897,7 +8040,7 @@ address translation.</p>
 <p>The example in <a href="arch/x86/seg/seg.c">seg.c</a> shows how to set the <code>gs</code> base
 address and to relative accesses.</p>
 </blockquote>
-<h2 id="references-8"><a class="header" href="#references-8">References</a></h2>
+<h2 id="references-6"><a class="header" href="#references-6">References</a></h2>
 <ul>
 <li><a href="https://gitlab.com/x86-psABIs/x86-64-ABI">SystemV AMD64 ABI</a></li>
 <li><a href="https://www.amd.com/system/files/TechDocs/24592.pdf">AMD64 Vol1: Application Programming</a></li>
@@ -9170,7 +8313,7 @@ Hi ASM-World!
 distributions. Explicitly specifying the dynamic linker should not be
 required when compiling natively on arm64.</p>
 </blockquote>
-<h2 id="references-9"><a class="header" href="#references-9">References</a></h2>
+<h2 id="references-7"><a class="header" href="#references-7">References</a></h2>
 <ul>
 <li><a href="https://github.com/ARM-software/abi-aa/blob/master/aapcs64/aapcs64.rst">Procedure Call Standard ARM64</a></li>
 <li><a href="https://developer.arm.com/documentation/den0024/latest">ARMv8-A Programmer's Guide</a></li>
@@ -9415,7 +8558,7 @@ Hi ASM-World!
 distributions. Explicitly specifying the dynamic linker should not be
 required when compiling natively on arm.</p>
 </blockquote>
-<h2 id="references-10"><a class="header" href="#references-10">References</a></h2>
+<h2 id="references-8"><a class="header" href="#references-8">References</a></h2>
 <ul>
 <li><a href="https://github.com/ARM-software/abi-aa/blob/master/aapcs32/aapcs32.rst">Procedure Call Standard ARM</a></li>
 <li><a href="https://developer.arm.com/documentation/den0013/latest">ARMv7-A Programmer's Guide</a></li>
@@ -9496,7 +8639,7 @@ distributions. Explicitly specifying the dynamic linker should not be
 required when compiling natively on riscv.</p>
 <p>Select dynamic linker according to abi used during compile &amp; link.</p>
 </blockquote>
-<h2 id="references-11"><a class="header" href="#references-11">References</a></h2>
+<h2 id="references-9"><a class="header" href="#references-9">References</a></h2>
 <ul>
 <li><a href="https://sourceware.org/binutils/docs/as">GNU Assembler</a></li>
 <li><a href="https://sourceware.org/binutils/docs/as/Pseudo-Ops.html#Pseudo-Ops">GNU Assembler Directives</a></li>
