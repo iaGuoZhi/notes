@@ -158,6 +158,12 @@ perf stat -e cycles,instructions ./noploop
 #     4.103.534.341      instructions       #    3,98  insn per cycle
 ```
 
+
+```
+# Show AVX events on all cores
+perf stat -e r0728 -e r1828 -e r2028 -e r4028 -a -l 1000
+```
+
 ### Caller vs callee callstacks
 
 The following gives an example for a scenario where we have the following calls
