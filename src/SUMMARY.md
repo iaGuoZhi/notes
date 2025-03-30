@@ -86,6 +86,7 @@
     - [cups](./linux/cups.md)
 
 - [Network](./network/README.md)
+    - [ip](./network/ip.md)
     - [ssh](./network/ssh.md)
     - [ss](./network/ss.md)
     - [tcpdump](./network/tcpdump.md)

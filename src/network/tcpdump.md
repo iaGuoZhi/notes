@@ -37,6 +37,11 @@ tcpdump -i eth0
 ssh <host> tcpdump -i any -w - | sudo wireshark -k -i -
 ```
 
+## Analyze a pcap file
+
+```makrdown
+tcpdump -X -r /tmp/tcpdump.raw host google.com and port http
+```
 
 
 > The `any` interface is a special keyword to capture traffic on all interfaces.
