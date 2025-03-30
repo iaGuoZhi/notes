@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>tac - Notes</title>
+        <title>tar - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -155,26 +155,25 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="tac1"><a class="header" href="#tac1">tac(1)</a></h1>
-<pre><code class="language-sh"># Reverse output lines of file(s) and concatenate (reverse of cat).
-tac FILE [FILE]
-
-echo -e 'a1\nb2\nc3\nd4' | tac
-# d4
-# c3
-# b2
-# a1
+                        <h1 id="tar1"><a class="header" href="#tar1">tar(1)</a></h1>
+<pre><code>tar -cf &lt;archive&gt; &lt;files&gt; # create archive
+tar -cvzf &lt;archive&gt; &lt;files&gt; # create archive with gzip compression
+tar -cvjf &lt;archive&gt; &lt;files&gt; # create archive with bzip2 compression
+tar -xvf &lt;archive&gt; # extract archive
+tar -xvzf &lt;archive&gt; # extract archive with gzip compression
+tar -xvjf &lt;archive&gt; # extract archive with bzip2 compression
+tar -tf &lt;archive&gt; # list archive contents
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../cli/tr.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../cli/tac.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../cli/tar.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../cli/paste.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -184,11 +183,11 @@ echo -e 'a1\nb2\nc3\nd4' | tac
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../cli/tr.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../cli/tac.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../cli/tar.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../cli/paste.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

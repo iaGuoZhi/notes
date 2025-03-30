@@ -1140,6 +1140,15 @@ echo -e 'a1\nb2\nc3\nd4' | tac
 # b2
 # a1
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tar1"><a class="header" href="#tar1">tar(1)</a></h1>
+<pre><code>tar -cf &lt;archive&gt; &lt;files&gt; # create archive
+tar -cvzf &lt;archive&gt; &lt;files&gt; # create archive with gzip compression
+tar -cvjf &lt;archive&gt; &lt;files&gt; # create archive with bzip2 compression
+tar -xvf &lt;archive&gt; # extract archive
+tar -xvzf &lt;archive&gt; # extract archive with gzip compression
+tar -xvjf &lt;archive&gt; # extract archive with bzip2 compression
+tar -tf &lt;archive&gt; # list archive contents
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="paste1"><a class="header" href="#paste1">paste(1)</a></h1>
 <pre><code># Concatenate input files linewise and join them by a TAB char.
 
