@@ -7,7 +7,6 @@
 - [sort](./sort.md)
 - [tr](./tr.md)
 - [tac](./tac.md)
-- [rev](./rev.md)
 - [paste](./paste.md)
 - [xargs](./xargs.md)
 - [grep](./grep.md)

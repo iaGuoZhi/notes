@@ -85,6 +85,11 @@ echo -e 'foo\nbar' | sed -e 's/foo/FOO/' -e 's/FOO/BAR/'
 # bar
 ```
 
+### Replace recursively
+```sh
+grep -rl oldtext . | xargs sed -i 's/oldtext/newtext/g'
+```
+
 ### Edit inplace through symlink
 ```sh
 touch file

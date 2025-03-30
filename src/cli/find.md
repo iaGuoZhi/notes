@@ -28,4 +28,19 @@ find <start> [opts]
 
 > find . -maxdepth 1 -type d -exec echo x {} +
 # x . ./.github ./book ./src ./.git ./docs
+
+> find . -type f -not -name '*005*' -exec rm {} \;
+# remove all files not containing '005' in filename
+
+> find . -type f -exec ls -s {} \; | sort -n -r | head -1
+# list file with largest size
+
+> find ./ -maxdepth 2 -type f | wc -l
+# count files in current and subdirectories
+
+> find . -type f -name 'foo' -exec rename 's/foo/bar/g' {} \;
+# rename all files named 'foo' to 'bar'
+
+> find . -type f -mtime -1
+# list files modified in the last 24 hours
 ```

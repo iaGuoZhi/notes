@@ -97,6 +97,8 @@ multiple times. Actions with those patterns are **executed exactly once**.
   - `%S` second (00-59)
   - `%T` alias for `%H:%M:%S`
 
+  awk 'BEGIN { print strftime("%Y-%m-%d %H:%M:%S")  }'
+
 - `S ~ R`, `S !~ R`
 
   The regex comparison operator, where the former returns true if the string
@@ -143,6 +145,12 @@ echo -e "a\nFOO\nb\nc\nBAR\nd" | \
 echo 'a b c d e f' | awk '{ print $NF $(NF-1) }'
 ```
 Access last fields with arithmetic on the `NF` number of fields variable.
+
+### Don't show some fields
+
+```bash
+echo 'a b c d e f' | awk '{ $2 = ""; print $0 }'
+```
 
 ### Split on multiple tokens
 ```bash
