@@ -6293,6 +6293,16 @@ cupsreject PRINTER
 <li><a href="network/./firewall-cmd.html">firewall-cmd</a></li>
 <li><a href="network/./nftables.html">nftables</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ip1"><a class="header" href="#ip1">ip(1)</a></h1>
+<h1 id="examples-12"><a class="header" href="#examples-12">Examples</a></h1>
+<pre><code>ip addr add 192.168.1.100/24 dev eth0
+ip route add default via 192.168.0.100
+ip link set eth0 up
+</code></pre>
+<h1 id="nmcli"><a class="header" href="#nmcli">nmcli</a></h1>
+<pre><code>nmcli con up
+vim /etc/networkManager/system-connections
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ssh-1"><a class="header" href="#ssh-1">ssh (1)</a></h1>
 <h2 id="ssh-tunnel"><a class="header" href="#ssh-tunnel">ssh tunnel</a></h2>
 <p>Abbreviations used:</p>
@@ -6435,7 +6445,7 @@ hoste tree*
 
   (EXPR) .............. Group exprs
 </code></pre>
-<h1 id="examples-12"><a class="header" href="#examples-12">Examples</a></h1>
+<h1 id="examples-13"><a class="header" href="#examples-13">Examples</a></h1>
 <p>Show all tcp IPv4 sockets connecting to port <code>443</code>:</p>
 <pre><code class="language-markdown">ss -4 'dport 443'
 </code></pre>
@@ -6460,7 +6470,7 @@ tcp/udp/icmp            Filter for protocol.
 <blockquote>
 <p>Use <code>and/or/not</code> and <code>()</code> to build filter expressions.</p>
 </blockquote>
-<h1 id="examples-13"><a class="header" href="#examples-13">Examples</a></h1>
+<h1 id="examples-14"><a class="header" href="#examples-14">Examples</a></h1>
 <h2 id="capture-packets-on-a-device"><a class="header" href="#capture-packets-on-a-device">Capture packets on a device</a></h2>
 <pre><code># check a device has traffic
 tcpdump -i eth0
@@ -6468,6 +6478,9 @@ tcpdump -i eth0
 <h2 id="capture-packets-from-remote-host"><a class="header" href="#capture-packets-from-remote-host">Capture packets from remote host</a></h2>
 <pre><code class="language-makrdown"># -k: Start capturing immediately.
 ssh &lt;host&gt; tcpdump -i any -w - | sudo wireshark -k -i -
+</code></pre>
+<h2 id="analyze-a-pcap-file"><a class="header" href="#analyze-a-pcap-file">Analyze a pcap file</a></h2>
+<pre><code class="language-makrdown">tcpdump -X -r /tmp/tcpdump.raw host google.com and port http
 </code></pre>
 <blockquote>
 <p>The <code>any</code> interface is a special keyword to capture traffic on all interfaces.</p>
@@ -6496,7 +6509,7 @@ tcp/udp/ssh/wg/...             Filter for protocol.
 <blockquote>
 <p>Use <code>tshak -G</code> to list all fields that can be used in display filters.</p>
 </blockquote>
-<h1 id="examples-14"><a class="header" href="#examples-14">Examples</a></h1>
+<h1 id="examples-15"><a class="header" href="#examples-15">Examples</a></h1>
 <h2 id="capture-and-filter-packet-to-file"><a class="header" href="#capture-and-filter-packet-to-file">Capture and filter packet to file</a></h2>
 <pre><code class="language-bash"># Capture TCP traffic with port 80 on interface eth0 to file.
 sudo tshark -i eht0 -f 'tcp and port 80' -w tx.pcap

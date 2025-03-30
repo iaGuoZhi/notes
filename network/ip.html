@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>tcpdump - Notes</title>
+        <title>ip - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -155,49 +155,26 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="tcpdump1"><a class="header" href="#tcpdump1">tcpdump(1)</a></h1>
-<h1 id="cli"><a class="header" href="#cli">CLI</a></h1>
-<pre><code class="language-markdown">tcpdump [opts] -i &lt;if&gt; [&lt;filter&gt;]
-    -n              Don't convert host/port names.
-    -w &lt;file|-&gt;     Write pcap trace to file or stdout (-).
-    -r &lt;file&gt;       Read &amp; parse pcap file.
-</code></pre>
-<p>Some useful filters, for the full syntax see <a href="https://www.tcpdump.org/manpages/pcap-filter.7.html">pcap-filter(7)</a>.</p>
-<pre><code class="language-markdown">src &lt;ip&gt;                Filter for source IP.
-dst &lt;ip&gt;                Filter for destination IP.
-host &lt;ip&gt;               Filter for IP (src + dst).
-net &lt;ip&gt;/&lt;range&gt;        Filter traffic on subnet.
-[src/dst] port &lt;port&gt;   Filter for port (optionally src/dst).
-tcp/udp/icmp            Filter for protocol.
-</code></pre>
-<blockquote>
-<p>Use <code>and/or/not</code> and <code>()</code> to build filter expressions.</p>
-</blockquote>
+                        <h1 id="ip1"><a class="header" href="#ip1">ip(1)</a></h1>
 <h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
-<h2 id="capture-packets-on-a-device"><a class="header" href="#capture-packets-on-a-device">Capture packets on a device</a></h2>
-<pre><code># check a device has traffic
-tcpdump -i eth0
+<pre><code>ip addr add 192.168.1.100/24 dev eth0
+ip route add default via 192.168.0.100
+ip link set eth0 up
 </code></pre>
-<h2 id="capture-packets-from-remote-host"><a class="header" href="#capture-packets-from-remote-host">Capture packets from remote host</a></h2>
-<pre><code class="language-makrdown"># -k: Start capturing immediately.
-ssh &lt;host&gt; tcpdump -i any -w - | sudo wireshark -k -i -
+<h1 id="nmcli"><a class="header" href="#nmcli">nmcli</a></h1>
+<pre><code>nmcli con up
+vim /etc/networkManager/system-connections
 </code></pre>
-<h2 id="analyze-a-pcap-file"><a class="header" href="#analyze-a-pcap-file">Analyze a pcap file</a></h2>
-<pre><code class="language-makrdown">tcpdump -X -r /tmp/tcpdump.raw host google.com and port http
-</code></pre>
-<blockquote>
-<p>The <code>any</code> interface is a special keyword to capture traffic on all interfaces.</p>
-</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../network/ss.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../network/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../network/tshark.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../network/ssh.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -207,11 +184,11 @@ ssh &lt;host&gt; tcpdump -i any -w - | sudo wireshark -k -i -
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../network/ss.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../network/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../network/tshark.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../network/ssh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
