@@ -247,6 +247,7 @@ but this is a function and return value can be assigned to a variable.</p>
 <li><code>%S</code> second (00-59)</li>
 <li><code>%T</code> alias for <code>%H:%M:%S</code></li>
 </ul>
+<p>awk 'BEGIN { print strftime("%Y-%m-%d %H:%M:%S")  }'</p>
 </li>
 <li>
 <p><code>S ~ R</code>, <code>S !~ R</code></p>
@@ -284,6 +285,9 @@ in the range <em>inclusive</em>.</p>
 <pre><code class="language-bash">echo 'a b c d e f' | awk '{ print $NF $(NF-1) }'
 </code></pre>
 <p>Access last fields with arithmetic on the <code>NF</code> number of fields variable.</p>
+<h3 id="dont-show-some-fields"><a class="header" href="#dont-show-some-fields">Don't show some fields</a></h3>
+<pre><code class="language-bash">echo 'a b c d e f' | awk '{ $2 = ""; print $0 }'
+</code></pre>
 <h3 id="split-on-multiple-tokens"><a class="header" href="#split-on-multiple-tokens">Split on multiple tokens</a></h3>
 <pre><code class="language-bash">echo 'a,b;c:d' | awk -F'[,;:]' '{ printf "1=%s | 4=%s\n", $1, $4 }'
 </code></pre>

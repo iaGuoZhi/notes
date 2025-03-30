@@ -156,9 +156,28 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="bash1"><a class="header" href="#bash1">bash(1)</a></h1>
+<h2 id="keys"><a class="header" href="#keys">Keys</a></h2>
+<pre><code class="language-bash">ctrl + r   # search history
+alt/esc + .    # last argument of previous command
+ctrl + l   # clear screen
+ctrl + a   # move to beginning of line
+ctrl + e   # move to end of line
+ctrl + w   # delete word before cursor
+ctrl + u   # delete from cursor to beginning of line
+ctrl + k   # delete from cursor to end of line
+ctrl + y   # paste deleted text
+</code></pre>
+<h2 id="paratheses"><a class="header" href="#paratheses">Paratheses</a></h2>
+<pre><code class="language-bash">()         # run in subshell
+(())        # arithmetic expansion
+[]          # test command, check file attributes, numeric comparison
+[[]]        # extended test command, more powerful than [], string comparison
+</code></pre>
 <h2 id="expansion"><a class="header" href="#expansion">Expansion</a></h2>
 <h3 id="generator"><a class="header" href="#generator">Generator</a></h3>
-<pre><code class="language-bash"># generate sequence from n to m
+<pre><code class="language-bash"># generate two names
+cp file{,.bak}
+# generate sequence from n to m
 {n..m}
 # generate sequence from n to m step by s
 {n..m..s}
@@ -166,12 +185,24 @@
 # expand cartesian product
 {a,b}{c,d}
 </code></pre>
+<h3 id="--and--"><a class="header" href="#--and--">!, ^ and -</a></h3>
+<pre><code class="language-bash">!!          # last command
+!$          # last argument of last command
+!*          # all arguments of last command
+^foo^bar    # replace first occurence of foo with bar in last command
+cd -       # change to previous working directory
+</code></pre>
+<h3 id=""><a class="header" href="#">$</a></h3>
+<pre><code class="language-bash">$?          # exit status of last command
+$$          # PID of current shell
+$!          # PID of last background command
+$#          # number of arguments
+$@          # all arguments
+$*          # all arguments as single string
+</code></pre>
 <h3 id="parameter"><a class="header" href="#parameter">Parameter</a></h3>
 <pre><code class="language-bash"># default value
 bar=${foo:-some_val}  # if $foo set, then bar=$foo else bar=some_val
-
-# alternate value
-bar=${foo:+bla $foo}  # if $foo set, then bar="bla $foo" else bar=""
 
 # check param set
 bar=${foo:?msg}  # if $foo set, then bar=$foo else exit and print msg
@@ -193,7 +224,7 @@ ${foo/pattern/string}  # replace pattern with string when expanding foo
 # '#'   pattern match at beginning
 # '%'   pattern match at end
 
-# set programmatically with priintf builtin
+# set programmatically with printf builtin
 printf -v "VAR1" "abc"
 NAME=VAR2
 printf -v "$NAME" "%s" "def"
@@ -245,7 +276,7 @@ contains some nice visualization to explain bash redirections.</p>
 <h3 id="explanation"><a class="header" href="#explanation">Explanation</a></h3>
 <pre><code class="language-bash">j&gt;&amp;i
 </code></pre>
-<p>Duplicate <code>fd i</code> to <code>fd j</code>, making <code>j</code> a copy of <code>i</code>. See <a href="http://man7.org/linux/man-pages/man2/dup.2.html">dup2(2)</a>.</p>
+<p>Duplicate <code>fd i</code> to <code>fd j</code>, making <code>j</code> a copy of <code>i</code>. See [dup2(2)][dup2].</p>
 <p>Example:</p>
 <pre><code class="language-bash">command 2&gt;&amp;1 &gt;file
 </code></pre>
@@ -253,7 +284,7 @@ contains some nice visualization to explain bash redirections.</p>
 <li>duplicate <code>fd 1</code> to <code>fd 2</code>, effectively redirecting <code>stderr</code> to <code>stdout</code></li>
 <li>redirect <code>stdout</code> to <code>file</code></li>
 </ol>
-<h2 id="process-substitution-ref"><a class="header" href="#process-substitution-ref">Process substitution (<a href="https://tldp.org/LDP/abs/html/process-sub.html">ref</a>)</a></h2>
+<h2 id="process-substitution-refpsub"><a class="header" href="#process-substitution-refpsub">Process substitution ([ref][psub])</a></h2>
 <p>Process substitution allows to redirect the stdout of multiple processes at
 once.</p>
 <pre><code class="language-bash">vim -d &lt;(grep foo bar) &lt;(grep foo moose)
@@ -353,62 +384,29 @@ fi
 <p><strong>Caution</strong>: When specifying a <code>regex</code> in the <code>[[ ]]</code> block directly, quotes will be treated as part of the pattern.
 <code>[[ $INPUT =~ "foo" ]]</code> will match against <code>"foo"</code> not <code>foo</code>!</p>
 </blockquote>
-<h2 id="completion"><a class="header" href="#completion">Completion</a></h2>
-<p>The <code>complete</code> builtin is used to interact with the completion system.</p>
-<pre><code class="language-bash">complete                    # print currently installed completion handler
-complete -F &lt;func&gt; &lt;cmd&gt;    # install &lt;func&gt; as completion handler for &lt;cmd&gt;
-complete -r &lt;cmd&gt;           # uninstall completion handler for &lt;cmd&gt;
-</code></pre>
-<p>Variables available in completion functions:</p>
-<pre><code class="language-bash"># in
-$1              # &lt;cmd&gt;
-$2              # current word
-$3              # privous word
-
-COMP_WORDS      # array with current command line words
-COMP_CWORD      # index into COMP_WORDS with current cursor position
-
-# out
-COMPREPLY       # array with possible completions
-</code></pre>
-<p>The <code>compgen</code> builtin is used to generate possible matches by comparing <code>word</code>
-against words generated by <code>option</code>.</p>
-<pre><code class="language-bash">compgen &lt;option&gt; &lt;word&gt;
-
-# usefule options:
-# -W &lt;list&gt;    specify list of possible completions
-# -d           generate list with dirs
-# -f           generate list with files
-# -u           generate list with users
-# -e           generate list with exported variables
-
-# compare "f" against words "foo" "foobar" "bar" and generate matches
-compgen -W "foo foobar bar" "f"
-
-# compare "hom" against file/dir names and generate matches
-compgen -d -f "hom"
-</code></pre>
-<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
-<p>Skeleton to copy/paste for writing simple completions.</p>
-<p>Assume a program <code>foo</code> with the following interface:</p>
-<pre><code class="language-bash">foo -c green|red|blue -s low|high -f &lt;file&gt; -h
-</code></pre>
-<p>The completion handler could be implemented as follows:</p>
-<pre><code class="language-bash">function _foo() {
-    local curr=$2
-    local prev=$3
-
-    local opts="-c -s -f -h"
-    case $prev in
-        -c) COMPREPLY=( $(compgen -W "green red blue" -- $curr) );;
-        -s) COMPREPLY=( $(compgen -W "low high" -- $curr) );;
-        -f) COMPREPLY=( $(compgen -f -- $curr) );;
-        *)  COMPREPLY=( $(compgen -W "$opts" -- $curr) );;
-    esac
-}
-
-complete -F _foo foo
-</code></pre>
+<p>""## Completion
+""
+""The <code>complete</code> builtin is used to interact with the completion system.
+""<code>bash ""complete                    # print currently installed completion handler ""complete -F &lt;func&gt; &lt;cmd&gt;    # install &lt;func&gt; as completion handler for &lt;cmd&gt; ""complete -r &lt;cmd&gt;           # uninstall completion handler for &lt;cmd&gt; ""</code>
+""
+""Variables available in completion functions:
+""<code>bash ""# in ""$1              # &lt;cmd&gt; ""$2              # current word ""$3              # privous word "" ""COMP_WORDS      # array with current command line words ""COMP_CWORD      # index into COMP_WORDS with current cursor position "" ""# out ""COMPREPLY       # array with possible completions ""</code>
+""
+""The <code>compgen</code> builtin is used to generate possible matches by comparing <code>word</code>
+""against words generated by <code>option</code>.
+""<code>bash ""compgen &lt;option&gt; &lt;word&gt; "" ""# usefule options: ""# -W &lt;list&gt;    specify list of possible completions ""# -d           generate list with dirs ""# -f           generate list with files ""# -u           generate list with users ""# -e           generate list with exported variables "" ""# compare "f" against words "foo" "foobar" "bar" and generate matches ""compgen -W "foo foobar bar" "f" "" ""# compare "hom" against file/dir names and generate matches ""compgen -d -f "hom" ""</code>
+""
+""### Example
+""Skeleton to copy/paste for writing simple completions.
+""
+""Assume a program <code>foo</code> with the following interface:
+""<code>bash ""foo -c green|red|blue -s low|high -f &lt;file&gt; -h ""</code>
+""
+""The completion handler could be implemented as follows:
+""<code>bash ""function _foo() { ""    local curr=$2 ""    local prev=$3 "" ""    local opts="-c -s -f -h" ""    case $prev in ""        -c) COMPREPLY=( $(compgen -W "green red blue" -- $curr) );; ""        -s) COMPREPLY=( $(compgen -W "low high" -- $curr) );; ""        -f) COMPREPLY=( $(compgen -f -- $curr) );; ""        *)  COMPREPLY=( $(compgen -W "$opts" -- $curr) );; ""    esac ""} "" ""complete -F _foo foo ""</code>
+""
+""[dup2]: http://man7.org/linux/man-pages/man2/dup.2.html
+""[psub]: https://tldp.org/LDP/abs/html/process-sub.html</p>
 
                     </main>
 

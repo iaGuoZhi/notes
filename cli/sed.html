@@ -231,6 +231,9 @@ echo -e 'aafooaa\ncc' | sed 's/foo/MOOSE/'
 # BAR
 # bar
 </code></pre>
+<h3 id="replace-recursively"><a class="header" href="#replace-recursively">Replace recursively</a></h3>
+<pre><code class="language-sh">grep -rl oldtext . | xargs sed -i 's/oldtext/newtext/g'
+</code></pre>
 <h3 id="edit-inplace-through-symlink"><a class="header" href="#edit-inplace-through-symlink">Edit inplace through symlink</a></h3>
 <pre><code class="language-sh">touch file
 ln -s file link

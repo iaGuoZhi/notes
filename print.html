@@ -163,7 +163,6 @@
 <ul>
 <li><a href="shells/./zsh.html">zsh</a></li>
 <li><a href="shells/./bash.html">bash</a></li>
-<li><a href="shells/./fish.html">fish</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="zsh1"><a class="header" href="#zsh1">zsh(1)</a></h1>
 <h2 id="keybindings"><a class="header" href="#keybindings">Keybindings</a></h2>
@@ -495,9 +494,28 @@ previous rules apply, so in our example for <code>arg3, argN..</code>.</li>
 </ul>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bash1"><a class="header" href="#bash1">bash(1)</a></h1>
+<h2 id="keys"><a class="header" href="#keys">Keys</a></h2>
+<pre><code class="language-bash">ctrl + r   # search history
+alt/esc + .    # last argument of previous command
+ctrl + l   # clear screen
+ctrl + a   # move to beginning of line
+ctrl + e   # move to end of line
+ctrl + w   # delete word before cursor
+ctrl + u   # delete from cursor to beginning of line
+ctrl + k   # delete from cursor to end of line
+ctrl + y   # paste deleted text
+</code></pre>
+<h2 id="paratheses"><a class="header" href="#paratheses">Paratheses</a></h2>
+<pre><code class="language-bash">()         # run in subshell
+(())        # arithmetic expansion
+[]          # test command, check file attributes, numeric comparison
+[[]]        # extended test command, more powerful than [], string comparison
+</code></pre>
 <h2 id="expansion"><a class="header" href="#expansion">Expansion</a></h2>
 <h3 id="generator"><a class="header" href="#generator">Generator</a></h3>
-<pre><code class="language-bash"># generate sequence from n to m
+<pre><code class="language-bash"># generate two names
+cp file{,.bak}
+# generate sequence from n to m
 {n..m}
 # generate sequence from n to m step by s
 {n..m..s}
@@ -505,12 +523,24 @@ previous rules apply, so in our example for <code>arg3, argN..</code>.</li>
 # expand cartesian product
 {a,b}{c,d}
 </code></pre>
+<h3 id="--and--"><a class="header" href="#--and--">!, ^ and -</a></h3>
+<pre><code class="language-bash">!!          # last command
+!$          # last argument of last command
+!*          # all arguments of last command
+^foo^bar    # replace first occurence of foo with bar in last command
+cd -       # change to previous working directory
+</code></pre>
+<h3 id=""><a class="header" href="#">$</a></h3>
+<pre><code class="language-bash">$?          # exit status of last command
+$$          # PID of current shell
+$!          # PID of last background command
+$#          # number of arguments
+$@          # all arguments
+$*          # all arguments as single string
+</code></pre>
 <h3 id="parameter-1"><a class="header" href="#parameter-1">Parameter</a></h3>
 <pre><code class="language-bash"># default value
 bar=${foo:-some_val}  # if $foo set, then bar=$foo else bar=some_val
-
-# alternate value
-bar=${foo:+bla $foo}  # if $foo set, then bar="bla $foo" else bar=""
 
 # check param set
 bar=${foo:?msg}  # if $foo set, then bar=$foo else exit and print msg
@@ -532,7 +562,7 @@ ${foo/pattern/string}  # replace pattern with string when expanding foo
 # '#'   pattern match at beginning
 # '%'   pattern match at end
 
-# set programmatically with priintf builtin
+# set programmatically with printf builtin
 printf -v "VAR1" "abc"
 NAME=VAR2
 printf -v "$NAME" "%s" "def"
@@ -584,7 +614,7 @@ contains some nice visualization to explain bash redirections.</p>
 <h3 id="explanation"><a class="header" href="#explanation">Explanation</a></h3>
 <pre><code class="language-bash">j&gt;&amp;i
 </code></pre>
-<p>Duplicate <code>fd i</code> to <code>fd j</code>, making <code>j</code> a copy of <code>i</code>. See <a href="http://man7.org/linux/man-pages/man2/dup.2.html">dup2(2)</a>.</p>
+<p>Duplicate <code>fd i</code> to <code>fd j</code>, making <code>j</code> a copy of <code>i</code>. See [dup2(2)][dup2].</p>
 <p>Example:</p>
 <pre><code class="language-bash">command 2&gt;&amp;1 &gt;file
 </code></pre>
@@ -592,7 +622,7 @@ contains some nice visualization to explain bash redirections.</p>
 <li>duplicate <code>fd 1</code> to <code>fd 2</code>, effectively redirecting <code>stderr</code> to <code>stdout</code></li>
 <li>redirect <code>stdout</code> to <code>file</code></li>
 </ol>
-<h2 id="process-substitution-ref"><a class="header" href="#process-substitution-ref">Process substitution (<a href="https://tldp.org/LDP/abs/html/process-sub.html">ref</a>)</a></h2>
+<h2 id="process-substitution-refpsub"><a class="header" href="#process-substitution-refpsub">Process substitution ([ref][psub])</a></h2>
 <p>Process substitution allows to redirect the stdout of multiple processes at
 once.</p>
 <pre><code class="language-bash">vim -d &lt;(grep foo bar) &lt;(grep foo moose)
@@ -692,301 +722,30 @@ fi
 <p><strong>Caution</strong>: When specifying a <code>regex</code> in the <code>[[ ]]</code> block directly, quotes will be treated as part of the pattern.
 <code>[[ $INPUT =~ "foo" ]]</code> will match against <code>"foo"</code> not <code>foo</code>!</p>
 </blockquote>
-<h2 id="completion-1"><a class="header" href="#completion-1">Completion</a></h2>
-<p>The <code>complete</code> builtin is used to interact with the completion system.</p>
-<pre><code class="language-bash">complete                    # print currently installed completion handler
-complete -F &lt;func&gt; &lt;cmd&gt;    # install &lt;func&gt; as completion handler for &lt;cmd&gt;
-complete -r &lt;cmd&gt;           # uninstall completion handler for &lt;cmd&gt;
-</code></pre>
-<p>Variables available in completion functions:</p>
-<pre><code class="language-bash"># in
-$1              # &lt;cmd&gt;
-$2              # current word
-$3              # privous word
-
-COMP_WORDS      # array with current command line words
-COMP_CWORD      # index into COMP_WORDS with current cursor position
-
-# out
-COMPREPLY       # array with possible completions
-</code></pre>
-<p>The <code>compgen</code> builtin is used to generate possible matches by comparing <code>word</code>
-against words generated by <code>option</code>.</p>
-<pre><code class="language-bash">compgen &lt;option&gt; &lt;word&gt;
-
-# usefule options:
-# -W &lt;list&gt;    specify list of possible completions
-# -d           generate list with dirs
-# -f           generate list with files
-# -u           generate list with users
-# -e           generate list with exported variables
-
-# compare "f" against words "foo" "foobar" "bar" and generate matches
-compgen -W "foo foobar bar" "f"
-
-# compare "hom" against file/dir names and generate matches
-compgen -d -f "hom"
-</code></pre>
-<h3 id="example-3"><a class="header" href="#example-3">Example</a></h3>
-<p>Skeleton to copy/paste for writing simple completions.</p>
-<p>Assume a program <code>foo</code> with the following interface:</p>
-<pre><code class="language-bash">foo -c green|red|blue -s low|high -f &lt;file&gt; -h
-</code></pre>
-<p>The completion handler could be implemented as follows:</p>
-<pre><code class="language-bash">function _foo() {
-    local curr=$2
-    local prev=$3
-
-    local opts="-c -s -f -h"
-    case $prev in
-        -c) COMPREPLY=( $(compgen -W "green red blue" -- $curr) );;
-        -s) COMPREPLY=( $(compgen -W "low high" -- $curr) );;
-        -f) COMPREPLY=( $(compgen -f -- $curr) );;
-        *)  COMPREPLY=( $(compgen -W "$opts" -- $curr) );;
-    esac
-}
-
-complete -F _foo foo
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="fish1"><a class="header" href="#fish1">fish(1)</a></h1>
-<h2 id="quick-info"><a class="header" href="#quick-info">Quick Info</a></h2>
-<p>Fish initialization file <code>~/.config/fish/config.fish</code></p>
-<p>Switch between different key bindings:</p>
-<ul>
-<li><code>fish_default_key_bindings</code> to use default key bindings</li>
-<li><code>fish_vi_key_bindings</code> to use vi key bindings</li>
-</ul>
-<h2 id="variables-1"><a class="header" href="#variables-1">Variables</a></h2>
-<p>Available scopes</p>
-<ul>
-<li><code>local</code> variable local to a block</li>
-<li><code>global</code> variable global to shell instance</li>
-<li><code>universal</code> variable universal to all shell instances + preserved across
-shell restart</li>
-</ul>
-<h3 id="setunset-variables"><a class="header" href="#setunset-variables">Set/Unset Variables</a></h3>
-<pre><code class="language-text">set &lt;name&gt; [&lt;values&gt;]
-    -l  local scope
-    -g  global scope
-    -U  universal scope
-    -e  erase variable
-    -S  show verbose info
-    -x  export to ENV
-    -u  unexport from ENV
-</code></pre>
-<h3 id="special-variables-ref"><a class="header" href="#special-variables-ref">Special Variables <a href="https://fishshell.com/docs/current/language.html#special-variables">ref</a></a></h3>
-<pre><code class="language-sh">$status      # exit code of last command
-$pipestatus  # list of exit codes of pipe chain
-
-$fish_pid    # pid of parent fish shell    ($$ in bash)
-$last_pid    # pid of last started process ($! in bash)
-
-$CMD_DURATION   # runtime of last command in ms
-</code></pre>
-<h3 id="lists"><a class="header" href="#lists">Lists</a></h3>
-<p>In <code>fish</code> all variables are lists (start with index <code>1</code>, but lists can't
-contain lists.</p>
-<pre><code class="language-sh">set foo a b c d
-
-echo $foo[1]      # a
-echo $foo[-1]     # d
-echo $foo[2..3]   # b c
-echo $foo[1 3]    # a c
-</code></pre>
-<p><code>$</code> can be seen as dereference operator.</p>
-<pre><code class="language-sh">set foo a; set a 1337
-echo $$foo  # outputs 1337
-</code></pre>
-<p>Cartesian product.</p>
-<pre><code class="language-sh">echo file.{h,cc}
-# file.h file.cc
-
-echo {a,b}{1,2}
-# a1 b1 a2 b2
-</code></pre>
-<h4 id="path-ref"><a class="header" href="#path-ref"><code>*PATH</code> <a href="https://fishshell.com/docs/current/language.html#path-variables">ref</a></a></h4>
-<p>Lists ending with <code>PATH</code> are automatically split at <code>:</code> when used and joined
-with <code>:</code> when quoted or exported to the environment.</p>
-<pre><code class="language-sh">set -x BLA_PATH a:b:c:d
-echo $BLA_PATH           # a b c d
-echo "$BLA_PATH"         # a:b:c:d          (quoted)
-env | grep BLA_PATH      # BLA_PATH=a:b:c:d (env)
-
-set FOO_PATH x y z
-echo $FOO_PATH           # x y z
-echo "$FOO_PATH"         # x:y:z
-</code></pre>
-<h2 id="command-handling"><a class="header" href="#command-handling">Command Handling</a></h2>
-<pre><code class="language-sh"># sub-commands are not run in quotes
-echo "ls output: "(ls)
-</code></pre>
-<h3 id="io-redirection-1"><a class="header" href="#io-redirection-1">I/O redirection</a></h3>
-<pre><code class="language-sh"># 'noclobber', fail if 'log' already exists
-echo foo &gt;? log
-</code></pre>
-<h3 id="process-substitution-1"><a class="header" href="#process-substitution-1">Process substitution</a></h3>
-<p>Redirect output of multiple processes. Same as <code>&lt;(..)</code> in bash.</p>
-<pre><code class="language-sh">diff (sort a | psub) (sort b | psub)
-</code></pre>
-<h2 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h2>
-<h3 id="if--else"><a class="header" href="#if--else"><code>if</code> / <code>else</code></a></h3>
-<pre><code class="language-sh">if grep foo bar
-    # do sth
-else if grep foobar bar
-    # do sth else
-else
-    # do sth else
-end
-</code></pre>
-<h3 id="switch"><a class="header" href="#switch"><code>switch</code></a></h3>
-<pre><code class="language-sh">switch (echo foo)
-case 'foo*'
-    # do start with foo
-case bar dudel
-    # do bar and dudel
-case '*'
-    # do else
-end
-</code></pre>
-<h3 id="while-loop"><a class="header" href="#while-loop"><code>while</code> Loop</a></h3>
-<pre><code class="language-sh">while true
-    echo foo
-end
-</code></pre>
-<h3 id="for-loop"><a class="header" href="#for-loop"><code>for</code> Loop</a></h3>
-<pre><code class="language-sh">for f in (ls)
-    echo $f
-end
-</code></pre>
-<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
-<p>Function arguments are passed via <code>$argv</code> list.</p>
-<pre><code class="language-sh">function fn_foo
-    echo $argv
-end
-</code></pre>
-<h3 id="autoloading"><a class="header" href="#autoloading">Autoloading</a></h3>
-<p>When running a command fish attempts to autoload a function. The shell looks
-for <code>&lt;cmd&gt;.fish</code> in the locations defined by <code>$fish_function_path</code> and loads
-the function lazily if found.</p>
-<p>This is the preferred way over monolithically defining all functions in a
-startup script.</p>
-<h3 id="helper"><a class="header" href="#helper">Helper</a></h3>
-<pre><code class="language-sh">functions         # list al functions
-functions foo     # describe function 'foo'
-functions -e foo  # erase function 'foo'
-
-funced foo        # edit function 'foo'
-                  # '-e vim' to edit in vim
-</code></pre>
-<h3 id="argument-parsing-and-completion"><a class="header" href="#argument-parsing-and-completion">Argument parsing and completion</a></h3>
-<p><code>argparse</code> puts options into variables of name <code>_flag_NAME</code>.</p>
-<p>References:</p>
-<ul>
-<li><a href="https://fishshell.com/docs/current/language.html#argument-handling">Argument Handling</a></li>
-<li><a href="https://fishshell.com/docs/current/cmds/argparse.html"><code>argparse</code></a></li>
-<li><a href="https://fishshell.com/docs/current/completions.html">Writing your own completions</a></li>
-<li><a href="https://fishshell.com/docs/current/cmds/complete.html"><code>complete</code></a></li>
-</ul>
-<pre><code class="language-sh">function moose --d "my moose fn"
-    # h/help   : short / long option (boolean)
-    # color    : only long option (boolean)
-    # u/user=  : option with required argument, only last specified is taken
-    # f/file+= : option with required argument, can be specified multiple times
-    #
-    argparse h/help color= u/user= f/file=+ -- $argv
-    or return
-
-    if set -ql _flag_help
-        echo "usage ..."
-        return 0
-    end
-
-    set -ql _flag_file
-    and echo "file=$_flag_file | cnt:" (count $_flag_file)
-
-    set -ql _flag_color
-    and echo "color=$_flag_color"
-
-    set -ql _flag_user
-    and echo "user=$_flag_user"
-end
-
-# Delete all previous defined completions for 'moose'.
-complete -c moose -e
-
-# Don't complete files for command.
-complete -c moose --no-files
-
-# Help completion.
-#   -n specifies a conditions. The completion is only active if the command
-#      returns 0.
-complete -c moose -s h -l help -n "not __fish_contains_opt -s h help" \
-    --description "Print usage help and exit"
-
-# File completion.
-#   -F force complete files (overwrite --no-files).
-#   -r requires argument.
-complete -c moose -s f -l file -F -r \
-    --description "Specify file (can be passed multiple times)"
-
-# Color completion.
-#    -a options for completion.
-#    -x short for -r and --no-files (-f)
-complete -c moose -x -l color -a "red blue" \
-    --description "Specify a color."
-
-# User completion.
-#    -a options for completion. Call a function to generate arguments.
-complete -c moose -x -s u -l user -a "(__fish_complete_users)" \
-    --description "Specify a user"
-</code></pre>
-<h2 id="prompt"><a class="header" href="#prompt">Prompt</a></h2>
-<p>The prompt is defined by the output of the <code>fish_prompt</code> function.</p>
-<pre><code class="language-sh">function fish_prompt
-    set -l cmd_ret
-    echo "&gt; "(pwd) $cmd_ret" "
-end
-</code></pre>
-<blockquote>
-<p>Use <code>set_color</code> to manipulate terminal colors and <code>set_color -c</code> to print the
-current colors.</p>
-</blockquote>
-<h2 id="useful-builtins"><a class="header" href="#useful-builtins">Useful Builtins</a></h2>
-<p>List all builtins with <code>builtins -n</code>.</p>
-<pre><code class="language-sh"># history
-history search &lt;str&gt;   # search history for &lt;str&gt;
-history merge          # merge histories from fish sessions
-
-# list
-count $var             # count elements in list
-
-contains /bin $PATH    # return 0 (true) 1 (false)
-contains -i /bin $PATH # additionally print index on stdout
-
-# string
-string split SEP STRING
-
-# math
-math -b hex 4096       # output dec as hex
-math 0x1000            # output hex as dec
-math "log2(1024)"      # call functions
-math -s0 7/3           # integer division (by default float)
-
-# status
-status -f              # abs path of current file
-</code></pre>
-<h2 id="keymaps"><a class="header" href="#keymaps">Keymaps</a></h2>
-<pre><code class="language-text">  Shift-Tab .............. tab-completion with search
-  Alt-Up / Alt-Down ...... search history with token under the cursor
-  Alt-l .................. list content of dir under cursor
-  Alt-p .................. append '2&gt;&amp;1 | less;' to current cmdline
-  Alt-Left / Alt - Right . prevd / nextd, walk dir history
-</code></pre>
-<h2 id="debug"><a class="header" href="#debug">Debug</a></h2>
-<pre><code class="language-text">  status print-stack-trace .. prints function stacktrace (can be used in scripts)
-  breakpoint ................ halt script execution and gives shell (C-d | exit
-                              to continue)
-</code></pre>
+<p>""## Completion
+""
+""The <code>complete</code> builtin is used to interact with the completion system.
+""<code>bash ""complete                    # print currently installed completion handler ""complete -F &lt;func&gt; &lt;cmd&gt;    # install &lt;func&gt; as completion handler for &lt;cmd&gt; ""complete -r &lt;cmd&gt;           # uninstall completion handler for &lt;cmd&gt; ""</code>
+""
+""Variables available in completion functions:
+""<code>bash ""# in ""$1              # &lt;cmd&gt; ""$2              # current word ""$3              # privous word "" ""COMP_WORDS      # array with current command line words ""COMP_CWORD      # index into COMP_WORDS with current cursor position "" ""# out ""COMPREPLY       # array with possible completions ""</code>
+""
+""The <code>compgen</code> builtin is used to generate possible matches by comparing <code>word</code>
+""against words generated by <code>option</code>.
+""<code>bash ""compgen &lt;option&gt; &lt;word&gt; "" ""# usefule options: ""# -W &lt;list&gt;    specify list of possible completions ""# -d           generate list with dirs ""# -f           generate list with files ""# -u           generate list with users ""# -e           generate list with exported variables "" ""# compare "f" against words "foo" "foobar" "bar" and generate matches ""compgen -W "foo foobar bar" "f" "" ""# compare "hom" against file/dir names and generate matches ""compgen -d -f "hom" ""</code>
+""
+""### Example
+""Skeleton to copy/paste for writing simple completions.
+""
+""Assume a program <code>foo</code> with the following interface:
+""<code>bash ""foo -c green|red|blue -s low|high -f &lt;file&gt; -h ""</code>
+""
+""The completion handler could be implemented as follows:
+""<code>bash ""function _foo() { ""    local curr=$2 ""    local prev=$3 "" ""    local opts="-c -s -f -h" ""    case $prev in ""        -c) COMPREPLY=( $(compgen -W "green red blue" -- $curr) );; ""        -s) COMPREPLY=( $(compgen -W "low high" -- $curr) );; ""        -f) COMPREPLY=( $(compgen -f -- $curr) );; ""        *)  COMPREPLY=( $(compgen -W "$opts" -- $curr) );; ""    esac ""} "" ""complete -F _foo foo ""</code>
+""
+""[dup2]: http://man7.org/linux/man-pages/man2/dup.2.html
+""[psub]: https://tldp.org/LDP/abs/html/process-sub.html</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fish"><a class="header" href="#fish">fish</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cli-foo"><a class="header" href="#cli-foo">CLI foo</a></h1>
 <ul>
 <li><a href="cli/./awk.html">awk</a></li>
@@ -996,7 +755,6 @@ status -f              # abs path of current file
 <li><a href="cli/./sort.html">sort</a></li>
 <li><a href="cli/./tr.html">tr</a></li>
 <li><a href="cli/./tac.html">tac</a></li>
-<li><a href="cli/./rev.html">rev</a></li>
 <li><a href="cli/./paste.html">paste</a></li>
 <li><a href="cli/./xargs.html">xargs</a></li>
 <li><a href="cli/./grep.html">grep</a></li>
@@ -1094,6 +852,7 @@ but this is a function and return value can be assigned to a variable.</p>
 <li><code>%S</code> second (00-59)</li>
 <li><code>%T</code> alias for <code>%H:%M:%S</code></li>
 </ul>
+<p>awk 'BEGIN { print strftime("%Y-%m-%d %H:%M:%S")  }'</p>
 </li>
 <li>
 <p><code>S ~ R</code>, <code>S !~ R</code></p>
@@ -1131,6 +890,9 @@ in the range <em>inclusive</em>.</p>
 <pre><code class="language-bash">echo 'a b c d e f' | awk '{ print $NF $(NF-1) }'
 </code></pre>
 <p>Access last fields with arithmetic on the <code>NF</code> number of fields variable.</p>
+<h3 id="dont-show-some-fields"><a class="header" href="#dont-show-some-fields">Don't show some fields</a></h3>
+<pre><code class="language-bash">echo 'a b c d e f' | awk '{ $2 = ""; print $0 }'
+</code></pre>
 <h3 id="split-on-multiple-tokens"><a class="header" href="#split-on-multiple-tokens">Split on multiple tokens</a></h3>
 <pre><code class="language-bash">echo 'a,b;c:d' | awk -F'[,;:]' '{ printf "1=%s | 4=%s\n", $1, $4 }'
 </code></pre>
@@ -1285,6 +1047,9 @@ echo -e 'aafooaa\ncc' | sed 's/foo/MOOSE/'
 # BAR
 # bar
 </code></pre>
+<h3 id="replace-recursively"><a class="header" href="#replace-recursively">Replace recursively</a></h3>
+<pre><code class="language-sh">grep -rl oldtext . | xargs sed -i 's/oldtext/newtext/g'
+</code></pre>
 <h3 id="edit-inplace-through-symlink"><a class="header" href="#edit-inplace-through-symlink">Edit inplace through symlink</a></h3>
 <pre><code class="language-sh">touch file
 ln -s file link
@@ -1414,7 +1179,7 @@ echo -e 'a1 a2\nb1 b2\nc1 c2\nd1 d2' | paste - -
     -I &lt;str&gt;     replace &lt;str&gt; in the [init-args] with the arg;
                  this implies -l, and hence processes one arg at a time
 </code></pre>
-<h2 id="example-4"><a class="header" href="#example-4">Example</a></h2>
+<h2 id="example-3"><a class="header" href="#example-3">Example</a></h2>
 <p>Collect arguments and prefix them with another option.</p>
 <pre><code class="language-sh"># Using -l to process one arg at a time.
 eval strace -f (find /dev -name 'std*' | xargs -l echo -P | xargs) ls
@@ -1426,7 +1191,7 @@ eval strace -f (find /dev -name 'std*' | xargs -I {} echo -P {}) ls
 #   eval strace -f -P /dev/stdin -P /dev/stdout -P /dev/stderr ls
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="grep1"><a class="header" href="#grep1">grep(1)</a></h1>
-<pre><code>sort [opts] [pattern] [files]
+<pre><code>grep [opts] [pattern] [files]
     -e &lt;pattern&gt;        pattern to search for (can be supplied multiple times)
     -i                  ignore case in patterns
     -v                  invert match
@@ -1473,21 +1238,37 @@ exec modifier characters <code>;</code> and <code>+</code> also may need to be e
 
 &gt; find . -maxdepth 1 -type d -exec echo x {} +
 # x . ./.github ./book ./src ./.git ./docs
+
+&gt; find . -type f -not -name '*005*' -exec rm {} \;
+# remove all files not containing '005' in filename
+
+&gt; find . -type f -exec ls -s {} \; | sort -n -r | head -1
+# list file with largest size
+
+&gt; find ./ -maxdepth 2 -type f | wc -l
+# count files in current and subdirectories
+
+&gt; find . -type f -name 'foo' -exec rename 's/foo/bar/g' {} \;
+# rename all files named 'foo' to 'bar'
+
+&gt; find . -type f -mtime -1
+# list files modified in the last 24 hours
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tools"><a class="header" href="#tools">Tools</a></h1>
 <ul>
-<li><a href="tools/./tmux.html">tmux</a></li>
-<li><a href="tools/./screen.html">screen</a></li>
-<li><a href="tools/./emacs.html">emacs</a></li>
-<li><a href="tools/./gpg.html">gpg</a></li>
-<li><a href="tools/./radare2.html">radare2</a></li>
+<li><a href="tools/./tmux.html">tmux</a>
+&lt;-- <a href="tools/./screen.html">screen</a> --&gt;
+&lt;-- <a href="tools/./emacs.html">emacs</a> --&gt;</li>
+<li><a href="tools/./rpm.html">rpm</a></li>
+<li><a href="tools/./gpg.html">gpg</a>
+&lt;-- <a href="tools/./radare2.html">radare2</a> --&gt;</li>
 <li><a href="tools/./qemu.html">qemu</a></li>
-<li><a href="tools/./pacman.html">pacman</a></li>
-<li><a href="tools/./dot.html">dot</a></li>
-<li><a href="tools/./ffmpeg.html">ffmpeg</a></li>
-<li><a href="tools/./gnuplot.html">gnuplot</a></li>
-<li><a href="tools/./restic.html">restic</a></li>
-<li><a href="tools/./qrencode.html">qrencode</a></li>
+<li><a href="tools/./pacman.html">pacman</a>
+&lt;-- <a href="tools/./dot.html">dot</a> --&gt;
+&lt;-- <a href="tools/./ffmpeg.html">ffmpeg</a> --&gt;</li>
+<li><a href="tools/./gnuplot.html">gnuplot</a>
+&lt;-- <a href="tools/./restic.html">restic</a> --&gt;
+&lt;-- <a href="tools/./qrencode.html">qrencode</a> --&gt;</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tmux1"><a class="header" href="#tmux1">tmux(1)</a></h1>
 <p>Terminology:</p>
@@ -1602,7 +1383,7 @@ screen -L
 # Enable log and set logfile name.
 screen -L -Logfile out.txt
 </code></pre>
-<h2 id="keymaps-1"><a class="header" href="#keymaps-1">Keymaps</a></h2>
+<h2 id="keymaps"><a class="header" href="#keymaps">Keymaps</a></h2>
 <pre><code class="language-sh">Ctrl-A d            # Detach from session.
 Ctrl-A + \          # Terminate session.
 Ctrl-A + :          # Open cmand prompt.
@@ -2210,7 +1991,7 @@ lsblk -f /dev/sda
 # Freeze guest CPU at startup and wait for debugger connection.
 -S
 </code></pre>
-<h2 id="io-redirection-2"><a class="header" href="#io-redirection-2">IO redirection</a></h2>
+<h2 id="io-redirection-1"><a class="header" href="#io-redirection-1">IO redirection</a></h2>
 <pre><code class="language-bash"># Create raw tcp server for `serial IO` and wait until a client connects
 # before executing the guest.
 -serial tcp:localhost:12345,server,wait
@@ -2603,6 +2384,7 @@ qrencode -t png -o wifi.png 'WIFI:S:&lt;wifiname&gt;;T:WPA2;P:&lt;wifipasswd&gt;
 <li><a href="process/./lsof.html">lsof</a></li>
 <li><a href="process/./pidstat.html">pidstat</a></li>
 <li><a href="process/./pgrep.html">pgrep</a></li>
+<li><a href="process/./proc.html">proc</a></li>
 <li><a href="process/./ps.html">ps</a></li>
 <li><a href="process/./pmap.html">pmap</a></li>
 <li><a href="process/./pstack.html">pstack</a></li>
@@ -2773,7 +2555,7 @@ taskset -ac 0-2,4 CMD [ARGS]
 # Pin all tasks of running PID onto cores 0,2,4.
 taskset -ac 0-5:2 -p PID
 </code></pre>
-<h3 id="example-5"><a class="header" href="#example-5">Example</a></h3>
+<h3 id="example-4"><a class="header" href="#example-4">Example</a></h3>
 <p>Utility script to extract cpu lists grouped by the last-level-cache.</p>
 <pre><code class="language-python">import subprocess
 
@@ -2824,12 +2606,12 @@ renice -n 5 -p PID
 <li><a href="trace_profile/./time.html">time</a></li>
 <li><a href="trace_profile/./strace.html">strace</a></li>
 <li><a href="trace_profile/./ltrace.html">ltrace</a></li>
-<li><a href="trace_profile/./perf.html">perf</a></li>
-<li><a href="trace_profile/./oprofile.html">OProfile</a></li>
-<li><a href="trace_profile/./callgrind.html">callgrind</a></li>
+<li><a href="trace_profile/./perf.html">perf</a>
+&lt;-- <a href="trace_profile/./oprofile.html">OProfile</a> --&gt;
+&lt;-- <a href="trace_profile/./callgrind.html">callgrind</a> --&gt;</li>
 <li><a href="trace_profile/./valgrind.html">valgrind</a></li>
-<li><a href="trace_profile/./vtune.html">vtune</a></li>
-<li><a href="trace_profile/./tracy.html">tracy</a></li>
+<li><a href="trace_profile/./vtune.html">vtune</a>
+&lt;-- <a href="trace_profile/./tracy.html">tracy</a> --&gt;</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usrbintime1"><a class="header" href="#usrbintime1">/usr/bin/time(1)</a></h1>
 <pre><code class="language-markdown"># statistics of process run
@@ -2887,7 +2669,7 @@ renice -n 5 -p PID
                 (can be of form sym_pattern@lib_pattern)
   -n &lt;num&gt;      number of spaces to indent nested calls
 </code></pre>
-<h1 id="example-6"><a class="header" href="#example-6">Example</a></h1>
+<h1 id="example-5"><a class="header" href="#example-5">Example</a></h1>
 <p>List which program/libs call into <code>libstdc++</code>:</p>
 <pre><code class="language-bash">ltrace -l '*libstdc++*' -C -o ltrace.log ./main
 </code></pre>
@@ -3287,7 +3069,7 @@ and providing a sampling profiler.</p>
 tracy-capture -o file [-f] [-p port]
     -f   overwrite &lt;file&gt; if it exists
 </code></pre>
-<h2 id="example-7"><a class="header" href="#example-7">Example</a></h2>
+<h2 id="example-6"><a class="header" href="#example-6">Example</a></h2>
 <p>The example showcases different cases:</p>
 <ol>
 <li>Use tracy from a single binary. In that case the <code>TracyClient.cpp</code> can be
@@ -3502,7 +3284,7 @@ distclean:
 <blockquote>
 <p>Find <code>get-tracy.sh</code> <a href="https://github.com/johannst/notes/blob/master/src/trace_profile/tracy/get-tracy.sh">here</a>.</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="debug-1"><a class="header" href="#debug-1">Debug</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="debug"><a class="header" href="#debug">Debug</a></h1>
 <ul>
 <li><a href="debug/./gdb.html">gdb</a></li>
 <li><a href="debug/./gdbserver.html">gdbserver</a></li>
@@ -4000,7 +3782,7 @@ $MOOSE=moose
       host:port
       tty
 </code></pre>
-<h2 id="example-8"><a class="header" href="#example-8">Example</a></h2>
+<h2 id="example-7"><a class="header" href="#example-7">Example</a></h2>
 <pre><code class="language-markdown"># Start gdbserver.
 gdbserver localhost:1234 /bin/ls
 
@@ -6367,7 +6149,7 @@ link time <code>-lgcov</code>.</p>
 generated for a single file for example such as</p>
 <pre><code class="language-shell">gcov &lt;SRC FILE | OBJ FILE&gt;
 </code></pre>
-<h2 id="example-9"><a class="header" href="#example-9">Example</a></h2>
+<h2 id="example-8"><a class="header" href="#example-8">Example</a></h2>
 <pre><code class="language-cpp">#include &lt;cstdio&gt;
 
 void tell_me(int desc) {
@@ -7273,7 +7055,7 @@ cpupower -c all frequency-info -g
 # Change frequency governor to POWERSAVE (eg).
 cpupower -c all frequency-set -g powersave
 </code></pre>
-<h2 id="example-10"><a class="header" href="#example-10">Example</a></h2>
+<h2 id="example-9"><a class="header" href="#example-9">Example</a></h2>
 <p>Watch cpu frequency.</p>
 <pre><code class="language-sh">watch -n1 "cpupower -c all frequency-info -f -m | xargs -n2 -d'\n'"
 </code></pre>
@@ -7388,7 +7170,7 @@ locally and <code>-R</code> means that requests are issued remotely.</p>
 drop into shell)</li>
 <li><code>-f</code> run <code>ssh</code> command in the background</li>
 </ul>
-<h3 id="example-11"><a class="header" href="#example-11">Example</a></h3>
+<h3 id="example-10"><a class="header" href="#example-10">Example</a></h3>
 <pre><code class="language-sh"># Forward requests on localhost:8080 to moose:1234 and keep ssh in forground
 # but dont drop into a shell.
 ssh -N -L 8080:1234 moose
@@ -9215,7 +8997,7 @@ spsr_el3    saved process status register EL3
 <p>Writing to system registers:</p>
 <pre><code class="language-armasm">msr vbar_el1, x0      // move x0 into vbar_el1
 </code></pre>
-<h3 id="control-flow-1"><a class="header" href="#control-flow-1">Control Flow</a></h3>
+<h3 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h3>
 <pre><code class="language-armasm">b &lt;offset&gt;    // relative forward/back branch
 br &lt;Xn&gt;       // absolute branch to address in register Xn
 
@@ -9440,7 +9222,7 @@ bits  desc
 <p>Writing to system registers:</p>
 <pre><code class="language-armasm">msr cpsr, r0      // move r0 into cpsr
 </code></pre>
-<h3 id="control-flow-2"><a class="header" href="#control-flow-2">Control Flow</a></h3>
+<h3 id="control-flow-1"><a class="header" href="#control-flow-1">Control Flow</a></h3>
 <pre><code class="language-armasm">b &lt;lable&gt;     // relative forward/back branch
 bl &lt;lable&gt;    // relative forward/back branch &amp; link return addr in r14 (LR)
 
