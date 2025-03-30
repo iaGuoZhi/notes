@@ -9,5 +9,5 @@ The notes are rendered using [`rust-lang/mdBook`][mdbook].
 ## Licese
 This project is licensed under the [MIT](LICENSE) license.
 
-[notes]: https://johannst.github.io/notes
+[notes]: https://iaguozhi.github.io/notes
 [mdbook]: https://github.com/rust-lang/mdBook
