@@ -6332,6 +6332,11 @@ locally and <code>-R</code> means that requests are issued remotely.</p>
 <li><code>-N</code> just stop before running the command on the remote side (w/o cmd dont
 drop into shell)</li>
 <li><code>-f</code> run <code>ssh</code> command in the background</li>
+<li><code>-J</code> jump host (useful for multi-hop connections)</li>
+<li><code>-D</code> dynamic port forwarding (SOCKS proxy)</li>
+<li><code>-X</code> enable X11 forwarding, useful for GUI applicationsA</li>
+<li><code>-N</code> do not execute a remote command</li>
+<li><code>-P</code></li>
 </ul>
 <h3 id="example-9"><a class="header" href="#example-9">Example</a></h3>
 <pre><code class="language-sh"># Forward requests on localhost:8080 to moose:1234 and keep ssh in forground
@@ -6376,6 +6381,23 @@ host moose
     port 8022
     hostname 1.2.3.4
     identityfile ~/.ssh/some-key
+
+Host r100-wfh
+   HostName r100
+   ProxyCommand ssh name@gatewayip -W %h:%p 2&gt;/dev/null
+
+Host lab-out
+    Hostname gatewayip
+    Port 6666
+    LocalForward 8082 localhost:8082
+    DynamicForward 12345
+</code></pre>
+<p>Copy files by ssh tunnel.</p>
+<pre><code class="language-sh"># First, open the tunnel
+ssh -L 1234:remote2:22 -p 45678 user1@remote1
+
+# Then, use the tunnel to copy the file directly from remote2
+scp -P 1234 user2@localhost:file .
 </code></pre>
 <p>Pattern matching and evaluation order.</p>
 <pre><code class="language-nginx"># For parameters, the first valued obtained will be used.
@@ -6396,6 +6418,7 @@ hoste tree*
 <pre><code class="language-markdown">ss [option] [filter]
 </code></pre>
 <pre><code class="language-markdown">[option]
+  -a ..... Show all sockets
   -p ..... Show process using socket
   -l ..... Show sockets in listening state
   -4/-6 .. Show IPv4/6 sockets
