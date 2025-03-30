@@ -14,6 +14,7 @@
     - [sort](./cli/sort.md)
     - [tr](./cli/tr.md)
     - [tac](./cli/tac.md)
+    - [tar](./cli/tar.md)
     - [paste](./cli/paste.md)
     - [xargs](./cli/xargs.md)
     - [grep](./cli/grep.md)
