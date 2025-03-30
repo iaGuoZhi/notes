@@ -23,10 +23,20 @@ tcp/udp/icmp            Filter for protocol.
 
 # Examples
 
+## Capture packets on a device
+
+```
+# check a device has traffic
+tcpdump -i eth0
+```
+
 ## Capture packets from remote host
 
 ```makrdown
 # -k: Start capturing immediately.
 ssh <host> tcpdump -i any -w - | sudo wireshark -k -i -
 ```
+
+
+
 > The `any` interface is a special keyword to capture traffic on all interfaces.
