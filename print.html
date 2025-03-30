@@ -2316,6 +2316,9 @@ int main() {
 #     1.031.075.940      cycles
 #     4.103.534.341      instructions       #    3,98  insn per cycle
 </code></pre>
+<pre><code># Show AVX events on all cores
+perf stat -e r0728 -e r1828 -e r2028 -e r4028 -a -l 1000
+</code></pre>
 <h3 id="caller-vs-callee-callstacks"><a class="header" href="#caller-vs-callee-callstacks">Caller vs callee callstacks</a></h3>
 <p>The following gives an example for a scenario where we have the following calls</p>
 <ul>
