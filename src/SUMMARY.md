@@ -65,6 +65,7 @@
     - [gcc](./development/gcc.md)
     - [gas](./development/gas.md)
     - [git](./development/git.md)
+    - [vim](./development/vim.md)
     - [cmake](./development/cmake.md)
     - [make](./development/make.md)
     - [ld.so](./development/ld.so.md)
