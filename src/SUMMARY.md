@@ -5,7 +5,6 @@
 - [Shells](./shells/README.md)
     - [zsh](./shells/zsh.md)
     - [bash](./shells/bash.md)
-<---    - [fish](./shells/fish.md) --->
 
 - [CLI foo](./cli/README.md)
     - [awk](./cli/awk.md)

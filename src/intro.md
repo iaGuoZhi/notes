@@ -2,4 +2,4 @@
 
 A personal collection of notes and cheatsheets.
 
-Source code is located at [johannst/notes](https://github.com/johannst/notes).
+Source code is located at [iaguozhi/notes](https://github.com/iaguozhi/notes).
