@@ -45,6 +45,11 @@ The following flags are useful for setting up ssh tunnels:
 - `-N` just stop before running the command on the remote side (w/o cmd dont
   drop into shell)
 - `-f` run `ssh` command in the background
+- `-J` jump host (useful for multi-hop connections)
+- `-D` dynamic port forwarding (SOCKS proxy)
+- `-X` enable X11 forwarding, useful for GUI applicationsA
+- `-N` do not execute a remote command
+- `-P`
 
 
 ### Example
@@ -93,6 +98,25 @@ host moose
     port 8022
     hostname 1.2.3.4
     identityfile ~/.ssh/some-key
+
+Host r100-wfh
+   HostName r100
+   ProxyCommand ssh name@gatewayip -W %h:%p 2>/dev/null
+
+Host lab-out
+    Hostname gatewayip
+    Port 6666
+    LocalForward 8082 localhost:8082
+    DynamicForward 12345
+```
+
+Copy files by ssh tunnel.
+```sh
+# First, open the tunnel
+ssh -L 1234:remote2:22 -p 45678 user1@remote1
+
+# Then, use the tunnel to copy the file directly from remote2
+scp -P 1234 user2@localhost:file .
 ```
 
 Pattern matching and evaluation order.

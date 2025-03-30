@@ -6,6 +6,7 @@ ss [option] [filter]
 
 ```markdown
 [option]
+  -a ..... Show all sockets
   -p ..... Show process using socket
   -l ..... Show sockets in listening state
   -4/-6 .. Show IPv4/6 sockets
