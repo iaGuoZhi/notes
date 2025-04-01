@@ -80,6 +80,7 @@
     - [ptrace_scope](./linux/ptrace_scope.md)
     - [cryptsetup](./linux/cryptsetup.md)
     - [swap](./linux/swap.md)
+    - [signal](./linux/signal.md)
     - [input](./linux/input.md)
     - [acl](./linux/acl.md)
     - [zfs](./linux/zfs.md)
