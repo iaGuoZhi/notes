@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>ip - Notes</title>
+        <title>signal - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -158,26 +158,31 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ip1"><a class="header" href="#ip1">ip(1)</a></h1>
-<h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
-<pre><code>ip addr add 192.168.1.100/24 dev eth0
-ip route add default via 192.168.0.100
-ip link set eth0 up
-</code></pre>
-<h1 id="nmcli"><a class="header" href="#nmcli">nmcli</a></h1>
-<pre><code>nmcli con up
-vim /etc/networkManager/system-connections
+                        <h1 id="signal"><a class="header" href="#signal">signal</a></h1>
+<h2 id="signal-numbers"><a class="header" href="#signal-numbers">signal numbers</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Signal</th><th>Value</th><th>Action</th><th>Comment</th></tr></thead><tbody>
+<tr><td>SIGHUP</td><td>1</td><td>Term</td><td>Hangup detected on controlling terminal or death of controlling process</td></tr>
+<tr><td>SIGINT</td><td>2</td><td>Term</td><td>Interrupt from keyboard</td></tr>
+<tr><td>SIGKILL</td><td>9</td><td>Term</td><td>Kill signal</td></tr>
+<tr><td>SIGTERM</td><td>15</td><td>Term</td><td>Termination signal</td></tr>
+<tr><td>SIGSTOP</td><td>17,19</td><td>Stop</td><td>Stop the process</td></tr>
+<tr><td>SIGCONT</td><td>18,25</td><td>Cont</td><td>Continue the process if stopped</td></tr>
+</tbody></table>
+</div>
+<h2 id="signal-handling"><a class="header" href="#signal-handling">signal handling</a></h2>
+<p>trap command can be used to catch signals and run a command when a signal is received.</p>
+<pre><code class="language-bash">trap 'echo "Caught signal"' SIGINT
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../network/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../linux/swap.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../network/ssh.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../linux/input.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -187,11 +192,11 @@ vim /etc/networkManager/system-connections
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../network/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../linux/swap.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../network/ssh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../linux/input.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
