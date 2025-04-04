@@ -6349,6 +6349,10 @@ cupsreject PRINTER
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rescue"><a class="header" href="#rescue">rescue</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="grub"><a class="header" href="#grub">grub</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mount"><a class="header" href="#mount">mount</a></h1>
+<pre><code>mount ramfs -t ramfs -o size=1G,mode=0755 /mnt/ramfs # mount a ramfs filesystem
+mount hugetlbfs -t hugetlbfs -o pagesize=2M /mnt/hugepages # mount a hugetlbfs filesystem
+mount -t nfs 192.168.0.100:/mnt/nfs /mnt/nfs # mount a nfs filesystem
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="network-1"><a class="header" href="#network-1">Network</a></h1>
 <ul>
 <li><a href="network/./ssh.html">ssh</a></li>
