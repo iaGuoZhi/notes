@@ -159,6 +159,42 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="vim1"><a class="header" href="#vim1">vim(1)</a></h1>
+<h2 id="vim-basic"><a class="header" href="#vim-basic">vim basic</a></h2>
+<h3 id="tab"><a class="header" href="#tab">tab</a></h3>
+<pre><code class="language-sh">set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+</code></pre>
+<h3 id="window-management"><a class="header" href="#window-management">window management</a></h3>
+<pre><code class="language-sh">map sl :set splitright&lt;CR&gt;:vsplit&lt;CR&gt;
+map sh :set nosplitright&lt;CR&gt;:vsplit&lt;CR&gt;
+map sk :set nosplitbelow&lt;CR&gt;:split&lt;CR&gt;
+map sj :set splitbelow&lt;CR&gt;:split&lt;CR&gt;
+map &lt;LEADER&gt;L :wincmd =&lt;CR&gt;
+
+map &lt;up&gt; :res +5&lt;CR&gt;
+map &lt;down&gt; :res -5&lt;CR&gt;
+map &lt;left&gt; :vertical resize-5&lt;CR&gt;
+map &lt;right&gt; :vertical resize+5&lt;CR&gt;
+
+map &lt;LEADER&gt;l &lt;C-w&gt;l
+map &lt;LEADER&gt;h &lt;C-w&gt;h
+map &lt;LEADER&gt;k &lt;C-w&gt;k
+map &lt;LEADER&gt;j &lt;C-w&gt;j
+</code></pre>
+<h3 id="misc"><a class="header" href="#misc">misc</a></h3>
+<pre><code>= # format
+</code></pre>
+<h2 id="vim-plugins"><a class="header" href="#vim-plugins">vim plugins</a></h2>
+<h3 id="lsp"><a class="header" href="#lsp">lsp</a></h3>
+<pre><code># with network
+LspInstallServer &lt;server&gt;
+# without external network
+yum -y install clangd
+pip install python-lsp-server
+npm install -g bash-language-server
+</code></pre>
 
                     </main>
 
