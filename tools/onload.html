@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>riscv - Notes</title>
+        <title>onload - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -158,94 +158,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="riscv"><a class="header" href="#riscv">riscv</a></h1>
-<p>keywords: rv32, rv64</p>
-<ul>
-<li>ISA type: <code>RISC</code></li>
-<li>Endianness: <code>little</code>, <code>big</code></li>
-</ul>
-<h2 id="registers"><a class="header" href="#registers">Registers</a></h2>
-<ul>
-<li>riscv32 =&gt; <code>XLEN=32</code></li>
-<li>riscv64 =&gt; <code>XLEN=64</code></li>
-</ul>
-<h3 id="general-purpose-registers"><a class="header" href="#general-purpose-registers">General purpose registers</a></h3>
-<pre><code class="language-markdown">[XLEN-1:0]     abi name     desc
----------------------------------------------
-x0             zero         zero register
-x1             ra           return addr
-x2             sp           stack ptr
-x3             gp           global ptr
-x4             tp           thread ptr
-x5-x7          t0-t2        temp regs
-x8-x9          s0-s1        saved regs
-x10-x17        a0-a7        arg regs
-x18-x27        s2-s11       saved regs
-x28-x31        t3-t6        temp regs
-</code></pre>
-<h2 id="asm-skeleton"><a class="header" href="#asm-skeleton">ASM skeleton</a></h2>
-<p>Small assembler skeleton, ready to use with following properties:</p>
-<ul>
-<li>use raw Linux syscalls (<code>man 2 syscall</code> for ABI)</li>
-<li>no <code>C runtime (crt)</code></li>
-<li>gnu assembler <a href="https://sourceware.org/binutils/docs/as"><code>gas</code></a></li>
-</ul>
-<pre><code class="language-mipsasm">// file: greet.S
-
-#include &lt;asm/unistd.h&gt;     // syscall NRs
-
-    .section .text, "ax", @progbits
-    .balign 4               // align code on 4byte boundary
-    .global _start
-_start:
-    li a0, 2                // fd
-    la a1, greeting         // buf
-    ld a2, (greeting_len)   // &amp;len
-    li a7, __NR_write       // write(2) syscall
-    ecall
-
-    li a0, 42               // exit code
-    li a7, __NR_exit        // exit(2) syscall
-    ecall
-
-    .balign 8               // align data on 8byte boundary
-    .section .rodata, "a", @progbits
-greeting:
-    .asciz "Hi ASM-World!\n"
-greeting_len:
-    .int .-greeting
-</code></pre>
-<blockquote>
-<p>man gcc: <code>file.S</code> assembler code that must be preprocessed.</p>
-</blockquote>
-<p>To cross-compile and run:</p>
-<pre><code class="language-bash">&gt; riscv64-linux-gnu-gcc -o greet greet.S -nostartfiles -nostdlib                \
-    -Wl,--dynamic-linker=/usr/riscv64-linux-gnu/lib/ld-linux-riscv64-lp64d.so.1 \
-  &amp;&amp; qemu-riscv64 ./greet
-Hi ASM-World!
-</code></pre>
-<blockquote>
-<p>Cross-compiling on <code>Ubuntu 20.04 (x86_64)</code>, paths might differ on other
-distributions. Explicitly specifying the dynamic linker should not be
-required when compiling natively on riscv.</p>
-<p>Select dynamic linker according to abi used during compile &amp; link.</p>
-</blockquote>
-<h2 id="references"><a class="header" href="#references">References</a></h2>
-<ul>
-<li><a href="https://sourceware.org/binutils/docs/as">GNU Assembler</a></li>
-<li><a href="https://sourceware.org/binutils/docs/as/Pseudo-Ops.html#Pseudo-Ops">GNU Assembler Directives</a></li>
-<li><a href="https://github.com/johannst/rv64i-linux-user-no-std">rv64i-linux-user-no-std</a></li>
-</ul>
+                        <h1 id="onload"><a class="header" href="#onload">onload</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../arch/armv7.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../tools/gnuplot.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../arch/avx.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../process/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -255,11 +178,11 @@ required when compiling natively on riscv.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../arch/armv7.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../tools/gnuplot.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../arch/avx.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../process/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
