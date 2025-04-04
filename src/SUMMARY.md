@@ -27,6 +27,7 @@
     - [qemu](./tools/qemu.md)
     - [pacman](./tools/pacman.md)
     - [gnuplot](./tools/gnuplot.md)
+    - [onload](./tools/onload.md)
 
 - [Process management & inspection](./process/README.md)
     - [lsof](./process/lsof.md)
@@ -46,6 +47,7 @@
     - [perf](./trace_profile/perf.md)
     - [valgrind](./trace_profile/valgrind.md)
     - [vtune](./trace_profile/vtune.md)
+    - [htop](./trace_profile/htop.md)
 
 - [Debug](./debug/README.md)
     - [gdb](./debug/gdb.md)
@@ -86,6 +88,10 @@
     - [zfs](./linux/zfs.md)
     - [cpufreq](./linux/cpufreq.md)
     - [cups](./linux/cups.md)
+    - [efi](./linux/efi.md)
+    - [rescue](./linux/rescue.md)
+    - [grub](./linux/grub.md)
+    - [mount](./linux/mount.md)
 
 - [Network](./network/README.md)
     - [ip](./network/ip.md)
@@ -109,3 +115,4 @@
     - [arm64](./arch/arm64.md)
     - [armv7](./arch/armv7.md)
     - [riscv](./arch/riscv.md)
+    - [avx](./arch/avx.md)
