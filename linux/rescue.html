@@ -159,6 +159,38 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="rescue"><a class="header" href="#rescue">rescue</a></h1>
+<h2 id="entering-the-rescue"><a class="header" href="#entering-the-rescue">Entering the Rescue</a></h2>
+<p>Add below kernel parameters in edit mode of GRUB:</p>
+<pre><code class="language-bash">init=/bin/bash
+or
+systemd.unit=rescue.target
+</code></pre>
+<h2 id="basic-commands"><a class="header" href="#basic-commands">Basic Commands</a></h2>
+<h3 id="module-management"><a class="header" href="#module-management">Module management</a></h3>
+<pre><code class="language-bash">insmod part_gpt     # for GPT disks
+insmod efi_gop      # UEFI graphics
+insmod chain        # Windows boot
+</code></pre>
+<h3 id="file-system-repair"><a class="header" href="#file-system-repair">File system repair</a></h3>
+<pre><code class="language-bash">fsck -y /dev/sda1
+mount -o remount,rw /
+</code></pre>
+<h3 id="grub-reinstall"><a class="header" href="#grub-reinstall">Grub reinstall</a></h3>
+<pre><code class="language-bash">chroot /mnt # use Live CD
+grub-install /dev/sda
+update-grub
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">mount /dev/nvme0n1p1 /mnt
+mount /dev/nvme0n1p2 /mnt/boot
+grub-install --target=x86_64-efi --efi-directory=/mnt/boot --bootloader-id=GRUB
+grub-mkconfig -o /mnt/boot/grub/grub.cfg
+</code></pre>
+<h3 id="network-configuration"><a class="header" href="#network-configuration">Network configuration</a></h3>
+<pre><code class="language-bash">ip link set eth0 up
+ip addr add 192.168.1.100/24 dev eth0
+ip route add default via 192.168.1.1
+</code></pre>
 
                     </main>
 
