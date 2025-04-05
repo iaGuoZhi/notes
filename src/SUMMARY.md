@@ -88,7 +88,7 @@
     - [zfs](./linux/zfs.md)
     - [cpufreq](./linux/cpufreq.md)
     - [cups](./linux/cups.md)
-    - [efi](./linux/efi.md)
+    - [efi](./linux/uefi.md)
     - [rescue](./linux/rescue.md)
     - [grub](./linux/grub.md)
     - [mount](./linux/mount.md)
