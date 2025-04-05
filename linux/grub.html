@@ -158,7 +158,54 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="grub"><a class="header" href="#grub">grub</a></h1>
+                        <h1 id="grub"><a class="header" href="#grub">Grub</a></h1>
+<h2 id="basic-commands"><a class="header" href="#basic-commands">Basic Commands</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>help</code></td><td>List all available commands</td></tr>
+<tr><td><code>help &lt;command&gt;</code></td><td>Show help for a specific command</td></tr>
+<tr><td><code>ls</code></td><td>List all disks and partitions</td></tr>
+<tr><td><code>ls (hdX,Y)</code></td><td>Inspect filesystem on partition</td></tr>
+<tr><td><code>set</code></td><td>View/set environment variables</td></tr>
+<tr><td><code>insmod</code></td><td>Load module (e.g., ext2, ntfs)</td></tr>
+<tr><td><code>reboot</code></td><td>Reboot the system</td></tr>
+</tbody></table>
+</div>
+<h2 id="device--filesystem"><a class="header" href="#device--filesystem">Device &amp; Filesystem</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>ls -l</code></td><td>Detailed device listing</td></tr>
+<tr><td><code>cat (hdX,Y)/path/file</code></td><td>View file contents</td></tr>
+<tr><td><code>loopback</code></td><td>Mount ISO image files</td></tr>
+</tbody></table>
+</div>
+<h2 id="boot-commands"><a class="header" href="#boot-commands">Boot Commands</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>linux</code>/<code>linux16</code>/<code>linuxefi</code></td><td>Load Linux kernel</td></tr>
+<tr><td><code>initrd</code></td><td>Load initramfs image</td></tr>
+<tr><td><code>chainloader</code></td><td>Chainload another bootloader</td></tr>
+<tr><td><code>boot</code></td><td>Boot the loaded system</td></tr>
+</tbody></table>
+</div>
+<h2 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Variable</th><th>Purpose</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>root</code></td><td>Set root partition</td><td><code>set root=(hd0,gpt2)</code></td></tr>
+<tr><td><code>prefix</code></td><td>Set GRUB directory path</td><td><code>set prefix=(hd0,gpt1)/boot/grub</code></td></tr>
+<tr><td><code>default</code></td><td>Default boot entry</td><td><code>set default=0</code></td></tr>
+<tr><td><code>timeout</code></td><td>Timeout in seconds</td><td><code>set timeout=5</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="practical-examples"><a class="header" href="#practical-examples">Practical Examples</a></h2>
+<pre><code class="language-grub"># Typical Linux boot sequence
+set root=(hd0,gpt2)
+linux /vmlinuz root=/dev/sda2 ro
+initrd /initramfs.img
+boot
+
+# Boot from ISO file
+loopback loop /path/to/image.iso
+linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=/image.iso
+initrd (loop)/casper/initrd
+boot
+</code></pre>
 
                     </main>
 
