@@ -158,7 +158,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="avx"><a class="header" href="#avx">avx</a></h1>
+                        <h1 id="avx"><a class="header" href="#avx">AVX</a></h1>
+<h2 id="detect-avx"><a class="header" href="#detect-avx">Detect AVX</a></h2>
+<p>objdump -d ./a.out | grep -i "xmm|ymm|zmm"</p>
+<h2 id="compile-with-avx"><a class="header" href="#compile-with-avx">Compile with AVX</a></h2>
+<pre><code class="language-sh">g++ -mavx2 -o a.out a.cpp
+</code></pre>
+<h2 id="compile-without-avx"><a class="header" href="#compile-without-avx">Compile without AVX</a></h2>
+<pre><code class="language-sh">g++ -mno-avx -mno-avx2 -o a.out a.cpp
+</code></pre>
+<h2 id="trace-avx-usage"><a class="header" href="#trace-avx-usage">Trace AVX usage</a></h2>
+<pre><code>perf stat -e r0728 -e r1828 -e r2028 -e r4028 -a -l 1000
+</code></pre>
 
                     </main>
 
