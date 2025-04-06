@@ -28,4 +28,5 @@ major_pagefault: Happens when the page needed is NOT in memory, the kernel
 # I/O statistics
 ```markdown
 pidstat -d -p <pid> [interval] [count]
+pidstat -d 1
 ```
