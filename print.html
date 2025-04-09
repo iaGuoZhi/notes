@@ -6535,6 +6535,19 @@ boot
 mount hugetlbfs -t hugetlbfs -o pagesize=2M /mnt/hugepages # mount a hugetlbfs filesystem
 mount -t nfs 192.168.0.100:/mnt/nfs /mnt/nfs # mount a nfs filesystem
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ipmitool"><a class="header" href="#ipmitool">ipmitool</a></h1>
+<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
+<pre><code># Check power supply status
+ipmitool sensors
+
+# List ILO network
+ipmitool lan print 1
+
+# Set ILO network
+ipmitool lan set 1 ipaddr 192.168.10.10
+ipmitool lan set 1 netmask 255.255.255.0
+ipmitool lan set 1 defgw ipaddr 192.168.10.11
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="network-1"><a class="header" href="#network-1">Network</a></h1>
 <ul>
 <li><a href="network/./ssh.html">ssh</a></li>
