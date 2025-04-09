@@ -159,6 +159,27 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="cache"><a class="header" href="#cache">cache</a></h1>
+<h2 id="tldr-cache-info-in-linux"><a class="header" href="#tldr-cache-info-in-linux">TLDR: Cache info in Linux</a></h2>
+<pre><code class="language-sh"># Info about different caches (size, ways, sets, type, ..).
+lscpu -C
+# NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL SETS PHY-LINE COHERENCY-SIZE
+# L1d       32K     128K    8 Data            1   64        1             64
+# L1i       32K     128K    8 Instruction     1   64        1             64
+# L2       256K       1M    4 Unified         2 1024        1             64
+# L3         6M       6M   12 Unified         3 8192        1             64
+
+# Info about how caches are shared between cores / hw-threads. Identified by
+# the same cache ids on the same level.
+lscpu -e
+# CPU  CORE  L1d:L1i:L2:L3  ONLINE
+#   0     0  0:0:0:0           yes
+#   1     1  1:1:1:0           yes
+#   4     0  0:0:0:0           yes
+#   5     1  1:1:1:0           yes
+#
+# =&gt; CPU 0,4 share L1d, L1i, L2 caches (here two hw-threads of a core).
+</code></pre>
+<h2 id="cache-overview"><a class="header" href="#cache-overview">Cache overview</a></h2>
 <p>Caches are organized by the following components</p>
 <ul>
 <li><code>sets</code></li>
@@ -393,26 +414,6 @@ CACHE SETS : 2^CACHE INDEX = 64 sets
 </code></pre>
 <p>The total cache size can be increased by adding additional ways, however that
 also has a practical upper limit, as adding more ways reduces the latency.</p>
-<h2 id="cache-info-in-linux"><a class="header" href="#cache-info-in-linux">Cache info in Linux</a></h2>
-<pre><code class="language-sh"># Info about different caches (size, ways, sets, type, ..).
-lscpu -C
-# NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL SETS PHY-LINE COHERENCY-SIZE
-# L1d       32K     128K    8 Data            1   64        1             64
-# L1i       32K     128K    8 Instruction     1   64        1             64
-# L2       256K       1M    4 Unified         2 1024        1             64
-# L3         6M       6M   12 Unified         3 8192        1             64
-
-# Info about how caches are shared between cores / hw-threads. Identified by
-# the same cache ids on the same level.
-lscpu -e
-# CPU  CORE  L1d:L1i:L2:L3  ONLINE
-#   0     0  0:0:0:0           yes
-#   1     1  1:1:1:0           yes
-#   4     0  0:0:0:0           yes
-#   5     1  1:1:1:0           yes
-#
-# =&gt; CPU 0,4 share L1d, L1i, L2 caches (here two hw-threads of a core).
-</code></pre>
 
                     </main>
 
