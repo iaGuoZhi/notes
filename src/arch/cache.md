@@ -1,5 +1,29 @@
 # cache
 
+## TLDR: Cache info in Linux
+```sh
+# Info about different caches (size, ways, sets, type, ..).
+lscpu -C
+# NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL SETS PHY-LINE COHERENCY-SIZE
+# L1d       32K     128K    8 Data            1   64        1             64
+# L1i       32K     128K    8 Instruction     1   64        1             64
+# L2       256K       1M    4 Unified         2 1024        1             64
+# L3         6M       6M   12 Unified         3 8192        1             64
+
+# Info about how caches are shared between cores / hw-threads. Identified by
+# the same cache ids on the same level.
+lscpu -e
+# CPU  CORE  L1d:L1i:L2:L3  ONLINE
+#   0     0  0:0:0:0           yes
+#   1     1  1:1:1:0           yes
+#   4     0  0:0:0:0           yes
+#   5     1  1:1:1:0           yes
+#
+# => CPU 0,4 share L1d, L1i, L2 caches (here two hw-threads of a core).
+```
+
+## Cache overview
+
 Caches are organized by the following components
 - `sets`
 - `ways`
@@ -255,24 +279,3 @@ CACHE SETS : 2^CACHE INDEX = 64 sets
 The total cache size can be increased by adding additional ways, however that
 also has a practical upper limit, as adding more ways reduces the latency.
 
-## Cache info in Linux
-```sh
-# Info about different caches (size, ways, sets, type, ..).
-lscpu -C
-# NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL SETS PHY-LINE COHERENCY-SIZE
-# L1d       32K     128K    8 Data            1   64        1             64
-# L1i       32K     128K    8 Instruction     1   64        1             64
-# L2       256K       1M    4 Unified         2 1024        1             64
-# L3         6M       6M   12 Unified         3 8192        1             64
-
-# Info about how caches are shared between cores / hw-threads. Identified by
-# the same cache ids on the same level.
-lscpu -e
-# CPU  CORE  L1d:L1i:L2:L3  ONLINE
-#   0     0  0:0:0:0           yes
-#   1     1  1:1:1:0           yes
-#   4     0  0:0:0:0           yes
-#   5     1  1:1:1:0           yes
-#
-# => CPU 0,4 share L1d, L1i, L2 caches (here two hw-threads of a core).
-```
