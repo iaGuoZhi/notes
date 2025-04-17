@@ -92,6 +92,7 @@
     - [rescue](./linux/rescue.md)
     - [grub](./linux/grub.md)
     - [mount](./linux/mount.md)
+    - [modprobe](./linux/modprobe.md)
     - [ipmitool](./linux/ipmitool.md)
 
 - [Network](./network/README.md)
