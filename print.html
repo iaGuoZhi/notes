@@ -6540,6 +6540,12 @@ boot
 mount hugetlbfs -t hugetlbfs -o pagesize=2M /mnt/hugepages # mount a hugetlbfs filesystem
 mount -t nfs 192.168.0.100:/mnt/nfs /mnt/nfs # mount a nfs filesystem
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="modprobe"><a class="header" href="#modprobe">modprobe</a></h1>
+<p>modprobe is used to install and remove kernel modules(.ko).</p>
+<p>The basic usage is below, make sure the ko files are under /lib/modules/$(uname -r)/extra or /lib/modules/$(uname -r)/updates.</p>
+<pre><code>modprobe module
+modprobe -r module
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ipmitool"><a class="header" href="#ipmitool">ipmitool</a></h1>
 <h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
 <pre><code># Check power supply status
