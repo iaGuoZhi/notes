@@ -159,10 +159,15 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="rpm1"><a class="header" href="#rpm1">rpm(1)</a></h1>
-<h2 id="rhel-package-manager"><a class="header" href="#rhel-package-manager">RHEL Package Manager</a></h2>
+<h2 id="common-usage"><a class="header" href="#common-usage">Common usage</a></h2>
 <pre><code class="language-sh">rpm -qi &lt;package&gt;    # query package info
 rpmbuild -ba &lt;spec&gt;  # build package from spec file
 rpmbuild -i &lt;src&gt;    # install source package
+</code></pre>
+<h2 id="advanced-notes"><a class="header" href="#advanced-notes">Advanced notes</a></h2>
+<pre><code>%define debug_package %{nil}
+%global kmod_requires_skip
+%global __requires_exclude ^kernel\\(i2c_bit_add_bus\\).*
 </code></pre>
 
                     </main>
