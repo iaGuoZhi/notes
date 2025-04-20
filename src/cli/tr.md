@@ -14,7 +14,7 @@ echo MoOsE | tr '[:upper:]' '[:lower:]'
 # output: moose
 ```
 
-### Replace characters
+### Replace characters(set)
 ```sh
 echo moose | tr 'o' '-'
 # output: m--se
