@@ -1264,15 +1264,7 @@ exec modifier characters <code>;</code> and <code>+</code> also may need to be e
 </ul>
 <!-- [restic](./restic.md) --->
 <!--- [qrencode](./qrencode.md) --->
-<div style="break-before: page; page-break-before: always;"></div><h1 id="tar1"><a class="header" href="#tar1">tar(1)</a></h1>
-<pre><code>tar -cf &lt;archive&gt; &lt;files&gt; # create archive
-tar -cvzf &lt;archive&gt; &lt;files&gt; # create archive with gzip compression. (tar.gz, tgz)
-tar -cvjf &lt;archive&gt; &lt;files&gt; # create archive with bzip2 compression. (tar.bz2, tbz)
-tar -xvf &lt;archive&gt; # extract archive
-tar -xvzf &lt;archive&gt; # extract archive with gzip compression
-tar -xvjf &lt;archive&gt; # extract archive with bzip2 compression
-tar -tf &lt;archive&gt; # list archive contents
-</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tar"><a class="header" href="#tar">tar</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tmux1"><a class="header" href="#tmux1">tmux(1)</a></h1>
 <p>Terminology:</p>
 <ul>
@@ -1495,14 +1487,17 @@ gpg&gt; save
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rpm1"><a class="header" href="#rpm1">rpm(1)</a></h1>
 <h2 id="common-usage"><a class="header" href="#common-usage">Common usage</a></h2>
-<pre><code class="language-sh">rpm -qi &lt;package&gt;    # query package info
+<pre><code class="language-sh">rpmdev-setuptree # create rpm build tree
 rpmbuild -ba &lt;spec&gt;  # build package from spec file
 rpmbuild -i &lt;src&gt;    # install source package
+rpm --addsign package.rpm # add signature to package
+rpm -qi &lt;package&gt;    # query package info
+rpm -ql &lt;package&gt;    # query package files
 </code></pre>
-<h2 id="advanced-notes"><a class="header" href="#advanced-notes">Advanced notes</a></h2>
+<h2 id="spec-tricks"><a class="header" href="#spec-tricks">SPEC tricks</a></h2>
 <pre><code>%define debug_package %{nil}
 %global kmod_requires_skip
-%global __requires_exclude ^kernel\\(i2c_bit_add_bus\\).*
+%global __requires_exclude ^kernel\\(i2c_bit_add_bus\\).* # Avoid false positive
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="qemu1"><a class="header" href="#qemu1">qemu(1)</a></h1>
 <p>All the examples &amp; notes use <code>qemu-system-x86_64</code> but in most cases
