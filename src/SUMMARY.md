@@ -122,3 +122,4 @@
     - [armv7](./arch/armv7.md)
     - [riscv](./arch/riscv.md)
     - [avx](./arch/avx.md)
+    - [rdmsr](./arch/rdmsr.md)
