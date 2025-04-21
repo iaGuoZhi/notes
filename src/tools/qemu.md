@@ -111,6 +111,12 @@ lsblk -f /dev/sda
   sda
   ├─sda1 ext3         ....
   └─sda2 ext4         ....
+```o
+
+To resize a `qcow2` disk:
+```bash
+# Resize disk to 20G.
+qemu-img resize disk.qcow2 +10G
 ```
 
 ### USB
@@ -254,6 +260,28 @@ qemu-system-x86_64 -monitor stdio -incoming "exec: gzip -d -c vm.gz"
 
 > The migration source machine and the migration target machine should be
 > launched with the **same** parameters.
+
+## Create VM by virsh
+
+```
+virt-install \
+    --name Ubuntu \
+    --ram 1024 \
+    --disk path=./nvme_test.img,size=8 \
+    --vcpus 8 \
+    --virt-type kvm \
+    --os-variant ubuntu18.04 \
+    --graphics none \
+    --location 'http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/' \
+    --extra-args "console=tty0 console=ttyS0,115200n8
+```
+
+## Appendix: Change the instruction set
+
+Run aarch64 program on x86_64:
+```bash
+qemu-aarch64 ./prog
+```
 
 ## Appendix: Direct `Kernel` boot
 
