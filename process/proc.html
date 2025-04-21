@@ -158,7 +158,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="proc"><a class="header" href="#proc">proc</a></h1>
+<blockquote>
+<p>procfs is a virtual file system provided by the Linux kernel to applications. It contains a large amount of information for process and system management. Here, I introduce the procfs files I have worked with.</p>
+</blockquote>
+<h2 id="procfs-files"><a class="header" href="#procfs-files">procfs files</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>cmdline</code></td><td>Kernel boot parameters. Can be modified in <code>/boot/grub/grub.cfg</code>.</td></tr>
+<tr><td><code>config.gz</code></td><td>The kernel config file, which needs to be decompressed before use.</td></tr>
+<tr><td><code>cpuinfo</code></td><td>Information about the current system’s CPUs.</td></tr>
+<tr><td><code>interrupts</code></td><td>Info about interrupts, such as user, CPU, and count. It's hard to read directly; consider using <code>python-linux-procfs</code> to parse <code>/proc/interrupts</code>.</td></tr>
+<tr><td><code>kallsyms</code></td><td>All symbols and addresses in the kernel. Requires root privileges to access addresses.</td></tr>
+<tr><td><code>loadavg</code></td><td>System load average over 1, 5, and 15 minutes. Load above 1 indicates high system usage.</td></tr>
+<tr><td><code>meminfo</code></td><td>Current memory information, including total, free, and page size breakdowns.</td></tr>
+<tr><td><code>sysrq-trigger</code></td><td>Controls sysrq actions like dumping memory, rebooting, etc. It's triggered by magic sysrq keys or by writing to this file.</td></tr>
+<tr><td><code>uptime</code></td><td>System uptime.</td></tr>
+<tr><td><code>sys</code></td><td>Kernel parameter configuration directory. Files under <code>/proc/sys</code> are controlled by <code>sysctl</code>. Note: <code>/sys</code> is for driver management.</td></tr>
+</tbody></table>
+</div>
+<h2 id="pid-files"><a class="header" href="#pid-files">pid files</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>attr</code></td><td>Only accessible with security module support (e.g., SELinux).</td></tr>
+<tr><td><code>cgroup</code></td><td>Shows the cgroup the current process belongs to.</td></tr>
+<tr><td><code>cmdline</code></td><td>Command line used to start the process.</td></tr>
+<tr><td><code>cwd</code></td><td>Symbolic link to the current working directory of the process.</td></tr>
+<tr><td><code>environ</code></td><td>All environment variables for the current process.</td></tr>
+<tr><td><code>exec</code></td><td>Symbolic link to the binary the process is executing.</td></tr>
+<tr><td><code>fd</code></td><td>A directory listing all file descriptors opened by the process.</td></tr>
+<tr><td><code>limits</code></td><td>Process limits, such as max number of open files.</td></tr>
+<tr><td><code>io</code></td><td>I/O stats including read/write bytes and network usage. Note: <code>eio</code> field may show strange values after process termination.</td></tr>
+<tr><td><code>maps</code></td><td>Memory map of the process's address space.</td></tr>
+<tr><td><code>oom_score</code></td><td>A value used by the OOM killer to prioritize which process to kill. The higher the score, the more likely it is to be killed.</td></tr>
+<tr><td><code>stat</code></td><td>Raw process metadata, including status, ownership, priority, last CPU used, etc.</td></tr>
+<tr><td><code>status</code></td><td>Human-readable version of <code>stat</code>.</td></tr>
+<tr><td><code>wchan</code></td><td>The function name in the kernel where the process is blocked.</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>Tools: You can use libraries like <code>psutil</code> or <code>python-linux-procfs</code> to parse and work with the procfs.</p>
+</blockquote>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

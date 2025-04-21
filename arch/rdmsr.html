@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>avx - Notes</title>
+        <title>rdmsr - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -158,30 +158,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="avx"><a class="header" href="#avx">AVX</a></h1>
-<h2 id="detect-avx"><a class="header" href="#detect-avx">Detect AVX</a></h2>
-<p>objdump -d ./a.out | grep -i "xmm|ymm|zmm"</p>
-<h2 id="compile-with-avx"><a class="header" href="#compile-with-avx">Compile with AVX</a></h2>
-<pre><code class="language-sh">g++ -mavx2 -o a.out a.cpp
-</code></pre>
-<h2 id="compile-without-avx"><a class="header" href="#compile-without-avx">Compile without AVX</a></h2>
-<pre><code class="language-sh">g++ -mno-avx -mno-avx2 -o a.out a.cpp
-</code></pre>
-<h2 id="trace-avx-usage"><a class="header" href="#trace-avx-usage">Trace AVX usage</a></h2>
-<pre><code>perf stat -e r0728 -e r1828 -e r2028 -e r4028 -a -l 1000
-</code></pre>
+                        <h1 id="rdmsr"><a class="header" href="#rdmsr">rdmsr</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../arch/riscv.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../arch/avx.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../arch/rdmsr.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -189,13 +175,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../arch/riscv.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../arch/avx.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../arch/rdmsr.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
