@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>pacman - Notes</title>
+        <title>pve - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -158,59 +158,27 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="pacman1"><a class="header" href="#pacman1">pacman(1)</a></h1>
-<h2 id="remote-package-repositories"><a class="header" href="#remote-package-repositories">Remote package repositories</a></h2>
-<pre><code class="language-text">pacman -Sy              refresh package database
-pacman -S &lt;pkg&gt;         install pkg
-pacman -Ss &lt;regex&gt;      search remote package database
-pacman -Si &lt;pkg&gt;        get info for pkg
-pacman -Su              upgrade installed packages
-pacman -Sc              clean local package cache
+                        <h1 id="pve"><a class="header" href="#pve">PVE</a></h1>
+<h2 id="manage-vm"><a class="header" href="#manage-vm">Manage VM</a></h2>
+<pre><code>qm start &lt;vmid&gt;
+qm list
+qm resize &lt;vmid&gt; &lt;disk&gt; &lt;size&gt;
+vim /etc/pve/qemu-server/102.conf
+qm config 102
 </code></pre>
-<h2 id="remove-packages"><a class="header" href="#remove-packages">Remove packages</a></h2>
-<pre><code class="language-text">pacman -Rsn &lt;pkg&gt;               uninstall package and unneeded deps + config files
-</code></pre>
-<h2 id="local-package-database"><a class="header" href="#local-package-database">Local package database</a></h2>
-<p>Local package database of installed packages.</p>
-<pre><code class="language-text">pacman -Q               list all installed packages
-pacman -Qs &lt;regex&gt;      search local package database
-pacman -Ql &lt;pkg&gt;        list files installed by pkg
-pacman -Qo &lt;file&gt;       query package that owns file
-pacman -Qe              only list explicitly installed packages
-</code></pre>
-<h2 id="local-file-database"><a class="header" href="#local-file-database">Local file database</a></h2>
-<p>Local file database which allows to search packages owning certain files.
-Also searches non installed packages, but database must be synced.</p>
-<pre><code class="language-text">pacman -Fy              refresh file database
-pacman -Fl &lt;pkg&gt;        list files in pkg (must not be installed)
-pacman -Fx &lt;regex&gt;      search 
-</code></pre>
-<h2 id="hacks"><a class="header" href="#hacks">Hacks</a></h2>
-<p>Uninstall all orphaned packages (including config files) that were installed as
-dependencies.</p>
-<pre><code class="language-text">pacman -Rsn $(pacman -Qtdq)
-</code></pre>
-<p>List explicitly installed packages that are not required as dependency by any
-package and sort by size.</p>
-<pre><code class="language-text">pacman -Qetq | xargs pacman -Qi |
-    awk '/Name/ { name=$3 }
-         /Installed Size/ { printf "%8.2f%s %s\n", $4, $5, name }' |
-    sort -h
-</code></pre>
-<p>Install package into different <code>root</code> directory but keep using the default
-database.</p>
-<pre><code class="language-text">pacman --root abc --dbpath /var/lib/pacman -S mingw-w64-gcc
+<h2 id="manage-resources"><a class="header" href="#manage-resources">Manage Resources</a></h2>
+<pre><code>pvesm status
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../tools/dpdk.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../tools/qemu.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../tools/gnuplot.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../tools/dpdk.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -220,11 +188,11 @@ database.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../tools/dpdk.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../tools/qemu.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../tools/gnuplot.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../tools/dpdk.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

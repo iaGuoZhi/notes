@@ -1769,6 +1769,18 @@ _start:
 <li><a href="https://qemu-project.gitlab.io/qemu/interop/qemu-qmp-ref.html">QEMU machine protocol (QMP)</a></li>
 <li><a href="https://qemu-project.gitlab.io/qemu/system/images.html#vm-005fsnapshots">QEMU VM Snapshots</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pve"><a class="header" href="#pve">PVE</a></h1>
+<h2 id="manage-vm"><a class="header" href="#manage-vm">Manage VM</a></h2>
+<pre><code>qm start &lt;vmid&gt;
+qm list
+qm resize &lt;vmid&gt; &lt;disk&gt; &lt;size&gt;
+vim /etc/pve/qemu-server/102.conf
+qm config 102
+</code></pre>
+<h2 id="manage-resources"><a class="header" href="#manage-resources">Manage Resources</a></h2>
+<pre><code>pvesm status
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dpdk"><a class="header" href="#dpdk">DPDK</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pacman1"><a class="header" href="#pacman1">pacman(1)</a></h1>
 <h2 id="remote-package-repositories"><a class="header" href="#remote-package-repositories">Remote package repositories</a></h2>
 <pre><code class="language-text">pacman -Sy              refresh package database
