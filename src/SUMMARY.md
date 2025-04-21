@@ -18,9 +18,10 @@
     - [xargs](./cli/xargs.md)
     - [grep](./cli/grep.md)
     - [find](./cli/find.md)
+    - [tar](./cli/tar.md)
+    - [mount](./linux/mount.md)
 
 - [Tools](./tools/README.md)
-    - [tar](./cli/tar.md)
     - [tmux](./tools/tmux.md)
     - [gpg](./tools/gpg.md)
     - [rpm](./tools/rpm.md)
@@ -90,12 +91,7 @@
     - [zfs](./linux/zfs.md)
     - [cpufreq](./linux/cpufreq.md)
     - [cups](./linux/cups.md)
-    - [uefi](./linux/uefi.md)
-    - [rescue](./linux/rescue.md)
-    - [grub](./linux/grub.md)
-    - [mount](./linux/mount.md)
     - [modprobe](./linux/modprobe.md)
-    - [ipmitool](./linux/ipmitool.md)
 
 - [Network](./network/README.md)
     - [ip](./network/ip.md)
@@ -105,6 +101,12 @@
     - [tshark](./network/tshark.md)
     - [firewall-cmd](./network/firewall-cmd.md)
     - [nftables](./network/nftables.md)
+
+- [Boot](./boot/README.md)
+    - [uefi](./linux/uefi.md)
+    - [rescue](./linux/rescue.md)
+    - [grub](./linux/grub.md)
+    - [ipmitool](./linux/ipmitool.md)
 
 - [Web](./web/README.md)
     - [html](./web/html.md)
