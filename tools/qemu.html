@@ -245,6 +245,12 @@ lsblk -f /dev/sda
   sda
   ├─sda1 ext3         ....
   └─sda2 ext4         ....
+```o
+
+To resize a `qcow2` disk:
+```bash
+# Resize disk to 20G.
+qemu-img resize disk.qcow2 +10G
 </code></pre>
 <h3 id="usb"><a class="header" href="#usb">USB</a></h3>
 <h4 id="host-controller"><a class="header" href="#host-controller">Host Controller</a></h4>
@@ -356,6 +362,22 @@ qemu-system-x86_64 -monitor stdio -incoming "exec: gzip -d -c vm.gz"
 <p>The migration source machine and the migration target machine should be
 launched with the <strong>same</strong> parameters.</p>
 </blockquote>
+<h2 id="create-vm-by-virsh"><a class="header" href="#create-vm-by-virsh">Create VM by virsh</a></h2>
+<pre><code>virt-install \
+    --name Ubuntu \
+    --ram 1024 \
+    --disk path=./nvme_test.img,size=8 \
+    --vcpus 8 \
+    --virt-type kvm \
+    --os-variant ubuntu18.04 \
+    --graphics none \
+    --location 'http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/' \
+    --extra-args "console=tty0 console=ttyS0,115200n8
+</code></pre>
+<h2 id="appendix-change-the-instruction-set"><a class="header" href="#appendix-change-the-instruction-set">Appendix: Change the instruction set</a></h2>
+<p>Run aarch64 program on x86_64:</p>
+<pre><code class="language-bash">qemu-aarch64 ./prog
+</code></pre>
 <h2 id="appendix-direct-kernel-boot"><a class="header" href="#appendix-direct-kernel-boot">Appendix: Direct <code>Kernel</code> boot</a></h2>
 <p>Example command line to directly boot a <code>Kernel</code> with an <code>initrd</code> ramdisk.</p>
 <pre><code class="language-bash">qemu-system-x86_64                                                     \
