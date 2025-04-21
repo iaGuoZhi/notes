@@ -25,6 +25,8 @@
     - [gpg](./tools/gpg.md)
     - [rpm](./tools/rpm.md)
     - [qemu](./tools/qemu.md)
+    - [pve](./tools/pve.md)
+    - [dpdk](./tools/dpdk.md)
     - [pacman](./tools/pacman.md)
     - [gnuplot](./tools/gnuplot.md)
     - [onload](./tools/onload.md)
