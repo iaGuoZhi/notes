@@ -75,3 +75,9 @@ be run as follows.
 ```sh
 {{#include gnuplot/plot.sh:3:9}}
 ```
+
+## Example: multiple plot in the same figure
+
+```sh
+{{#include gnuplot/notion.plot}}
+```
