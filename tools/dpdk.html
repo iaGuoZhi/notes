@@ -159,6 +159,14 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="dpdk"><a class="header" href="#dpdk">DPDK</a></h1>
+<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<pre><code>echo 1 &gt; /sys/module/vfio/parameters/enable_unsafe_noiommu_mode
+modprobe vfio-pci
+python3 ./dpdk-devbind.py --bind=vfio-pci &lt;device pci id&gt;
+echo 65536 &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+</code></pre>
+<h2 id="reference"><a class="header" href="#reference">Reference</a></h2>
+<p>https://github.com/QMUL-EECS-Networks-Systems/ebpf-sketches/tree/main/pkt-generator</p>
 
                     </main>
 
