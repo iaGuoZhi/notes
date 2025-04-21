@@ -158,75 +158,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="uefi-commands"><a class="header" href="#uefi-commands">UEFI commands</a></h1>
-<h2 id="1-system-information-commands"><a class="header" href="#1-system-information-commands">1. System Information Commands</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
-<tr><td><code>map</code></td><td>List all storage devices</td><td><code>map [-r]</code></td><td><code>map -r</code> <em>(refresh list)</em></td></tr>
-<tr><td><code>memmap</code></td><td>Display memory map</td><td><code>memmap</code></td><td><code>memmap &gt; meminfo.txt</code></td></tr>
-<tr><td><code>smbiosview</code></td><td>View SMBIOS tables</td><td><code>smbiosview [-t TYPE]</code></td><td><code>smbiosview -t 1</code> <em>(BIOS info)</em></td></tr>
-<tr><td><code>dmpstore</code></td><td>Manage UEFI variables</td><td><code>dmpstore [-all]</code></td><td><code>dmpstore -all</code></td></tr>
-<tr><td><code>version</code></td><td>Show firmware version</td><td><code>version</code></td><td><code>version</code></td></tr>
-</tbody></table>
-</div>
-<h2 id="2-memory-operations"><a class="header" href="#2-memory-operations">2. Memory Operations</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
-<tr><td><code>mm</code></td><td>Modify memory (hex editor)</td><td><code>mm &lt;addr&gt; [width]</code></td><td><code>mm 0x80000000 4</code> <em>(edit dword)</em></td></tr>
-<tr><td><code>mem</code></td><td>Display memory</td><td><code>mem &lt;addr&gt; &lt;length&gt;</code></td><td><code>mem 0x80000000 10</code></td></tr>
-<tr><td><code>dmem</code></td><td>Formatted memory dump</td><td><code>dmem &lt;addr&gt; &lt;length&gt;</code></td><td><code>dmem 0xFFF00000 20</code></td></tr>
-</tbody></table>
-</div>
-<p><strong>Memory Width Specifiers</strong>:</p>
-<ul>
-<li><code>1</code> = byte</li>
-<li><code>2</code> = word (2 bytes)</li>
-<li><code>4</code> = dword (4 bytes)</li>
-<li><code>8</code> = qword (8 bytes)</li>
-</ul>
-<h2 id="3-file-system-commands"><a class="header" href="#3-file-system-commands">3. File System Commands</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
-<tr><td><code>ls</code></td><td>List files</td><td><code>ls [path]</code></td><td><code>ls fs0:\EFI</code></td></tr>
-<tr><td><code>cd</code></td><td>Change directory</td><td><code>cd &lt;path&gt;</code></td><td><code>cd fs1:\</code></td></tr>
-<tr><td><code>edit</code></td><td>Text editor</td><td><code>edit &lt;file&gt;</code></td><td><code>edit startup.nsh</code></td></tr>
-<tr><td><code>hexedit</code></td><td>Hex editor</td><td><code>hexedit &lt;file&gt;</code></td><td><code>hexedit config.bin</code></td></tr>
-<tr><td><code>cp</code></td><td>Copy file</td><td><code>cp &lt;src&gt; &lt;dest&gt;</code></td><td><code>cp kernel.efi fs0:\</code></td></tr>
-<tr><td><code>rm</code></td><td>Delete file</td><td><code>rm &lt;file&gt;</code></td><td><code>rm old.efi</code></td></tr>
-<tr><td><code>mkdir</code></td><td>Create directory</td><td><code>mkdir &lt;path&gt;</code></td><td><code>mkdir \Backup</code></td></tr>
-</tbody></table>
-</div>
-<h2 id="4-boot-management"><a class="header" href="#4-boot-management">4. Boot Management</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
-<tr><td><code>bcfg</code></td><td>Manage boot entries</td><td><code>bcfg boot [options]</code></td><td><code>bcfg boot dump</code></td></tr>
-<tr><td><code>boot</code></td><td>Execute EFI binary</td><td><code>boot &lt;file&gt;</code></td><td><code>boot \EFI\BOOT\bootx64.efi</code></td></tr>
-<tr><td><code>exit</code></td><td>Exit shell</td><td><code>exit</code></td><td><code>exit</code></td></tr>
-</tbody></table>
-</div>
-<p><strong>Common bcfg operations</strong>:</p>
-<pre><code class="language-bash">bcfg boot add 0 fs0:\EFI\grub\grubx64.efi "Linux"  # Add entry
-bcfg boot mv 3 0                                   # Reorder entries
-bcfg boot rm 2                                     # Remove entry```
-
-## 5. Network Commands
-| Command | Description | Syntax | Example |
-|---------|-------------|--------|---------|
-|ifconfig | Configure network interfaces | `ifconfig &lt;interface&gt; [options]` | `ifconfig -a` |
-|ping     |Network test |   ping &lt;IP&gt;  |  ping 192.168.1.1
-|dhcp     |Get IP address  |dhcp [-r] &lt;iface&gt;   | dhcp -r eth0
-|tftp     |File transfer   |tftp [-g] &lt;IP&gt; &lt;file&gt; |  tftp -g 10.0.0.1 kernel.efi
-
-## 6. Miscellaneous Commands
-| Command | Description | Syntax | Example |
-|---------|-------------|--------|---------|
-|reset | Reset system | `reset` | `reset` |
-|startup.nsh | Execute script | `startup.nsh` | `startup.nsh` |
-|timer | Measure time | time [HH:MM:SS] | time 14:30:00 |
-
-</code></pre>
+                        <h1 id="uefi"><a class="header" href="#uefi">uefi</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../linux/cups.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../boot/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -240,7 +178,7 @@ bcfg boot rm 2                                     # Remove entry```
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../linux/cups.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../boot/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
