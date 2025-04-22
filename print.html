@@ -6880,10 +6880,167 @@ nc localhost 8200
 <h2 id="mental-model-for-netfilter-packet-flow"><a class="header" href="#mental-model-for-netfilter-packet-flow">Mental model for netfilter packet flow</a></h2>
 <p><img src="network/assets/nf_pkt_flow.png" alt="nf_pkt_flow.png" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="boot"><a class="header" href="#boot">Boot</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="uefi"><a class="header" href="#uefi">uefi</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="uefi-commands"><a class="header" href="#uefi-commands">UEFI commands</a></h1>
+<h2 id="1-system-information-commands"><a class="header" href="#1-system-information-commands">1. System Information Commands</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>map</code></td><td>List all storage devices</td><td><code>map [-r]</code></td><td><code>map -r</code> <em>(refresh list)</em></td></tr>
+<tr><td><code>memmap</code></td><td>Display memory map</td><td><code>memmap</code></td><td><code>memmap &gt; meminfo.txt</code></td></tr>
+<tr><td><code>smbiosview</code></td><td>View SMBIOS tables</td><td><code>smbiosview [-t TYPE]</code></td><td><code>smbiosview -t 1</code> <em>(BIOS info)</em></td></tr>
+<tr><td><code>dmpstore</code></td><td>Manage UEFI variables</td><td><code>dmpstore [-all]</code></td><td><code>dmpstore -all</code></td></tr>
+<tr><td><code>version</code></td><td>Show firmware version</td><td><code>version</code></td><td><code>version</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="2-memory-operations"><a class="header" href="#2-memory-operations">2. Memory Operations</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>mm</code></td><td>Modify memory (hex editor)</td><td><code>mm &lt;addr&gt; [width]</code></td><td><code>mm 0x80000000 4</code> <em>(edit dword)</em></td></tr>
+<tr><td><code>mem</code></td><td>Display memory</td><td><code>mem &lt;addr&gt; &lt;length&gt;</code></td><td><code>mem 0x80000000 10</code></td></tr>
+<tr><td><code>dmem</code></td><td>Formatted memory dump</td><td><code>dmem &lt;addr&gt; &lt;length&gt;</code></td><td><code>dmem 0xFFF00000 20</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>Memory Width Specifiers</strong>:</p>
+<ul>
+<li><code>1</code> = byte</li>
+<li><code>2</code> = word (2 bytes)</li>
+<li><code>4</code> = dword (4 bytes)</li>
+<li><code>8</code> = qword (8 bytes)</li>
+</ul>
+<h2 id="3-file-system-commands"><a class="header" href="#3-file-system-commands">3. File System Commands</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>ls</code></td><td>List files</td><td><code>ls [path]</code></td><td><code>ls fs0:\EFI</code></td></tr>
+<tr><td><code>cd</code></td><td>Change directory</td><td><code>cd &lt;path&gt;</code></td><td><code>cd fs1:\</code></td></tr>
+<tr><td><code>edit</code></td><td>Text editor</td><td><code>edit &lt;file&gt;</code></td><td><code>edit startup.nsh</code></td></tr>
+<tr><td><code>hexedit</code></td><td>Hex editor</td><td><code>hexedit &lt;file&gt;</code></td><td><code>hexedit config.bin</code></td></tr>
+<tr><td><code>cp</code></td><td>Copy file</td><td><code>cp &lt;src&gt; &lt;dest&gt;</code></td><td><code>cp kernel.efi fs0:\</code></td></tr>
+<tr><td><code>rm</code></td><td>Delete file</td><td><code>rm &lt;file&gt;</code></td><td><code>rm old.efi</code></td></tr>
+<tr><td><code>mkdir</code></td><td>Create directory</td><td><code>mkdir &lt;path&gt;</code></td><td><code>mkdir \Backup</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="4-boot-management"><a class="header" href="#4-boot-management">4. Boot Management</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th><th>Syntax</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>bcfg</code></td><td>Manage boot entries</td><td><code>bcfg boot [options]</code></td><td><code>bcfg boot dump</code></td></tr>
+<tr><td><code>boot</code></td><td>Execute EFI binary</td><td><code>boot &lt;file&gt;</code></td><td><code>boot \EFI\BOOT\bootx64.efi</code></td></tr>
+<tr><td><code>exit</code></td><td>Exit shell</td><td><code>exit</code></td><td><code>exit</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>Common bcfg operations</strong>:</p>
+<pre><code class="language-bash">bcfg boot add 0 fs0:\EFI\grub\grubx64.efi "Linux"  # Add entry
+bcfg boot mv 3 0                                   # Reorder entries
+bcfg boot rm 2                                     # Remove entry```
+
+## 5. Network Commands
+| Command | Description | Syntax | Example |
+|---------|-------------|--------|---------|
+|ifconfig | Configure network interfaces | `ifconfig &lt;interface&gt; [options]` | `ifconfig -a` |
+|ping     |Network test |   ping &lt;IP&gt;  |  ping 192.168.1.1
+|dhcp     |Get IP address  |dhcp [-r] &lt;iface&gt;   | dhcp -r eth0
+|tftp     |File transfer   |tftp [-g] &lt;IP&gt; &lt;file&gt; |  tftp -g 10.0.0.1 kernel.efi
+
+## 6. Miscellaneous Commands
+| Command | Description | Syntax | Example |
+|---------|-------------|--------|---------|
+|reset | Reset system | `reset` | `reset` |
+|startup.nsh | Execute script | `startup.nsh` | `startup.nsh` |
+|timer | Measure time | time [HH:MM:SS] | time 14:30:00 |
+
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rescue"><a class="header" href="#rescue">rescue</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="grub"><a class="header" href="#grub">grub</a></h1>
+<h2 id="entering-the-rescue"><a class="header" href="#entering-the-rescue">Entering the Rescue</a></h2>
+<p>Add below kernel parameters in edit mode of GRUB:</p>
+<pre><code class="language-bash">init=/bin/bash
+or
+systemd.unit=rescue.target
+</code></pre>
+<h2 id="basic-commands"><a class="header" href="#basic-commands">Basic Commands</a></h2>
+<h3 id="module-management"><a class="header" href="#module-management">Module management</a></h3>
+<pre><code class="language-bash">insmod part_gpt     # for GPT disks
+insmod efi_gop      # UEFI graphics
+insmod chain        # Windows boot
+</code></pre>
+<h3 id="file-system-repair"><a class="header" href="#file-system-repair">File system repair</a></h3>
+<pre><code class="language-bash">fsck -y /dev/sda1
+mount -o remount,rw /
+</code></pre>
+<h3 id="grub-reinstall"><a class="header" href="#grub-reinstall">Grub reinstall</a></h3>
+<pre><code class="language-bash">chroot /mnt # use Live CD
+grub-install /dev/sda
+update-grub
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">mount /dev/nvme0n1p1 /mnt
+mount /dev/nvme0n1p2 /mnt/boot
+grub-install --target=x86_64-efi --efi-directory=/mnt/boot --bootloader-id=GRUB
+grub-mkconfig -o /mnt/boot/grub/grub.cfg
+</code></pre>
+<h3 id="network-configuration"><a class="header" href="#network-configuration">Network configuration</a></h3>
+<pre><code class="language-bash">ip link set eth0 up
+ip addr add 192.168.1.100/24 dev eth0
+ip route add default via 192.168.1.1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="grub"><a class="header" href="#grub">Grub</a></h1>
+<h2 id="basic-commands-1"><a class="header" href="#basic-commands-1">Basic Commands</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>help</code></td><td>List all available commands</td></tr>
+<tr><td><code>help &lt;command&gt;</code></td><td>Show help for a specific command</td></tr>
+<tr><td><code>ls</code></td><td>List all disks and partitions</td></tr>
+<tr><td><code>ls (hdX,Y)</code></td><td>Inspect filesystem on partition</td></tr>
+<tr><td><code>set</code></td><td>View/set environment variables</td></tr>
+<tr><td><code>insmod</code></td><td>Load module (e.g., ext2, ntfs)</td></tr>
+<tr><td><code>reboot</code></td><td>Reboot the system</td></tr>
+</tbody></table>
+</div>
+<h2 id="device--filesystem"><a class="header" href="#device--filesystem">Device &amp; Filesystem</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>ls -l</code></td><td>Detailed device listing</td></tr>
+<tr><td><code>cat (hdX,Y)/path/file</code></td><td>View file contents</td></tr>
+<tr><td><code>loopback</code></td><td>Mount ISO image files</td></tr>
+</tbody></table>
+</div>
+<h2 id="boot-commands"><a class="header" href="#boot-commands">Boot Commands</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>linux</code>/<code>linux16</code>/<code>linuxefi</code></td><td>Load Linux kernel</td></tr>
+<tr><td><code>initrd</code></td><td>Load initramfs image</td></tr>
+<tr><td><code>chainloader</code></td><td>Chainload another bootloader</td></tr>
+<tr><td><code>boot</code></td><td>Boot the loaded system</td></tr>
+</tbody></table>
+</div>
+<h2 id="environment-variables-1"><a class="header" href="#environment-variables-1">Environment Variables</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Variable</th><th>Purpose</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>root</code></td><td>Set root partition</td><td><code>set root=(hd0,gpt2)</code></td></tr>
+<tr><td><code>prefix</code></td><td>Set GRUB directory path</td><td><code>set prefix=(hd0,gpt1)/boot/grub</code></td></tr>
+<tr><td><code>default</code></td><td>Default boot entry</td><td><code>set default=0</code></td></tr>
+<tr><td><code>timeout</code></td><td>Timeout in seconds</td><td><code>set timeout=5</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="practical-examples"><a class="header" href="#practical-examples">Practical Examples</a></h2>
+<pre><code class="language-grub"># Typical Linux boot sequence
+set root=(hd0,gpt2)
+linux /vmlinuz root=/dev/sda2 ro
+initrd /initramfs.img
+boot
+
+# Boot from ISO file
+loopback loop /path/to/image.iso
+linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=/image.iso
+initrd (loop)/casper/initrd
+boot
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ipmitool"><a class="header" href="#ipmitool">ipmitool</a></h1>
+<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
+<pre><code># Reboot ILO
+ipmitool bmc reset cold
+
+
+# Check power supply status
+ipmitool sensors
+
+# List ILO network
+ipmitool lan print 1
+
+# Set ILO network
+ipmitool lan set 1 ipaddr 192.168.10.10
+ipmitool lan set 1 netmask 255.255.255.0
+ipmitool lan set 1 defgw ipaddr 192.168.10.11
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="web"><a class="header" href="#web">Web</a></h1>
 <ul>
 <li><a href="web/./html.html">html</a></li>
