@@ -103,10 +103,10 @@
     - [nftables](./network/nftables.md)
 
 - [Boot](./boot/README.md)
-    - [uefi](./linux/uefi.md)
-    - [rescue](./linux/rescue.md)
-    - [grub](./linux/grub.md)
-    - [ipmitool](./linux/ipmitool.md)
+    - [uefi](./boot/uefi.md)
+    - [rescue](./boot/rescue.md)
+    - [grub](./boot/grub.md)
+    - [ipmitool](./boot/ipmitool.md)
 
 - [Web](./web/README.md)
     - [html](./web/html.md)

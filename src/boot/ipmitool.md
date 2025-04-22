@@ -4,6 +4,10 @@
 
 
 ```
+# Reboot ILO
+ipmitool bmc reset cold
+
+
 # Check power supply status
 ipmitool sensors
 
