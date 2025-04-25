@@ -32,7 +32,7 @@
 | `io`         | I/O stats including read/write bytes and network usage. Note: `eio` field may show strange values after process termination. |
 | `maps`       | Memory map of the process's address space. |
 | `oom_score`  | A value used by the OOM killer to prioritize which process to kill. The higher the score, the more likely it is to be killed. |
-| `stat`       | Raw process metadata, including status, ownership, priority, last CPU used, etc. |
+| `stat`       | Raw process metadata, including status, ownership, priority, last CPU used, CPU jiffies, etc. |
 | `status`     | Human-readable version of `stat`. |
 | `wchan`      | The function name in the kernel where the process is blocked. |
 
