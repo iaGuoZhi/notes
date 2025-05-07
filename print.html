@@ -1976,7 +1976,8 @@ unset multiplot
 <tr><td><code>onload_logdump</code></td><td>Export logs</td><td><code>onload_logdump -e errors.log</code></td></tr>
 <tr><td><code>sfcresetlog</code></td><td>Reset counters</td><td><code>sfcresetlog -a</code></td></tr>
 </tbody></table>
-</div><div style="break-before: page; page-break-before: always;"></div><h1 id="process-management--inspection"><a class="header" href="#process-management--inspection">Process management &amp; inspection</a></h1>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="smartctl"><a class="header" href="#smartctl">smartctl</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="process-management--inspection"><a class="header" href="#process-management--inspection">Process management &amp; inspection</a></h1>
 <ul>
 <li><a href="process/./lsof.html">lsof</a></li>
 <li><a href="process/./pidstat.html">pidstat</a></li>
@@ -2570,6 +2571,15 @@ vtune: main
 	$(VTUNE)/bin64/vtune -collect hotspots -start-paused -- ./main
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="htop"><a class="header" href="#htop">htop</a></h1>
+<p>Press F1 to view all available shortcuts.</p>
+<p>By default, htop does not show kernel threads; you need to enable this option manually.</p>
+<p>Without sudo, htop cannot display I/O statistics for processes owned by other users.</p>
+<p>htop supports filtering processes via the F3 (Search) and F4 (Filter) keys.</p>
+<p>Use htop -t or press F5 followed by t to switch to a tree view (similar to pstree).</p>
+<p>You can sort by P (CPU usage), M (memory usage), or T (process time), just like in top.</p>
+<p>After selecting a process, press l (lowercase L) to view the list of files it has opened.</p>
+<p>htop cannot show all processes running on a specific CPU — use ps -o psr for that purpose.</p>
+<p>htop allows viewing and modifying CPU affinity, but it does not support filtering processes by their affinity.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="debug"><a class="header" href="#debug">Debug</a></h1>
 <ul>
 <li><a href="debug/./gdb.html">gdb</a></li>
@@ -5739,6 +5749,23 @@ systemctl --user start test
 # See log message
 journalctl --user -u test -n 5
 </code></pre>
+<h3 id="example-qbittorrent-exporter"><a class="header" href="#example-qbittorrent-exporter">Example: qbittorrent-exporter</a></h3>
+<pre><code class="language-bash">[Unit]
+Description=qBittorrent-exporter
+After=network.target qbittorrent-nox.service
+
+[Service]
+User=root
+Type=simple
+ExecStartPre=/bin/sleep 10
+Restart=on-failure
+RestartSec=1
+ExecStart=/opt/qb/all_exporter.sh
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>journalctl -xeu qbittorrent-exporter.service</p>
 <h2 id="journalctl"><a class="header" href="#journalctl">journalctl</a></h2>
 <p>Inspect journal logs:</p>
 <pre><code class="language-text">journalctl [opts] [matches]

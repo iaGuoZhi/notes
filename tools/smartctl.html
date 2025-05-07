@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>systemd - Notes</title>
+        <title>smartctl - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -158,101 +158,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="systemd"><a class="header" href="#systemd">systemd</a></h1>
-<h2 id="systemctl"><a class="header" href="#systemctl">systemctl</a></h2>
-<p>Inspect units:</p>
-<pre><code class="language-text">systemctl [opts] [cmd]
-[opts]
-    --user
-    --type=TYPE             List only given types eg, service, timer, socket (use --type=help for a list)
-    --state=STATE           List only given states eg running, enabled (use --state=help for a list)
-    --failed                List only failed services
-
-[cmd]
-    list-units &lt;pattern&gt;    List units in memory
-
-    status &lt;unit&gt;           Show runtime status of unit
-
-    start &lt;unit&gt;            Start a unit
-    stop &lt;unit&gt;             Stop a unit
-    restart &lt;unit&gt;          Restart a unit
-    reload &lt;unit&gt;           Reload a unit
-
-    enable &lt;unit&gt;           Enable a unit (persistent)
-    disable &lt;unit&gt;          Disable a unit
-
-    cat &lt;unit&gt;      Print unit file
-    show &lt;unit&gt;     Show properties of unit
-</code></pre>
-<h3 id="example-list-failed-units"><a class="header" href="#example-list-failed-units">Example: List failed units</a></h3>
-<pre><code class="language-bash"># List all system failed units.
-systemctl --failed
-
-# List all user failed units.
-systemctl --user --failed
-</code></pre>
-<h3 id="example-trivial-user-unit"><a class="header" href="#example-trivial-user-unit">Example: Trivial user unit</a></h3>
-<pre><code class="language-bash"># Generate unit
-mkdir -p ~/.config/systemd/user
-echo '[Unit]
-Description=Test logger
-
-[Service]
-Type=oneshot
-ExecStart=logger "Hello from test unit"' &gt; ~/.config/systemd/user/test.service
-
-# Run unit
-systemctl --user start test
-
-# See log message
-journalctl --user -u test -n 5
-</code></pre>
-<h3 id="example-qbittorrent-exporter"><a class="header" href="#example-qbittorrent-exporter">Example: qbittorrent-exporter</a></h3>
-<pre><code class="language-bash">[Unit]
-Description=qBittorrent-exporter
-After=network.target qbittorrent-nox.service
-
-[Service]
-User=root
-Type=simple
-ExecStartPre=/bin/sleep 10
-Restart=on-failure
-RestartSec=1
-ExecStart=/opt/qb/all_exporter.sh
-
-[Install]
-WantedBy=multi-user.target
-</code></pre>
-<p>journalctl -xeu qbittorrent-exporter.service</p>
-<h2 id="journalctl"><a class="header" href="#journalctl">journalctl</a></h2>
-<p>Inspect journal logs:</p>
-<pre><code class="language-text">journalctl [opts] [matches]
-    --user          Current user journal (system by default)
-    -u &lt;unit&gt;       Show logs for specified &lt;unit&gt;
-    -n &lt;lines&gt;      Show only last &lt;lines&gt;
-    -f              Follow journal
-    -g &lt;pattern&gt;    Grep for &lt;pattern&gt;
-</code></pre>
-<p>Cleanup:</p>
-<pre><code class="language-text">journalctl [opts]
-    --disk-usage            Show current disk usage
-    --vacuum-size=&lt;size&gt;    Reduce journal log to &lt;size&gt; (K/M/G)
-</code></pre>
-<h2 id="references"><a class="header" href="#references">References</a></h2>
-<ul>
-<li><a href="https://www.man7.org/linux/man-pages/man5/systemd.unit.5.html">man systemd.unit(5)</a></li>
-<li><a href="https://www.man7.org/linux/man-pages/man5/systemd.service.5.html">man systemd.service(5)</a></li>
-</ul>
+                        <h1 id="smartctl"><a class="header" href="#smartctl">smartctl</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../linux/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../tools/onload.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../linux/coredump.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../process/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -262,11 +178,11 @@ WantedBy=multi-user.target
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../linux/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../tools/onload.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../linux/coredump.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../process/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
