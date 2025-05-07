@@ -56,6 +56,27 @@ systemctl --user start test
 journalctl --user -u test -n 5
 ```
 
+### Example: qbittorrent-exporter
+
+```bash
+[Unit]
+Description=qBittorrent-exporter
+After=network.target qbittorrent-nox.service
+
+[Service]
+User=root
+Type=simple
+ExecStartPre=/bin/sleep 10
+Restart=on-failure
+RestartSec=1
+ExecStart=/opt/qb/all_exporter.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+journalctl -xeu qbittorrent-exporter.service
+
 ## journalctl
 
 Inspect journal logs:

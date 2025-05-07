@@ -31,6 +31,7 @@
     - [pacman](./tools/pacman.md)
     - [gnuplot](./tools/gnuplot.md)
     - [onload](./tools/onload.md)
+    - [smartctl](./tools/smartctl.md)
 
 - [Process management & inspection](./process/README.md)
     - [lsof](./process/lsof.md)
