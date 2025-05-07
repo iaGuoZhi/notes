@@ -5764,8 +5764,14 @@ ExecStart=/opt/qb/all_exporter.sh
 
 [Install]
 WantedBy=multi-user.target
+
+# Start by default
+WantedBy=default.target
+If A is WantedBy B, then A is started when B is started.
+
+# See logs
+journalctl -xeu qbittorrent-exporter.service
 </code></pre>
-<p>journalctl -xeu qbittorrent-exporter.service</p>
 <h2 id="journalctl"><a class="header" href="#journalctl">journalctl</a></h2>
 <p>Inspect journal logs:</p>
 <pre><code class="language-text">journalctl [opts] [matches]
