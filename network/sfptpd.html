@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>vtune - Notes</title>
+        <title>sfptpd - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -169,69 +169,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="vtune1"><a class="header" href="#vtune1"><a href="https://www.intel.com/content/www/us/en/docs/vtune-profiler/user-guide">vtune(1)</a></a></h1>
-<p>Vtune offers different analysis. Run <code>vtune -collect help</code> to list the
-availale analysis.</p>
-<h2 id="profiling"><a class="header" href="#profiling">Profiling</a></h2>
-<p>The following shows some common flows with the <code>hotspot</code> analsysis
-as an example.</p>
-<pre><code># Launch and profile process.
-vtune -collect hotspots [opts] -- target [args]
-
-# Attach and profile running process.
-vtune -collect hotspots [opts] -target-pid &lt;pid&gt;
-</code></pre>
-<p>Some common options are the following.</p>
-<pre><code>-r &lt;dir&gt;           output directory for the profile
--no-follow-child   dont attach to to child processes (default is to follow)
--start-paused      start with paused profiling
-</code></pre>
-<h2 id="analyze"><a class="header" href="#analyze">Analyze</a></h2>
-<pre><code>vtune-gui &lt;dir&gt;
-</code></pre>
-<h2 id="programmatically-control-sampling"><a class="header" href="#programmatically-control-sampling">Programmatically control sampling</a></h2>
-<p>Vtune offers an API to <em>resume</em> and <em>pause</em> the profile collection from within
-the profilee itself.  This can be helpful if either only a certain phase should
-be profiled or some phase should be skipped.</p>
-<p>The following gives an example where only one phase in the program is profiled.
-The program makes calls to the vtune API to resume and pause the collection,
-while vtune is invoked with <code>-start-paused</code> to pause profiling initially.</p>
-<pre><code class="language-c">#include &lt;ittnotify.h&gt;
-
-void init();
-void compute();
-void shutdown();
-
-int main() {
-  init();
-
-  __itt_resume();
-  compute();
-  __itt_pause();
-
-  shutdown();
-  return 0;
-}
-</code></pre>
-<p>The makefile gives an example how to build and profile the application.</p>
-<pre><code class="language-makefile">VTUNE ?= /opt/intel/oneapi/vtune/latest
-
-main: main.c
-	gcc -o $@ $^ -I$(VTUNE)/include -L$(VTUNE)/lib64 -littnotify
-
-vtune: main
-	$(VTUNE)/bin64/vtune -collect hotspots -start-paused -- ./main
+                        <h1 id="sfptpd"><a class="header" href="#sfptpd">sfptpd</a></h1>
+<pre><code>cat /etc/sfptpd/sfptpd.conf
+tail /var/log/sfptpd/sfptpd.log
+cat /var/lib/sfptpd/topology
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../trace_profile/valgrind.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../network/nftables.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../trace_profile/htop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../boot/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -241,11 +193,11 @@ vtune: main
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../trace_profile/valgrind.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../network/nftables.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../trace_profile/htop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../boot/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

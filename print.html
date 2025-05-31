@@ -42,6 +42,17 @@
         <script src="toc.js"></script>
     </head>
     <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -119,7 +130,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -6862,6 +6873,11 @@ nc localhost 8200
 </code></pre>
 <h2 id="mental-model-for-netfilter-packet-flow"><a class="header" href="#mental-model-for-netfilter-packet-flow">Mental model for netfilter packet flow</a></h2>
 <p><img src="network/assets/nf_pkt_flow.png" alt="nf_pkt_flow.png" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sfptpd"><a class="header" href="#sfptpd">sfptpd</a></h1>
+<pre><code>cat /etc/sfptpd/sfptpd.conf
+tail /var/log/sfptpd/sfptpd.log
+cat /var/lib/sfptpd/topology
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="boot"><a class="header" href="#boot">Boot</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="uefi-commands"><a class="header" href="#uefi-commands">UEFI commands</a></h1>
 <h2 id="1-system-information-commands"><a class="header" href="#1-system-information-commands">1. System Information Commands</a></h2>
