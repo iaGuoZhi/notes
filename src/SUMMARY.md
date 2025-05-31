@@ -102,6 +102,7 @@
     - [tshark](./network/tshark.md)
     - [firewall-cmd](./network/firewall-cmd.md)
     - [nftables](./network/nftables.md)
+    - [sfptpd](./network/sfptpd.md)
 
 - [Boot](./boot/README.md)
     - [uefi](./boot/uefi.md)
