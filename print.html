@@ -1231,10 +1231,11 @@ exec modifier characters <code>;</code> and <code>+</code> also may need to be e
 # list files modified in the last 24 hours
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tar"><a class="header" href="#tar">tar</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="mount"><a class="header" href="#mount">mount</a></h1>
-<pre><code>mount ramfs -t ramfs -o size=1G,mode=0755 /mnt/ramfs # mount a ramfs filesystem
-mount hugetlbfs -t hugetlbfs -o pagesize=2M /mnt/hugepages # mount a hugetlbfs filesystem
-mount -t nfs 192.168.0.100:/mnt/nfs /mnt/nfs # mount a nfs filesystem
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dnf"><a class="header" href="#dnf">dnf</a></h1>
+<pre><code>dnf module list postgresql
+dnf module enable postgresql:16
+dnf install postgresql
+
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tools"><a class="header" href="#tools">Tools</a></h1>
 <ul>
@@ -5802,6 +5803,11 @@ journalctl -xeu qbittorrent-exporter.service
 <li><a href="https://www.man7.org/linux/man-pages/man5/systemd.unit.5.html">man systemd.unit(5)</a></li>
 <li><a href="https://www.man7.org/linux/man-pages/man5/systemd.service.5.html">man systemd.service(5)</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mount"><a class="header" href="#mount">mount</a></h1>
+<pre><code>mount ramfs -t ramfs -o size=1G,mode=0755 /mnt/ramfs # mount a ramfs filesystem
+mount hugetlbfs -t hugetlbfs -o pagesize=2M /mnt/hugepages # mount a hugetlbfs filesystem
+mount -t nfs 192.168.0.100:/mnt/nfs /mnt/nfs # mount a nfs filesystem
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="core5"><a class="header" href="#core5">core(5)</a></h1>
 <p>There are multiple requirements that must be satisfied that <code>coredumps</code> are
 being generated, a full list can be found in <a href="https://man7.org/linux/man-pages/man5/core.5.html">core(5)</a>.</p>
