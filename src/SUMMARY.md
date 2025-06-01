@@ -19,7 +19,7 @@
     - [grep](./cli/grep.md)
     - [find](./cli/find.md)
     - [tar](./cli/tar.md)
-    - [mount](./linux/mount.md)
+    - [dnf](./cli/dnf.md)
 
 - [Tools](./tools/README.md)
     - [tmux](./tools/tmux.md)
@@ -82,6 +82,7 @@
 
 - [Linux](./linux/README.md)
     - [systemd](./linux/systemd.md)
+    - [mount](./linux/mount.md)
     - [coredump](./linux/coredump.md)
     - [ptrace_scope](./linux/ptrace_scope.md)
     - [cryptsetup](./linux/cryptsetup.md)
