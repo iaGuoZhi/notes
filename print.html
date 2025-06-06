@@ -6516,6 +6516,13 @@ cupsreject PRINTER
 <pre><code>modprobe module
 modprobe -r module
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lvm"><a class="header" href="#lvm">lvm</a></h1>
+<pre><code>pvcreate /dev/sda1
+vgcreate app /dev/sda1
+lvcreate -l 100%FREE -n app app
+mkfs.xfs /dev/app/app -L APP
+mount /dev/app/app /app
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="network-1"><a class="header" href="#network-1">Network</a></h1>
 <ul>
 <li><a href="network/./ssh.html">ssh</a></li>

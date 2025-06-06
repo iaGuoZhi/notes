@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>modprobe - Notes</title>
+        <title>lvm - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -169,22 +169,23 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="modprobe"><a class="header" href="#modprobe">modprobe</a></h1>
-<p>modprobe is used to install and remove kernel modules(.ko).</p>
-<p>The basic usage is below, make sure the ko files are under /lib/modules/$(uname -r)/extra or /lib/modules/$(uname -r)/updates.</p>
-<pre><code>modprobe module
-modprobe -r module
+                        <h1 id="lvm"><a class="header" href="#lvm">lvm</a></h1>
+<pre><code>pvcreate /dev/sda1
+vgcreate app /dev/sda1
+lvcreate -l 100%FREE -n app app
+mkfs.xfs /dev/app/app -L APP
+mount /dev/app/app /app
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../linux/cups.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../linux/modprobe.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../linux/lvm.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../network/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -194,11 +195,11 @@ modprobe -r module
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../linux/cups.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../linux/modprobe.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../linux/lvm.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../network/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
