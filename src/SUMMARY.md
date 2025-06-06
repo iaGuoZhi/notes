@@ -94,6 +94,7 @@
     - [cpufreq](./linux/cpufreq.md)
     - [cups](./linux/cups.md)
     - [modprobe](./linux/modprobe.md)
+    - [lvm](./linux/lvm.md)
 
 - [Network](./network/README.md)
     - [ip](./network/ip.md)
