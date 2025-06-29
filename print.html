@@ -6891,6 +6891,13 @@ nc localhost 8200
 tail /var/log/sfptpd/sfptpd.log
 cat /var/lib/sfptpd/topology
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="nmcli-1"><a class="header" href="#nmcli-1">nmcli</a></h1>
+<pre><code>nmcli con reload
+nmcli dev reapply &lt;device_name&gt;
+nmcli con up &lt;connection_name&gt;
+nmcli con route add &lt;destination&gt; &lt;gateway&gt;
+nmcli con ip4 set &lt;connection_name&gt; &lt;ip_address&gt;/&lt;prefix_length&gt;
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="boot"><a class="header" href="#boot">Boot</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="uefi-commands"><a class="header" href="#uefi-commands">UEFI commands</a></h1>
 <h2 id="1-system-information-commands"><a class="header" href="#1-system-information-commands">1. System Information Commands</a></h2>
@@ -7035,6 +7042,11 @@ loopback loop /path/to/image.iso
 linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=/image.iso
 initrd (loop)/casper/initrd
 boot
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="grubby"><a class="header" href="#grubby">grubby</a></h1>
+<pre><code>grubby --set-default /boot/vmlinuz-&lt;version&gt;
+grubby --update-kernel /boot/vmlinuz-&lt;version&gt; --args="&lt;new_kernel_arguments&gt;"
+grubby --default-kernel
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ipmitool"><a class="header" href="#ipmitool">ipmitool</a></h1>
 <h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
