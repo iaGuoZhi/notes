@@ -105,11 +105,13 @@
     - [firewall-cmd](./network/firewall-cmd.md)
     - [nftables](./network/nftables.md)
     - [sfptpd](./network/sfptpd.md)
+    - [nmcli](./network/nmcli.md)
 
 - [Boot](./boot/README.md)
     - [uefi](./boot/uefi.md)
     - [rescue](./boot/rescue.md)
     - [grub](./boot/grub.md)
+    - [grubby](./boot/grubby.md)
     - [ipmitool](./boot/ipmitool.md)
 
 - [Web](./web/README.md)
