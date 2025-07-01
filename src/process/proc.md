@@ -16,6 +16,7 @@
 | `sysrq-trigger`| Controls sysrq actions like dumping memory, rebooting, etc. It's triggered by magic sysrq keys or by writing to this file. |
 | `uptime`       | System uptime. |
 | `sys`          | Kernel parameter configuration directory. Files under `/proc/sys` are controlled by `sysctl`. Note: `/sys` is for driver management. |
+| `net/bonding` | Check current primary slave in a bonding interface. |
 
 ## pid files
 
