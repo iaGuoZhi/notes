@@ -37,6 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -93,10 +94,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -150,7 +154,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -6524,6 +6533,17 @@ lvcreate -l 100%FREE -n app app
 mkfs.xfs /dev/app/app -L APP
 mount /dev/app/app /app
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kill"><a class="header" href="#kill">kill</a></h1>
+<h2 id="kill-a-process"><a class="header" href="#kill-a-process">kill a process</a></h2>
+<pre><code>pkill htop # kill process by name
+kill pid # kill process by pid
+kill -9 pid # force kill process by pid
+kill %job # kill process by job id
+</code></pre>
+<h2 id="send-signal"><a class="header" href="#send-signal">send signal</a></h2>
+<pre><code>kill -SEGV pid # send signal
+kill -l # list all signals
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="network-1"><a class="header" href="#network-1">Network</a></h1>
 <ul>
 <li><a href="network/./ssh.html">ssh</a></li>
@@ -9205,6 +9225,7 @@ required when compiling natively on riscv.</p>
             window.setTimeout(window.print, 100);
         });
         </script>
+
 
     </div>
     </body>
