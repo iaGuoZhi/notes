@@ -130,3 +130,9 @@
     - [riscv](./arch/riscv.md)
     - [avx](./arch/avx.md)
     - [rdmsr](./arch/rdmsr.md)
+
+- [Computer](./computer/README.md)
+    - [mac](./computer/mac.md)
+    - [windows](./computer/windows.md)
+    - [android](./computer/android.md)
+    - [ios](./computer/ios.md)
