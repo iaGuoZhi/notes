@@ -96,6 +96,7 @@
     - [modprobe](./linux/modprobe.md)
     - [lvm](./linux/lvm.md)
     - [kill](./linux/kill.md)
+    - [journalctl](./linux/journalctl.md)
 
 - [Network](./network/README.md)
     - [ip](./network/ip.md)
@@ -131,8 +132,4 @@
     - [avx](./arch/avx.md)
     - [rdmsr](./arch/rdmsr.md)
 
-- [Computer](./computer/README.md)
-    - [mac](./computer/mac.md)
-    - [windows](./computer/windows.md)
-    - [android](./computer/android.md)
-    - [ios](./computer/ios.md)
+- [cheatsheets](./cheatsheets/cheatsheets.md)
