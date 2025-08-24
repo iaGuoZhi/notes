@@ -35,6 +35,7 @@ alt + tab: Switch between open applications
 
 ```
 command + k: clip photo
+command + option + d: Show or hide the Dock
 ```
 
 ## ios
