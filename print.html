@@ -2196,6 +2196,9 @@ ps -o pid,user,sig,sigcatch,sigignore,sigmask,comm -p 66570
 # With signal names.
 ps --signames -o pid,user,sig,sigcatch,sigignore,sigmask,comm -p 66570
 </code></pre>
+<h2 id="example-show-full-format"><a class="header" href="#example-show-full-format">Example: Show full format</a></h2>
+<pre><code class="language-sh">ps -ef | grep prometheus
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pmap1"><a class="header" href="#pmap1">pmap(1)</a></h1>
 <pre><code class="language-markdown">pmap [opts] &lt;pid&gt;
     Dump virtual memory map of process.
