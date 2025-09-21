@@ -60,3 +60,8 @@ ps -o pid,user,sig,sigcatch,sigignore,sigmask,comm -p 66570
 # With signal names.
 ps --signames -o pid,user,sig,sigcatch,sigignore,sigmask,comm -p 66570
 ```
+
+## Example: Show full format
+```sh
+ps -ef | grep prometheus
+```
