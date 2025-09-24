@@ -2324,6 +2324,13 @@ ltrace -x '@liby*'
 # Trace symbol "foo" from all dlopened libraries matching the pattern.
 ltrace -x 'foo@liby*'
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ftrace"><a class="header" href="#ftrace">ftrace</a></h1>
+<pre><code>cd /sys/kernel/debug/tracing
+echo 1 &gt; events/tlb/enable
+echo 1 &gt; events/sched/enable
+echo 1 &gt; tracing_on
+cat trace_pipe &gt; /tmp/trace.log
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="perf1"><a class="header" href="#perf1">perf(1)</a></h1>
 <pre><code>perf list     show supported hw/sw events &amp; metrics
   -v ........ print longer event descriptions
