@@ -48,6 +48,7 @@
     - [time](./trace_profile/time.md)
     - [strace](./trace_profile/strace.md)
     - [ltrace](./trace_profile/ltrace.md)
+    - [ftrace](./trace_profile/ftrace.md)
     - [perf](./trace_profile/perf.md)
     - [valgrind](./trace_profile/valgrind.md)
     - [vtune](./trace_profile/vtune.md)
