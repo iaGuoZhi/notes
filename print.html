@@ -1246,6 +1246,14 @@ dnf module enable postgresql:16
 dnf install postgresql
 
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rsync"><a class="header" href="#rsync">rsync</a></h1>
+<p>There is a difference between using a trailing slash <code>/</code> at the end of the source path in <code>rsync</code> command and not using it.
+No difference for the slah '/' at the end of the destination path.</p>
+<pre><code>rsync -avz ./source/ user@remote:/destination/ # Copy all the files under ./source/ to /destination/ on remote server, there is no ./source/ directory created on remote
+rsync -avz ./source user@remote:/destination/ # Copy the entire ./source directory to /destination/ on remote server, creating ./source/ directory on remote
+rsync -avz ./source/ user@remote:/destination/source/ # Copy all the files under ./source/ to /destination/source/ on remote server, creating /source/ directory on remote
+rsync -avz ./source user@remote:/destination/source/ # Copy the entire ./source directory to /destination/source on remote server, creating ./source/source directory on remote
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tools"><a class="header" href="#tools">Tools</a></h1>
 <ul>
 <li><a href="tools/./tmux.html">tmux</a></li>
@@ -1501,6 +1509,12 @@ rpm -ql &lt;package&gt;    # query package files
 <pre><code>%define debug_package %{nil}
 %global kmod_requires_skip
 %global __requires_exclude ^kernel\\(i2c_bit_add_bus\\).* # Avoid false positive
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="yum"><a class="header" href="#yum">yum</a></h1>
+<pre><code>yum install &lt;package-name&gt;
+yum localinstall &lt;package-file.rpm&gt;
+yum makecache
+rpm -qi &lt;package-name&gt;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="qemu1"><a class="header" href="#qemu1">qemu(1)</a></h1>
 <p>All the examples &amp; notes use <code>qemu-system-x86_64</code> but in most cases
@@ -1998,6 +2012,14 @@ unset multiplot
 <tr><td><code>sfcresetlog</code></td><td>Reset counters</td><td><code>sfcresetlog -a</code></td></tr>
 </tbody></table>
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="smartctl"><a class="header" href="#smartctl">smartctl</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cron"><a class="header" href="#cron">cron</a></h1>
+<pre><code># Every 15 minutes
+*/15 * * * * /path/to/your/command arg1 arg2
+# Every 5 minutes start at minute 2
+2-59/5 * * * * /path/to/your/command arg1 arg2
+# Every day at 2:30 AM
+30 2 * * * /path/to/your/command arg1 arg2
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="process-management--inspection"><a class="header" href="#process-management--inspection">Process management &amp; inspection</a></h1>
 <ul>
 <li><a href="process/./lsof.html">lsof</a></li>
@@ -6929,10 +6951,32 @@ cat /var/lib/sfptpd/topology
 <div style="break-before: page; page-break-before: always;"></div><h1 id="nmcli-1"><a class="header" href="#nmcli-1">nmcli</a></h1>
 <pre><code>nmcli con reload
 nmcli dev reapply &lt;device_name&gt;
-nmcli con up &lt;connection_name&gt;
+nmcli con down &lt;connection_name&gt;
+nmcli con up &lt;connection_name&gt; # More powerful than `nmcli con reload` and `nmcli dev reapply`
 nmcli con route add &lt;destination&gt; &lt;gateway&gt;
 nmcli con ip4 set &lt;connection_name&gt; &lt;ip_address&gt;/&lt;prefix_length&gt;
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="telnet"><a class="header" href="#telnet">telnet</a></h1>
+<h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
+<pre><code>telnet ip port
+</code></pre>
+<h2 id="response"><a class="header" href="#response">Response</a></h2>
+<ol>
+<li>Connected to example.com.</li>
+<li>telnet: Unable to connect to remote host: Connection refused.
+<ol>
+<li>Possible reasons:
+<ol>
+<li>The server is not running a service on the specified port.</li>
+<li>A firewall is blocking the connection.</li>
+<li>Current IP is blocked by the server.</li>
+<li>Current IP is duplicated with another device on the network.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>telnet: Unable to connect to remote host: Connection timed out</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="boot"><a class="header" href="#boot">Boot</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="uefi-commands"><a class="header" href="#uefi-commands">UEFI commands</a></h1>
 <h2 id="1-system-information-commands"><a class="header" href="#1-system-information-commands">1. System Information Commands</a></h2>
@@ -7088,7 +7132,6 @@ grubby --default-kernel
 <pre><code># Reboot ILO
 ipmitool bmc reset cold
 
-
 # Check power supply status
 ipmitool sensors
 
@@ -7100,6 +7143,10 @@ ipmitool lan set 1 ipaddr 192.168.10.10
 ipmitool lan set 1 netmask 255.255.255.0
 ipmitool lan set 1 defgw ipaddr 192.168.10.11
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="redfish"><a class="header" href="#redfish">redfish</a></h1>
+<ol>
+<li>Ansible has a redfish module</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="web"><a class="header" href="#web">Web</a></h1>
 <ul>
 <li><a href="web/./html.html">html</a></li>

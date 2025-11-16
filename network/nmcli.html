@@ -181,7 +181,8 @@
                         <h1 id="nmcli"><a class="header" href="#nmcli">nmcli</a></h1>
 <pre><code>nmcli con reload
 nmcli dev reapply &lt;device_name&gt;
-nmcli con up &lt;connection_name&gt;
+nmcli con down &lt;connection_name&gt;
+nmcli con up &lt;connection_name&gt; # More powerful than `nmcli con reload` and `nmcli dev reapply`
 nmcli con route add &lt;destination&gt; &lt;gateway&gt;
 nmcli con ip4 set &lt;connection_name&gt; &lt;ip_address&gt;/&lt;prefix_length&gt;
 </code></pre>
@@ -194,7 +195,7 @@ nmcli con ip4 set &lt;connection_name&gt; &lt;ip_address&gt;/&lt;prefix_length&g
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../boot/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../network/telnet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -208,7 +209,7 @@ nmcli con ip4 set &lt;connection_name&gt; &lt;ip_address&gt;/&lt;prefix_length&g
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../boot/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../network/telnet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>ipmitool - Notes</title>
+        <title>rsync - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -178,32 +178,24 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ipmitool"><a class="header" href="#ipmitool">ipmitool</a></h1>
-<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
-<pre><code># Reboot ILO
-ipmitool bmc reset cold
-
-# Check power supply status
-ipmitool sensors
-
-# List ILO network
-ipmitool lan print 1
-
-# Set ILO network
-ipmitool lan set 1 ipaddr 192.168.10.10
-ipmitool lan set 1 netmask 255.255.255.0
-ipmitool lan set 1 defgw ipaddr 192.168.10.11
+                        <h1 id="rsync"><a class="header" href="#rsync">rsync</a></h1>
+<p>There is a difference between using a trailing slash <code>/</code> at the end of the source path in <code>rsync</code> command and not using it.
+No difference for the slah '/' at the end of the destination path.</p>
+<pre><code>rsync -avz ./source/ user@remote:/destination/ # Copy all the files under ./source/ to /destination/ on remote server, there is no ./source/ directory created on remote
+rsync -avz ./source user@remote:/destination/ # Copy the entire ./source directory to /destination/ on remote server, creating ./source/ directory on remote
+rsync -avz ./source/ user@remote:/destination/source/ # Copy all the files under ./source/ to /destination/source/ on remote server, creating /source/ directory on remote
+rsync -avz ./source user@remote:/destination/source/ # Copy the entire ./source directory to /destination/source on remote server, creating ./source/source directory on remote
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../boot/grubby.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../cli/dnf.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../boot/redfish.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../tools/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -213,11 +205,11 @@ ipmitool lan set 1 defgw ipaddr 192.168.10.11
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../boot/grubby.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../cli/dnf.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../boot/redfish.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../tools/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

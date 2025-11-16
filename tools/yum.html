@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>ipmitool - Notes</title>
+        <title>yum - Notes</title>
 
 
         <!-- Custom HTML head -->
@@ -178,32 +178,22 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ipmitool"><a class="header" href="#ipmitool">ipmitool</a></h1>
-<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
-<pre><code># Reboot ILO
-ipmitool bmc reset cold
-
-# Check power supply status
-ipmitool sensors
-
-# List ILO network
-ipmitool lan print 1
-
-# Set ILO network
-ipmitool lan set 1 ipaddr 192.168.10.10
-ipmitool lan set 1 netmask 255.255.255.0
-ipmitool lan set 1 defgw ipaddr 192.168.10.11
+                        <h1 id="yum"><a class="header" href="#yum">yum</a></h1>
+<pre><code>yum install &lt;package-name&gt;
+yum localinstall &lt;package-file.rpm&gt;
+yum makecache
+rpm -qi &lt;package-name&gt;
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../boot/grubby.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../tools/rpm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../boot/redfish.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../tools/qemu.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -213,11 +203,11 @@ ipmitool lan set 1 defgw ipaddr 192.168.10.11
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../boot/grubby.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../tools/rpm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../boot/redfish.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../tools/qemu.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
