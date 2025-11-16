@@ -20,11 +20,13 @@
     - [find](./cli/find.md)
     - [tar](./cli/tar.md)
     - [dnf](./cli/dnf.md)
+    - [rsync](./cli/rsync.md)
 
 - [Tools](./tools/README.md)
     - [tmux](./tools/tmux.md)
     - [gpg](./tools/gpg.md)
     - [rpm](./tools/rpm.md)
+    - [yum](./tools/yum.md)
     - [qemu](./tools/qemu.md)
     - [pve](./tools/pve.md)
     - [dpdk](./tools/dpdk.md)
@@ -32,6 +34,7 @@
     - [gnuplot](./tools/gnuplot.md)
     - [onload](./tools/onload.md)
     - [smartctl](./tools/smartctl.md)
+    - [cron](./tools/cron.md)
 
 - [Process management & inspection](./process/README.md)
     - [lsof](./process/lsof.md)
@@ -109,6 +112,7 @@
     - [nftables](./network/nftables.md)
     - [sfptpd](./network/sfptpd.md)
     - [nmcli](./network/nmcli.md)
+    - [telnet](./network/telnet.md)
 
 - [Boot](./boot/README.md)
     - [uefi](./boot/uefi.md)
@@ -116,6 +120,7 @@
     - [grub](./boot/grub.md)
     - [grubby](./boot/grubby.md)
     - [ipmitool](./boot/ipmitool.md)
+    - [redfish](./boot/redfish.md)
 
 - [Web](./web/README.md)
     - [html](./web/html.md)
