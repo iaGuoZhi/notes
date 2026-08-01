@@ -203,3 +203,8 @@ cat /proc/1/status | awk '
 ```
 We build a `ps` command line and capture the first line of the processes output
 in the `user` variable and then print it.
+
+### Split by both comma and space
+```bash
+echo 'a, b, c, d' | awk -F'[ ,]+' '{ print $1, $2, $3, $4 }'
+```

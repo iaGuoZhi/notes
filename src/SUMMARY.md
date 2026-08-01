@@ -113,6 +113,7 @@
     - [sfptpd](./network/sfptpd.md)
     - [nmcli](./network/nmcli.md)
     - [telnet](./network/telnet.md)
+    - [netstat](./network/netstat.md)
 
 - [Boot](./boot/README.md)
     - [uefi](./boot/uefi.md)
