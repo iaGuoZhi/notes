@@ -129,6 +129,9 @@
     - [chartjs](./web/chartjs.md)
     - [plotly](./web/plotly.md)
 
+- [Hardware](./hardware/README.md)
+    - [cpu](./hardware/cpu.md)
+
 - [Arch](./arch/README.md)
     - [cache](./arch/cache.md)
     - [x86_64](./arch/x86_64.md)
